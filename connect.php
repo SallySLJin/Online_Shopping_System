@@ -1,7 +1,7 @@
 <?php 
     // Create connection
     $server = "localhost";
-    $user = "root";
+    $user = "phpmyadmin";
     $password = "15";
     $database = "Online_Shopping_System";
 
