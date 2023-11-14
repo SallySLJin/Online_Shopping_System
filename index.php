@@ -7,7 +7,7 @@
 </head>
 <body>
     <h1>Welcome to Our Online Store</h1>
-    <h2>All Product</h2>
+    <h2>Product Page</h2>
         <ul>
             <?php 
                 // Create connection
