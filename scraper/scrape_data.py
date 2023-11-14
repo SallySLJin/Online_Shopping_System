@@ -1,90 +1,68 @@
-# -*- coding: utf-8 -*-
 import requests
 import csv
-# sudo apt-get install python3-lxml
 import lxml.html
 
+# Constants
+HOME_URL = "https://online.carrefour.com.tw"
+OUTPUT_FILE = "scraper/scraped_data.csv"
+INCREMENT = 24
+MAX_PAGES = 10
 
-# Carrefour home page link
-home_URL = "https://online.carrefour.com.tw"
 
-# Function: categories Scraping
+def scrape_category_page(page_url, output_file):
+    req = requests.get(page_url)
+    html = req.text
+    selector = lxml.html.fromstring(html)
+
+    ID = selector.xpath('//*[@id="productgrid"]/div/div[1]/a/@data-pid')
+    Name = selector.xpath('//*[@id="productgrid"]/div/div[1]/a/@data-name')
+    Price = selector.xpath(
+        '//*[@id="productgrid"]/div/div[1]/a/@data-price')
+    Category = selector.xpath(
+        '//*[@id="productgrid"]/div/div[1]/a/@data-category')
+    Image = selector.xpath('//*[@id="productgrid"]/div/div[1]/a/img/@src')
+    Description = selector.xpath(
+        '//*[@id="productgrid"]/div/div[1]/a/@data-variant')
+
+    for i in range(len(ID)):
+        with open(output_file, "a+", encoding="utf-8") as file:
+            writer = csv.writer(file)
+            writer.writerow([
+                ''.join(ID[i]),
+                ''.join(Name[i]),
+                round(float(Price[i])),
+                ''.join(Category[i]),
+                ''.join(Image[i]),
+                ''.join(Description[i])])
+            file.close()
+
+    return selector
 
 
-def scrape_category(cat_URL, output_file):
-    for c in range(1, len(cat_URL)):
-        page_URL = home_URL + cat_URL[c]
-        req = requests.get(page_URL)
-        html = req.text
-        selector = lxml.html.fromstring(html)
-        # (ID, Name, Price, Category, Image, Description)
-        ID = selector.xpath('//*[@id="productgrid"]/div/div[1]/a/@data-pid')
-        Name = selector.xpath('//*[@id="productgrid"]/div/div[1]/a/@data-name')
-        Price = selector.xpath(
-            '//*[@id="productgrid"]/div/div[1]/a/@data-price')
-        Category = selector.xpath(
-            '//*[@id="productgrid"]/div/div[1]/a/@data-category')
-        Image = selector.xpath('//*[@id="productgrid"]/div/div[1]/a/img/@src')
-        Description = selector.xpath(
-            '//*[@id="productgrid"]/div/div[1]/a/@data-variant')
-
-        for i in range(len(ID)):
-            with open(output_file, "a+", encoding="utf-8") as file:
-                writer = csv.writer(file)
-                writer.writerow([
-                    ''.join(ID[i]),
-                    ''.join(Name[i]),
-                    round(float(Price[i])),
-                    ''.join(Category[i]),
-                    ''.join(Image[i]),
-                    ''.join(Description[i])])
-                file.close()
+def scrape_category(category_url, output_file):
+    for url in category_url:
+        page_url = HOME_URL + url
+        selector = scrape_category_page(page_url, output_file)
 
         page = 0
-        count = 24
-        while ((selector.xpath('//*[@id="pagination"]/li[10]/a/@href'))
-               and page < 10):
-            next_URL = page_URL + '?start=' + str(count)
-            count += 24
+        count = INCREMENT
+        while (
+            selector.xpath('//*[@id="pagination"]/li[10]/a/@href')
+            and page < MAX_PAGES
+        ):
+            next_url = page_url + f'?start={count}'
+            count += INCREMENT
             page += 1
-            req = requests.get(next_URL)
-            html = req.text
-            selector = lxml.html.fromstring(html)
-            ID = selector.xpath(
-                '//*[@id="productgrid"]/div/div[1]/a/@data-pid')
-            Name = selector.xpath(
-                '//*[@id="productgrid"]/div/div[1]/a/@data-name')
-            Price = selector.xpath(
-                '//*[@id="productgrid"]/div/div[1]/a/@data-price')
-            Category = selector.xpath(
-                '//*[@id="productgrid"]/div/div[1]/a/@data-category')
-            Image = selector.xpath(
-                '//*[@id="productgrid"]/div/div[1]/a/img/@src')
-            Description = selector.xpath(
-                '//*[@id="productgrid"]/div/div[1]/a/@data-variant')
-
-            for i in range(len(ID)):
-                with open(output_file, "a+", encoding="utf-8") as file:
-                    writer = csv.writer(file)
-                    writer.writerow([
-                        ''.join(ID[i]),
-                        ''.join(Name[i]),
-                        round(float(Price[i])),
-                        ''.join(Category[i]),
-                        ''.join(Image[i]),
-                        ''.join(Description[i])])
-                    file.close()
-
-# Function: Web Scraping
+            selector = scrape_category_page(next_url, output_file)
 
 
 def scrape_web():
-    output_file = "scraped_data.csv"
-    res = requests.get(home_URL).content
+    res = requests.get(HOME_URL).content
     tree = lxml.html.fromstring(res)
-    category_URL = tree.xpath(
+    category_url = tree.xpath(
         '/html/body/div[4]/section/div[1]/div[1]/ul/li/a/@href')
-    scrape_category(category_URL, output_file)
+    scrape_category(category_url, OUTPUT_FILE)
 
 
-scrape_web()
+if __name__ == "__main__":
+    scrape_web()
