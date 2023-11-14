@@ -4,7 +4,7 @@ import lxml.html
 
 # Constants
 HOME_URL = "https://online.carrefour.com.tw"
-OUTPUT_FILE = "scraper/scraped_data.csv"
+OUTPUT_FILE = "scraped_data.csv"
 INCREMENT = 24
 MAX_PAGES = 10
 

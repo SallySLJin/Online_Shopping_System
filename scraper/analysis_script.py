@@ -40,7 +40,7 @@ cursor.execute(create_table_query)
 conn.commit()
 
 # Insert data from scraped_data.csv into the Product table
-csv_file_path = "scraper/scraped_data.csv"
+csv_file_path = "scraped_data.csv"
 insert_query = """
 INSERT INTO `Product` (
     `ID`, `Name`, `Price`, `Category`, `Image`, `Description`)

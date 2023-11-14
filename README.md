@@ -56,8 +56,7 @@ The scraped data will be saved to the `data` directory.
 
 The dataset is organized into the following directories:
 
-- `scraper`: Contains the scraped data in CSV format.
-- `scripts`: Includes any additional scripts for data processing or analysis.
+- `scraper`: Contains the scraped data in CSV format, and includes any additional scripts for data processing or analysis.
 
 ## Usage
 
