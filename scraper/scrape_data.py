@@ -1,5 +1,3 @@
-# Add comments
-
 # -*- coding: utf-8 -*-
 import os
 import re
@@ -69,7 +67,7 @@ def scrape_category(cat_URL, output_file):
     
 # Function: Web Scraping
 def scrape_web(): 
-  output_file = f"/data/scraped_data.csv"
+  output_file = f"scraped_data.csv"
   res = requests.get(home_URL).content
   tree = lxml.html.fromstring(res)
   category_URL = tree.xpath('/html/body/div[4]/section/div[1]/div[1]/ul/li/a/@href')
