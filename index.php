@@ -23,7 +23,7 @@
                         echo "<li>";
                         echo "<h1>" . $row["Name"] . "</h2>";                        
                         // echo $row["Image"];
-                        echo '<img src="' . $row["Image"] . '" alt="' . $row["name"] . '">';
+                        echo '<img src="' . $row["Image"] . '" alt="' . $row["Name"] . '">';
                         echo "<p>Price: $" . $row["Price"] . "</p>";
                         echo "<p>Category: " . $row["Category"] . "</p>";
                         echo "<p>Description: " . $row["Description"] . "</p>";

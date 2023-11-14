@@ -1,58 +1,69 @@
-# ChatGPT work
-
-import csv
 import mysql.connector
+import csv
 
-# MySQL database configuration
-db_config = {
-    'host': 'your_database_host',
-    'user': 'your_database_username',
-    'password': 'your_database_password',
-    'database': 'your_database_name',
-}
+# Replace these with your actual database connection details
+host = "localhost"
+user = "phpmyadmin"
+password = "15"
+database = "Online_Shopping_System"
 
-# Open CSV file for reading
-csv_file_path = 'data/scraped_data.csv'
+# Establish a connection to the MySQL server
+conn = mysql.connector.connect(host=host, user=user, password=password)
 
-# Connect to the MySQL database
-try:
-    connection = mysql.connector.connect(**db_config)
-    cursor = connection.cursor()
+# Create a cursor object to interact with the database
+cursor = conn.cursor()
 
-    # Create a table if not exists
-    create_table_query = '''
-        CREATE TABLE IF NOT EXISTS your_table_name (
-            column1_type DATATYPE,
-            column2_type DATATYPE,
-            -- Add more columns as needed
-        );
-    '''
-    cursor.execute(create_table_query)
+# Create the database if it doesn't exist
+create_database_query = f"CREATE DATABASE IF NOT EXISTS {database};"
+cursor.execute(create_database_query)
 
-    # Read and insert data from CSV into MySQL
-    with open(csv_file_path, 'r', encoding='utf-8') as csv_file:
-        csv_reader = csv.reader(csv_file)
-        header = next(csv_reader)  # Skip the header row
+# Use the specified database
+cursor.execute(f"USE {database};")
 
-        # Prepare the INSERT query
-        insert_query = f'''
-            INSERT INTO your_table_name ({', '.join(header)})
-            VALUES ({', '.join(['%s'] * len(header))});
-        '''
+# Define the SQL query to create the table
+create_table_query = """
+CREATE TABLE IF NOT EXISTS `Product` (
+    `ID` CHAR(50) NOT NULL,
+    `Name` TEXT NOT NULL,
+    `Price` INT NOT NULL,
+    `Category` TEXT NOT NULL,
+    `Image` TEXT NOT NULL,
+    `Description` TEXT NOT NULL,
+    PRIMARY KEY (`ID`(50))
+) ENGINE = InnoDB;
+"""
 
-        # Insert data row by row
-        for row in csv_reader:
-            cursor.execute(insert_query, row)
+# Execute the query to create the table
+cursor.execute(create_table_query)
 
-    # Commit changes
-    connection.commit()
+# Commit the changes
+conn.commit()
 
-except mysql.connector.Error as err:
-    print(f"Error: {err}")
+# Insert data from scraped_data.csv into the Product table
+csv_file_path = "scraper/scraped_data.csv"
+insert_query = """
+INSERT INTO `Product` (
+    `ID`, `Name`, `Price`, `Category`, `Image`, `Description`)
+VALUES (%s, %s, %s, %s, %s, %s)
+ON DUPLICATE KEY UPDATE
+    `Name` = VALUES(`Name`),
+    `Price` = VALUES(`Price`),
+    `Category` = VALUES(`Category`),
+    `Image` = VALUES(`Image`),
+    `Description` = VALUES(`Description`);
+"""
 
-finally:
-    # Close the database connection
-    if connection.is_connected():
-        cursor.close()
-        connection.close()
-        print("MySQL connection is closed")
+with open(csv_file_path, "r", encoding="utf-8") as csvfile:
+    csvreader = csv.reader(csvfile)
+    next(csvreader)  # Skip header row
+
+    for row in csvreader:
+        data_tuple = tuple(row)
+        cursor.execute(insert_query, data_tuple)
+
+# Commit the changes
+conn.commit()
+
+# Close the cursor and connection
+cursor.close()
+conn.close()
