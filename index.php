@@ -11,7 +11,7 @@
         <ul>
             <?php 
                 // Create connection
-                include 'connect.php'
+                include 'config.php'
             ?>
 
             <?php
