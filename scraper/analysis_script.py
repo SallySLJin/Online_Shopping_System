@@ -20,7 +20,7 @@ cursor.execute(create_database_query)
 # Use the specified database
 cursor.execute(f"USE {database};")
 
-# Define the SQL query to create the table
+# Define the SQL query to create the table 'Prodect'
 create_table_query = """
 CREATE TABLE IF NOT EXISTS `Product` (
     `ID` CHAR(50) NOT NULL,
@@ -39,7 +39,7 @@ cursor.execute(create_table_query)
 # Commit the changes
 conn.commit()
 
-# Insert data from scraped_data.csv into the Product table
+# Insert data from scraped_data.csv into table 'Product'
 csv_file_path = "scraped_data.csv"
 insert_query = """
 INSERT INTO `Product` (
