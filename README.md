@@ -32,7 +32,7 @@ To set up the project locally, ensure you have the following components installe
 Clone the repository to your local machine:
 
 ```bash
-git clone https://github.com/your-username/online-shopping-data.git
+git clone https://github.com/SallySLJin/Online_Shopping_System.git
 cd online-shopping-data
 ```
 
