@@ -5,8 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simple E-commerce</title>
     <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="header">
+    <h1>Simple E-commerce</h1>
+    <div class="navigation">
+        <a href="?category=products">All Products</a>
+        <a href="?category=electronics">Electronics</a>
+        <a href="?category=clothing">Clothing</a>
+        <a href="?category=books">Books</a>
+        <a href="login.php">Login</a>
+    </div>
+</div>
+
+<form action="" method="get">
     <style>
-        /* Add the styles from 'products.php' here */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -14,7 +28,7 @@
             background-color: #f4f4f4;
         }
 
-        h1, h2 {
+        h2 {
             text-align: center;
             color: #333;
         }
@@ -73,86 +87,58 @@
             background-color: #555;
         }
     </style>
-</head>
-<body>
 
-<div class="header">
-    <h1>Simple E-commerce</h1>
-    <div class="navigation">
-        <a href="index.php">All Products</a>
-        <a href="?category=electronics">Electronics</a>
-        <a href="?category=clothing">Clothing</a>
-        <a href="?category=books">Books</a>
-        <a href="login.php">Login</a>
-    </div>
-</div>
+    <label for="sortOrder">排序:</label>
+    <select name="sortOrder" id="sortOrder">
+        <option value="name">品名</option>
+        <option value="price">價格</option>
+        <option value="category">類別</option>
+    </select>
 
-<div class="content">
-    <h1>Welcome to Our Online Store</h1>
-    <h2>Product Page</h2>
+    <input type="submit" value="Apply Changes">
 
-    <form action="" method="get">
-        <!-- 
-        <label for="productsPerRow">Products per Row:</label>
-        <select name="productsPerRow" id="productsPerRow">
-            <option value="1">1</option>
-            <option value="4" selected>4</option>
-        </select>
-         -->
+    <!-- Add a button to switch between two display modes -->
+    <button type="button" id="switchViewButton" onclick="switchView()">Switch View</button>
+</form>
 
-        <label for="sortOrder">Sort Order:</label>
-        <select name="sortOrder" id="sortOrder">
-            <option value="name">品名</option>
-            <option value="price">價格</option>
-            <option value="category">類別</option>
-        </select>
+<ul>
+    <?php 
+        // Create connection
+        include 'config.php';
 
-        <input type="submit" value="Apply Changes">
+        // Retrieve products from the database
+        $productsPerRow = isset($_GET['productsPerRow']) ? intval($_GET['productsPerRow']) : 4;
+        $sortOrder = isset($_GET['sortOrder']) && ($_GET['sortOrder'] === 'name' || $_GET['sortOrder'] === 'price' || $_GET['sortOrder'] === 'category') ? $_GET['sortOrder'] : 'price';
 
-        <!-- Add a button to switch between two display modes -->
-        <button type="button" id="switchViewButton" onclick="switchView()">Switch View</button>
-    </form>
+        $sql = "SELECT * FROM Product ORDER BY $sortOrder";
+        $result = $conn->query($sql);
 
-    <ul>
-        <?php 
-            // Include your product data or connect to a database here
-            $products = [
-                ['name' => 'Laptop', 'category' => 'electronics', 'price' => 800, 'image' => 'laptop.jpg', 'description' => 'High-performance laptop'],
-                ['name' => 'T-shirt', 'category' => 'clothing', 'price' => 20, 'image' => 'tshirt.jpg', 'description' => 'Comfortable cotton T-shirt'],
-                ['name' => 'Book', 'category' => 'books', 'price' => 15, 'image' => 'book.jpg', 'description' => 'Bestseller book'],
-                // Add more products as needed
-            ];
-
-            // Filter products based on the selected category
-            $selectedCategory = isset($_GET['category']) ? $_GET['category'] : 'all';
-            if ($selectedCategory !== 'all') {
-                $products = array_filter($products, function ($product) use ($selectedCategory) {
-                    return $product['category'] === $selectedCategory;
-                });
-            }
-
-            // Display products
-            foreach ($products as $product) {
-                echo "<li style='width: calc(" . (100 / 4) . "% - 30px);'>";
-                echo "<h1 style='font-size: 18px;'>" . $product['name'] . "</h1>";                        
-                echo '<img src="' . $product['image'] . '" alt="' . $product['name'] . '">';
-                echo "<p style='font-size: 16px;'>價格: $" . $product['price'] . "</p>";
-                echo "<p style='font-size: 14px;'>" . $product['category'] . "</p>";
-                echo "<p style='font-size: 14px;'>" . $product['description'] . "</p>";
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                echo "<li style='width: calc(" . (100 / $productsPerRow) . "% - 30px);'>";
+                echo "<h1 style='font-size: 18px;'>" . $row["Name"] . "</h1>";                        
+                echo '<img src="' . $row["Image"] . '" alt="' . $row["Name"] . '">';
+                echo "<p style='font-size: 16px;'>價格: $" . $row["Price"] . "</p>";
+                echo "<p style='font-size: 14px;'>" . $row["Category"] . "</p>";
+                echo "<p style='font-size: 14px;'>" . $row["Description"] . "</p>";
                 echo "</li>";
             }
-        ?>
-    </ul>
-
-    <script>
-        function switchView() {
-            var lis = document.querySelectorAll('li');
-            lis.forEach(function(li) {
-                li.style.width = li.style.width === 'calc(100% - 30px)' ? 'calc(25% - 30px)' : 'calc(100% - 30px)';
-            });
+        } else {
+            echo "No products available.";
         }
-    </script>
-</div>
+        
+        $conn->close();
+    ?>
+</ul>
+
+<script>
+    function switchView() {
+        var lis = document.querySelectorAll('li');
+        lis.forEach(function(li) {
+            li.style.width = li.style.width === 'calc(100% - 30px)' ? 'calc(25% - 30px)' : 'calc(100% - 30px)';
+        });
+    }
+</script>
 
 </body>
 </html>
