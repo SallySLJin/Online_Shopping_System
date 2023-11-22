@@ -11,10 +11,18 @@
 <div class="header">
     <h1>Simple E-commerce</h1>
     <div class="navigation">
-        <a href="?category=products">All Products</a>
-        <a href="?category=electronics">Electronics</a>
-        <a href="?category=clothing">Clothing</a>
-        <a href="?category=books">Books</a>
+        <a href="?category=discount">好康主題</a>
+        <a href="?category=frozen">生鮮冷凍</a>
+        <a href="?category=snack">飲料零食</a>
+        <a href="?category=rice">米油沖泡</a>
+        <a href="?category=appliance">生活家電</a>
+        <a href="?category=3c">熱門3C</a>
+        <a href="?category=cosmetic">美妝個清</a>
+        <a href="?category=baby">嬰童保健</a>
+        <a href="?category=leisure">休閒娛樂</a>
+        <a href="?category=daily">日用生活</a>
+        <a href="?category=furniture">傢俱寢飾</a>
+        <a href="?category=apparel">服飾鞋包</a>
         <a href="login.php">Login</a>
     </div>
 </div>
