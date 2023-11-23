@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>資料庫專題-網購系統 登入 </title>
+    <title>登入 - 資料庫專題-網購系統</title>
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
