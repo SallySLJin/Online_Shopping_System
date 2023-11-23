@@ -23,7 +23,7 @@
         <a href="?category=daily">日用生活</a>
         <a href="?category=furniture">傢俱寢飾</a>
         <a href="?category=apparel">服飾鞋包</a>
-        <a href="login.php">Login</a>
+        <a href="/LoginFile/loginpage.php">Login</a>
     </div>
 </div>
 
