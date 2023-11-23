@@ -61,6 +61,20 @@ with open(csv_file_path, "r", encoding="utf-8") as csvfile:
         data_tuple = tuple(row)
         cursor.execute(insert_query, data_tuple)
 
+''' Create table 'user'
+CREATE TABLE `online_shopping_system`.`user` (
+    `ID` INT NOT NULL AUTO_INCREMENT,
+    `user_name` VARCHAR(20) NOT NULL,
+    `password` VARCHAR(20) NOT NULL,
+    PRIMARY KEY (`ID`)) ENGINE = InnoDB;
+'''
+
+''' Insert data to table 'user'
+INSERT INTO `User` (`ID`, `user_name`, `password`)
+VALUES (NULL, 'tim0406', '1234'),
+(NULL, 'amy0305', 'abcd')
+'''
+
 # Commit the changes
 conn.commit()
 
