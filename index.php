@@ -10,6 +10,7 @@
 
 <div class="header">
     <h1>Simple E-commerce</h1>
+    <p id = user_id_style>目前未登入</p>
     <div class="navigation">
         <a href="?category=discount">好康主題</a>
         <a href="?category=frozen">生鮮冷凍</a>
@@ -93,6 +94,12 @@
 
         input[type="submit"]:hover, button:hover {
             background-color: #555;
+        }
+
+        #user_id_style{
+                color: white;
+                text-decoration: none;
+                margin: 0 10px;
         }
     </style>
 
