@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,7 +14,19 @@
 
 <div class="header">
     <h1>Simple E-commerce</h1>
-    <p id = user_id_style>目前未登入</p>
+    <?php
+    if(isset($_SESSION['id']) && isset($_SESSION['user_name'])) {
+    ?>
+        <p id = user_id_style>使用者:<?php echo $_SESSION['user_name']; ?></p>
+    <?php
+    }
+    else{
+        ?>
+        <p id = user_id_style>目前未登入</p>
+    <?php
+    }
+    ?>
+    
     <div class="navigation">
         <a href="?category=discount">好康主題</a>
         <a href="?category=frozen">生鮮冷凍</a>
@@ -24,7 +40,19 @@
         <a href="?category=daily">日用生活</a>
         <a href="?category=furniture">傢俱寢飾</a>
         <a href="?category=apparel">服飾鞋包</a>
-        <a href="/LoginFile/loginpage.php">Login</a>
+        <?php
+        if(isset($_SESSION['id']) && isset($_SESSION['user_name'])) {
+        ?>
+            <a href="/LoginFile/logout.php">Logout</a>
+        <?php
+        }
+        else{
+            ?>
+            <a href="/LoginFile/loginpage.php">Login</a>
+        <?php
+        }
+        ?>
+        
     </div>
 </div>
 
@@ -101,6 +129,7 @@
                 text-decoration: none;
                 margin: 0 10px;
         }
+        
     </style>
 
     <label for="sortOrder">排序:</label>
