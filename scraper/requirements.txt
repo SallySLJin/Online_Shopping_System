@@ -1,4 +1,10 @@
 # requirements for python
+
+# https://dev.mysql.com/downloads/connector/python/
 mysql-connector-python==8.2.0
+
+# sudo apt-get install python3-requests
 requests==2.30.0
+
+# sudo apt-get install python3-lxml
 lxml==4.9.3

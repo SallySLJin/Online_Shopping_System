@@ -61,19 +61,35 @@ with open(csv_file_path, "r", encoding="utf-8") as csvfile:
         data_tuple = tuple(row)
         cursor.execute(insert_query, data_tuple)
 
-''' Create table 'user'
-CREATE TABLE `online_shopping_system`.`user` (
-    `ID` INT NOT NULL AUTO_INCREMENT,
-    `user_name` VARCHAR(20) NOT NULL,
-    `password` VARCHAR(20) NOT NULL,
-    PRIMARY KEY (`ID`)) ENGINE = InnoDB;
-'''
 
-''' Insert data to table 'user'
-INSERT INTO `User` (`ID`, `user_name`, `password`)
-VALUES (NULL, 'tim0406', '1234'),
-(NULL, 'amy0305', 'abcd')
-'''
+# Define the SQL query to create the table 'user'
+create_user_table_query = """
+CREATE TABLE IF NOT EXISTS `user` (
+    `id` INT NOT NULL AUTO_INCREMENT,
+    `user_name` VARCHAR(20) NOT NULL,
+    `email` VARCHAR(60) NOT NULL,
+    `password` VARCHAR(20) NOT NULL,
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB;
+"""
+
+# Execute the query to create the 'user' table
+cursor.execute(create_user_table_query)
+
+# Insert data into the 'user' table
+insert_user_query = """
+INSERT INTO `user` (`user_name`, `email`, `password`)
+VALUES (%s, %s, %s);
+"""
+
+# Sample data for insertion
+user_data = [
+    ('tim0406', 'tim@example.com', '1234'),
+    ('amy0305', 'amy@example.com', 'abcd')
+]
+
+# Insert data into the 'user' table
+cursor.executemany(insert_user_query, user_data)
 
 # Commit the changes
 conn.commit()
