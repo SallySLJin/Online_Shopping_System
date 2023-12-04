@@ -163,7 +163,14 @@ session_start();
                 echo "<h1 style='font-size: 18px;'>" . $row["Name"] . "</h1>";                        
                 echo '<img src="' . $row["Image"] . '" alt="' . $row["Name"] . '">';
                 echo "<p style='font-size: 16px;'>價格: $" . $row["Price"] . "</p>";
-                echo "<p style='font-size: 14px;'>" . $row["Category"] . "</p>";
+                echo "<p style='font-size: 14px;'>" . $row["Category1"] . "/" . $row["Category2"];
+                if ($row["Category3"] != null) {
+                    echo "/" . $row["Category3"];
+                }
+                if ($row["Category4"] != null) {
+                    echo "/" . $row["Category4"];
+                }
+                echo "</p>";
                 echo "<p style='font-size: 14px;'>" . $row["Description"] . "</p>";
                 echo "</li>";
             }

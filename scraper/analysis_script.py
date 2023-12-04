@@ -1,5 +1,5 @@
 import mysql.connector
-import csv
+# import csv
 
 # Replace these with your actual database connection details
 host = "localhost"
@@ -26,7 +26,10 @@ CREATE TABLE IF NOT EXISTS `Product` (
     `ID` CHAR(50) NOT NULL,
     `Name` TEXT NOT NULL,
     `Price` INT NOT NULL,
-    `Category` TEXT NOT NULL,
+    `Category1` TEXT NOT NULL,
+    `Category2` TEXT NOT NULL,
+    `Category3` TEXT NOT NULL,
+    `Category4` TEXT NOT NULL,
     `Image` TEXT NOT NULL,
     `Description` TEXT NOT NULL,
     PRIMARY KEY (`ID`(50))
@@ -39,38 +42,39 @@ cursor.execute(create_table_query)
 # Commit the changes
 conn.commit()
 
-# Insert data from scraped_data.csv into table 'Product'
-csv_file_path = "scraped_data.csv"
-insert_query = """
-INSERT INTO `Product` (
-    `ID`, `Name`, `Price`, `Category`, `Image`, `Description`)
-VALUES (%s, %s, %s, %s, %s, %s)
-ON DUPLICATE KEY UPDATE
-    `Name` = VALUES(`Name`),
-    `Price` = VALUES(`Price`),
-    `Category` = VALUES(`Category`),
-    `Image` = VALUES(`Image`),
-    `Description` = VALUES(`Description`);
+# Load data from scraped_data.csv into table 'Product'
+csv_file_path = "C:/xampp/htdocs/scraper/scraped_data.csv"
+load_data_query = f"""
+LOAD DATA INFILE '{csv_file_path}'
+REPLACE INTO TABLE `Product`
+FIELDS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\\n'
+IGNORE 1 ROWS
+(`ID`, `Name`, `Price`, `Category1`, `Category2`, `Category3`,
+`Category4`, `Image`, `Description`)
 """
 
-with open(csv_file_path, "r", encoding="utf-8") as csvfile:
-    csvreader = csv.reader(csvfile)
-    next(csvreader)  # Skip header row
+cursor.execute(load_data_query)
+conn.commit()
 
-    for row in csvreader:
-        data_tuple = tuple(row)
-        cursor.execute(insert_query, data_tuple)
+# Delete rows with empty or whitespace-only ID
+delete_query = """
+DELETE FROM `Product` WHERE `product`.`ID` = '\r';
+"""
+
+cursor.execute(delete_query)
+conn.commit()  # Commit the changes
 
 
 # Define the SQL query to create the table 'user'
 create_user_table_query = """
-CREATE TABLE IF NOT EXISTS `user` (
-    `id` INT NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS `User` (
+    `id` BIGINT NOT NULL AUTO_INCREMENT,
     `user_name` VARCHAR(20) NOT NULL,
-    `email` VARCHAR(60) NOT NULL,
     `password` VARCHAR(20) NOT NULL,
-    PRIMARY KEY (`id`)
-) ENGINE = InnoDB;
+    `date` TIMESTAMP NOT NULL,
+    PRIMARY KEY (`ID`)) ENGINE = InnoDB;
 """
 
 # Execute the query to create the 'user' table
@@ -78,14 +82,14 @@ cursor.execute(create_user_table_query)
 
 # Insert data into the 'user' table
 insert_user_query = """
-INSERT INTO `user` (`user_name`, `email`, `password`)
-VALUES (%s, %s, %s);
+INSERT INTO `user` (`user_name`, `password`)
+VALUES (%s, %s);
 """
 
 # Sample data for insertion
 user_data = [
-    ('tim0406', 'tim@example.com', '1234'),
-    ('amy0305', 'amy@example.com', 'abcd')
+    ('tim0406', '1234'),
+    ('amy0305', 'abcd')
 ]
 
 # Insert data into the 'user' table

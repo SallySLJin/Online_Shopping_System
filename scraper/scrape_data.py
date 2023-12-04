@@ -1,3 +1,4 @@
+import os
 import requests
 import csv
 import lxml.html
@@ -25,13 +26,23 @@ def scrape_category_page(page_url, output_file):
         '//*[@id="productgrid"]/div/div[1]/a/@data-variant')
 
     for i in range(len(ID)):
+        # Split Category by '/' and store in Category1 to Category4
+        categories = ''.join(Category[i]).split('/')
+        category1 = categories[0] if len(categories) > 0 else ''
+        category2 = categories[1] if len(categories) > 1 else ''
+        category3 = categories[2] if len(categories) > 2 else ''
+        category4 = categories[3] if len(categories) > 3 else ''
+
         with open(output_file, "a+", encoding="utf-8") as file:
             writer = csv.writer(file)
             writer.writerow([
                 ''.join(ID[i]),
                 ''.join(Name[i]),
                 round(float(Price[i])),
-                ''.join(Category[i]),
+                category1,
+                category2,
+                category3,
+                category4,
                 ''.join(Image[i]),
                 ''.join(Description[i])])
             file.close()
@@ -57,6 +68,9 @@ def scrape_category(category_url, output_file):
 
 
 def scrape_web():
+    if os.path.exists(OUTPUT_FILE):
+        print("File already exists. Skipping scraping.")
+        return
     res = requests.get(HOME_URL).content
     tree = lxml.html.fromstring(res)
     category_url = tree.xpath(
