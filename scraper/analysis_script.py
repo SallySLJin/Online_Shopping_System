@@ -67,7 +67,7 @@ cursor.execute(delete_query)
 conn.commit()  # Commit the changes
 
 
-# Define the SQL query to create the table 'user'
+# Define the SQL query to create the table 'User'
 create_user_table_query = """
 CREATE TABLE IF NOT EXISTS `User` (
     `id` BIGINT NOT NULL AUTO_INCREMENT,
@@ -77,12 +77,12 @@ CREATE TABLE IF NOT EXISTS `User` (
     PRIMARY KEY (`ID`)) ENGINE = InnoDB;
 """
 
-# Execute the query to create the 'user' table
+# Execute the query to create the 'User' table
 cursor.execute(create_user_table_query)
 
 # Insert data into the 'user' table
 insert_user_query = """
-INSERT INTO `user` (`user_name`, `password`)
+INSERT INTO `User` (`user_name`, `password`)
 VALUES (%s, %s);
 """
 
@@ -92,7 +92,7 @@ user_data = [
     ('amy0305', 'abcd')
 ]
 
-# Insert data into the 'user' table
+# Insert data into the 'User' table
 cursor.executemany(insert_user_query, user_data)
 
 # Commit the changes
