@@ -20,52 +20,6 @@ cursor.execute(create_database_query)
 # Use the specified database
 cursor.execute(f"USE {database};")
 
-# Define the SQL query to create the table 'Prodect'
-create_table_query = """
-CREATE TABLE IF NOT EXISTS `Product` (
-    `ID` CHAR(50) NOT NULL,
-    `Name` TEXT NOT NULL,
-    `Price` INT NOT NULL,
-    `Category1` TEXT NOT NULL,
-    `Category2` TEXT NOT NULL,
-    `Category3` TEXT NOT NULL,
-    `Category4` TEXT NOT NULL,
-    `Image` TEXT NOT NULL,
-    `Description` TEXT NOT NULL,
-    PRIMARY KEY (`ID`(50))
-) ENGINE = InnoDB;
-"""
-
-# Execute the query to create the table
-cursor.execute(create_table_query)
-
-# Commit the changes
-conn.commit()
-
-# Load data from scraped_data.csv into table 'Product'
-csv_file_path = "C:/xampp/htdocs/scraper/scraped_data.csv"
-load_data_query = f"""
-LOAD DATA INFILE '{csv_file_path}'
-REPLACE INTO TABLE `Product`
-FIELDS TERMINATED BY ','
-ENCLOSED BY '"'
-LINES TERMINATED BY '\\n'
-IGNORE 1 ROWS
-(`ID`, `Name`, `Price`, `Category1`, `Category2`, `Category3`,
-`Category4`, `Image`, `Description`)
-"""
-
-cursor.execute(load_data_query)
-conn.commit()
-
-# Delete rows with empty or whitespace-only ID
-delete_query = """
-DELETE FROM `Product` WHERE `product`.`ID` = '\r';
-"""
-
-cursor.execute(delete_query)
-conn.commit()  # Commit the changes
-
 
 # Define the SQL query to create the table 'User'
 create_user_table_query = """
@@ -97,6 +51,60 @@ cursor.executemany(insert_user_query, user_data)
 
 # Commit the changes
 conn.commit()
+
+
+# Define the SQL query to create the table 'Product'
+create_table_query = """
+CREATE TABLE IF NOT EXISTS `Product` (
+    `ID` CHAR(50) NOT NULL,
+    `Name` TEXT NOT NULL,
+    `Price` INT NOT NULL,
+    `Category1` TEXT NOT NULL,
+    `Category2` TEXT NOT NULL,
+    `Category3` TEXT NOT NULL,
+    `Category4` TEXT NOT NULL,
+    `Image` TEXT NOT NULL,
+    `Description` TEXT NOT NULL,
+    PRIMARY KEY (`ID`(50))
+) ENGINE = InnoDB;
+"""
+
+# Execute the query to create the table
+cursor.execute(create_table_query)
+
+# Commit the changes
+conn.commit()
+
+
+try:
+
+    # Load data from scraped_data.csv into table 'Product'
+    csv_file_path = "/home/sallygcp03/Online_Shopping_System/scraper/scrape_data.py"
+    load_data_query = f"""
+    LOAD DATA LOCAL INFILE '{csv_file_path}'
+    REPLACE INTO TABLE `Product`
+    FIELDS TERMINATED BY ','
+    ENCLOSED BY '"'
+    LINES TERMINATED BY '\\n'
+    IGNORE 1 ROWS
+    (`ID`, `Name`, `Price`, `Category1`, `Category2`, `Category3`,
+    `Category4`, `Image`, `Description`)
+    """
+
+    cursor.execute(load_data_query)
+    conn.commit()
+
+    # Delete rows with empty or whitespace-only ID
+    delete_query = """
+    DELETE FROM `Product` WHERE `product`.`ID` = '\r';
+    """
+
+    cursor.execute(delete_query)
+    conn.commit()  # Commit the changes
+
+except mysql.connector.Error as err:
+    print(f"Error: {err}")
+
 
 # Close the cursor and connection
 cursor.close()
