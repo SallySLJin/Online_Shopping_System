@@ -44,8 +44,7 @@ else{
         return $text;
     }
 
-    $user_id = random_num(20);
-    $query = "insert into user (user_id, user_name, password) values('$user_id', '$uname', '$pass')";
+    $query = "insert into user (user_name, password) values('$uname', '$pass')";
 
     mysqli_query($conn, $query);
 
