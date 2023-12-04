@@ -29,25 +29,22 @@ else if(is_numeric($uname)){
     exit();
 }
 else{
-    
-    function random_num($length){
-        $text = "";
-        if($length < 5){
-            $length = 5;
-        }
-        $len = rand(4,$length);
+    $queryCheck = "SELECT COUNT(*) as count FROM `User` WHERE `user_name` = '$uname'";
+    $resultCheck = mysqli_query($conn, $queryCheck);
 
-        for($i = 0;$i < $len;$i++){
-            $text .= rand(0,9);
-        }
+    if ($resultCheck){
+        $row = mysqli_fetch_assoc($resultCheck);
+        if ($row['count'] == 0){
+            $query = "insert into user (user_name, password) values('$uname', '$pass')";
 
-        return $text;
+            mysqli_query($conn, $query);
+
+            header("Location: loginpage.php");
+            die;
+        }
+        else{
+            header ("Location: signuppage.php?error=該使用者名稱已存在");
+            exit();
+        }
     }
-
-    $query = "insert into user (user_name, password) values('$uname', '$pass')";
-
-    mysqli_query($conn, $query);
-
-    header("Location: loginpage.php");
-    die;
 }
