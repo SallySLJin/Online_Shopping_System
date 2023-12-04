@@ -50,7 +50,7 @@ Execute the scraper script:
 python scraper/scrape_data.py
 ```
 
-The scraped data will be saved to the `data` directory.
+The scraped data will be saved to the `scraper` directory.
 
 ## Dataset Structure
 
@@ -68,6 +68,16 @@ The dataset can be used for various purposes, such as:
 - Machine learning models for predicting trends
 
 Feel free to explore and analyze the data according to your research interests.
+
+## Database Setup
+
+To set up the database and tables, run the `analysis_script.py`:
+
+```bash
+python analysis_script.py
+```
+
+If the loading process fails, you can manually import the data using either the `scraped_data.csv` or `scraped_data_backup.sql` file.
 
 ## Contributing
 
