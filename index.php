@@ -28,7 +28,6 @@ session_start();
     ?>
     
     <div class="navigation">
-        <a href="?category=好康主題">好康主題</a>
         <a href="?category=生鮮冷凍">生鮮冷凍</a>
         <a href="?category=飲料零食">飲料零食</a>
         <a href="?category=米油沖泡">米油沖泡</a>
@@ -55,6 +54,12 @@ session_start();
         ?>
         
     </div>
+</div>
+
+<!-- Cart summary at the bottom of the screen -->
+<div id="cartSummary">
+    <span id="totalQuantity">Total Quantity in Cart: 0</span>
+    <button onclick="goToCartPage()" style="margin-left: auto;">Go to Cart</button>
 </div>
 
 <form action="" method="get">
@@ -130,6 +135,31 @@ session_start();
                 text-decoration: none;
                 margin: 0 10px;
         }
+
+        /* Cart summary styles */
+        #cartSummary {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+
+        #cartSummary button {
+            padding: 5px;
+            font-size: 14px;
+            background-color: #fff;
+            color: #333;
+            border: none;
+            cursor: pointer;
+        }
+
+        #cartSummary button:hover {
+            background-color: #ddd;
+        }
         
     </style>
 
@@ -180,6 +210,15 @@ session_start();
                 }
                 echo "</p>";
                 echo "<p style='font-size: 14px;'>" . $row["Description"] . "</p>";
+
+                // Quantity controls and Add to Cart button
+                echo "<div>";
+                echo "<button onclick='updateQuantity(\"$row[ID]\", -1)'>-</button>";
+                echo "<span id='quantity_$row[ID]'>0</span>";
+                echo "<button onclick='updateQuantity(\"$row[ID]\", 1)'>+</button>";
+                echo "<button onclick='addToCart(\"$row[ID]\", \"$row[Name]\", $row[Price])'>Add to Cart</button>";
+                echo "</div>";
+
                 echo "</li>";
             }
         } else {
@@ -191,18 +230,63 @@ session_start();
 </ul>
 
 <script>
+    // Use a global variable to store the total quantity of products in the cart
+    var totalCartQuantity = 0;
+
+    function updateCartSummary() {
+        // Update the cart summary at the bottom of the page
+        var cartSummaryElement = document.getElementById('cartSummary');
+        var totalQuantityElement = document.getElementById('totalQuantity');
+
+        if (cartSummaryElement && totalQuantityElement) {
+            // Display the total quantity, and move the "Go to Cart" button to the right
+            totalQuantityElement.innerHTML = "Total Quantity in Cart: " + totalCartQuantity;
+            cartSummaryElement.innerHTML = totalCartQuantity > 0
+                ? "<span id='totalQuantity'>Total Quantity in Cart: " + totalCartQuantity + "</span><button onclick='goToCartPage()' style='margin-left: auto;'>Go to Cart</button>"
+                : "<span id='totalQuantity'>Total Quantity in Cart: " + totalCartQuantity + "</span><button onclick='goToCartPage()' style='margin-left: auto; visibility: hidden;'>Go to Cart</button>";
+        }
+    }
+
     // Use a global variable to track the view mode
     var isGridView = true;
 
     function switchView() {
         var lis = document.querySelectorAll('li');
-        lis.forEach(function(li) {
+        lis.forEach(function (li) {
             // Toggle between view modes
             li.style.width = isGridView ? 'calc(50% - 30px)' : 'calc(25% - 30px)';
         });
 
         // Toggle the global variable
         isGridView = !isGridView;
+    }
+
+    function updateQuantity(productId, change) {
+        var quantityElement = document.getElementById('quantity_' + productId);
+        var currentQuantity = parseInt(quantityElement.innerHTML);
+        var newQuantity = currentQuantity + change;
+
+        // Ensure the quantity doesn't go below 0
+        newQuantity = Math.max(newQuantity, 0);
+
+        quantityElement.innerHTML = newQuantity;
+    }
+
+    function addToCart(productId, productName, productPrice) {
+        var quantityElement = document.getElementById('quantity_' + productId);
+        var quantity = parseInt(quantityElement.innerHTML);
+
+        // Ensure the quantity is non-negative
+        quantity = Math.max(quantity, 0);
+
+        if (quantity > 0) {
+            // Display an alert (you can replace this with your actual cart logic)
+            alert("Added " + quantity + " " + productName + " to the cart. Total Price: $" + (quantity * productPrice));
+
+            // Update the totalCartQuantity variable
+            totalCartQuantity += quantity;
+            updateCartSummary();
+        }
     }
 </script>
 
