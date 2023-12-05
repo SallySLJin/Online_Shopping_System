@@ -136,7 +136,6 @@ session_start();
     <select name="sortOrder" id="sortOrder">
         <option value="name">品名</option>
         <option value="price">價格</option>
-        <option value="category">類別</option>
     </select>
 
     <input type="submit" value="Apply Changes">
@@ -152,7 +151,7 @@ session_start();
 
         // Retrieve products from the database
         $productsPerRow = isset($_GET['productsPerRow']) ? intval($_GET['productsPerRow']) : 4;
-        $sortOrder = isset($_GET['sortOrder']) && ($_GET['sortOrder'] === 'name' || $_GET['sortOrder'] === 'price' || $_GET['sortOrder'] === 'category') ? $_GET['sortOrder'] : 'price';
+        $sortOrder = isset($_GET['sortOrder']) && ($_GET['sortOrder'] === 'name' || $_GET['sortOrder'] === 'price') ? $_GET['sortOrder'] : 'price';
 
         $sql = "SELECT * FROM Product";
 
@@ -191,11 +190,18 @@ session_start();
 </ul>
 
 <script>
+    // Use a global variable to track the view mode
+    var isGridView = true;
+
     function switchView() {
         var lis = document.querySelectorAll('li');
         lis.forEach(function(li) {
-            li.style.width = li.style.width === 'calc(100% - 30px)' ? 'calc(25% - 30px)' : 'calc(50% - 30px)';
+            // Toggle between view modes
+            li.style.width = isGridView ? 'calc(50% - 30px)' : 'calc(25% - 30px)';
         });
+
+        // Toggle the global variable
+        isGridView = !isGridView;
     }
 </script>
 
