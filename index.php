@@ -28,18 +28,18 @@ session_start();
     ?>
     
     <div class="navigation">
-        <a href="?category=discount">好康主題</a>
-        <a href="?category=frozen">生鮮冷凍</a>
-        <a href="?category=snack">飲料零食</a>
-        <a href="?category=rice">米油沖泡</a>
-        <a href="?category=appliance">生活家電</a>
-        <a href="?category=3c">熱門3C</a>
-        <a href="?category=cosmetic">美妝個清</a>
-        <a href="?category=baby">嬰童保健</a>
-        <a href="?category=leisure">休閒娛樂</a>
-        <a href="?category=daily">日用生活</a>
-        <a href="?category=furniture">傢俱寢飾</a>
-        <a href="?category=apparel">服飾鞋包</a>
+        <a href="?category=好康主題">好康主題</a>
+        <a href="?category=生鮮冷凍">生鮮冷凍</a>
+        <a href="?category=飲料零食">飲料零食</a>
+        <a href="?category=米油沖泡">米油沖泡</a>
+        <a href="?category=生活家電">生活家電</a>
+        <a href="?category=熱門3C">熱門3C</a>
+        <a href="?category=美妝個清">美妝個清</a>
+        <a href="?category=嬰童保健">嬰童保健</a>
+        <a href="?category=休閒娛樂">休閒娛樂</a>
+        <a href="?category=日用生活">日用生活</a>
+        <a href="?category=傢俱寢飾">傢俱寢飾</a>
+        <a href="?category=服飾鞋包">服飾鞋包</a>
         <?php
         if(isset($_SESSION['id']) && isset($_SESSION['user_name'])) {
         ?>
