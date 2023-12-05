@@ -81,7 +81,7 @@ try:
     # Load data from scraped_data.csv into table 'Product'
     csv_file_path = "/scraper/scrape_data.py"
     load_data_query = f"""
-    LOAD DATA LOCAL INFILE '{csv_file_path}'
+    LOAD DATA INFILE '{csv_file_path}'
     REPLACE INTO TABLE `Product`
     FIELDS TERMINATED BY ','
     ENCLOSED BY '"'
