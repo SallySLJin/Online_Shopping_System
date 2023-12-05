@@ -154,7 +154,15 @@ session_start();
         $productsPerRow = isset($_GET['productsPerRow']) ? intval($_GET['productsPerRow']) : 4;
         $sortOrder = isset($_GET['sortOrder']) && ($_GET['sortOrder'] === 'name' || $_GET['sortOrder'] === 'price' || $_GET['sortOrder'] === 'category') ? $_GET['sortOrder'] : 'price';
 
-        $sql = "SELECT * FROM Product ORDER BY $sortOrder";
+        $sql = "SELECT * FROM Product";
+
+        // Add category filter if a category is selected
+        if(isset($_GET['category'])) {
+            $categoryFilter = $_GET['category'];
+            $sql .= " WHERE Category1 = '$categoryFilter'";
+        }
+
+        $sql .= " ORDER BY $sortOrder";
         $result = $conn->query($sql);
 
         if ($result->num_rows > 0) {
@@ -186,7 +194,7 @@ session_start();
     function switchView() {
         var lis = document.querySelectorAll('li');
         lis.forEach(function(li) {
-            li.style.width = li.style.width === 'calc(100% - 30px)' ? 'calc(25% - 30px)' : 'calc(100% - 30px)';
+            li.style.width = li.style.width === 'calc(100% - 30px)' ? 'calc(25% - 30px)' : 'calc(50% - 30px)';
         });
     }
 </script>
