@@ -79,7 +79,7 @@ conn.commit()
 try:
 
     # Load data from scraped_data.csv into table 'Product'
-    csv_file_path = "/scraper/scrape_data.py"
+    csv_file_path = "C:/xampp/htdocs/scraper/scraped_data.csv"
     load_data_query = f"""
     LOAD DATA INFILE '{csv_file_path}'
     REPLACE INTO TABLE `Product`
