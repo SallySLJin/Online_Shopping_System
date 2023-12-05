@@ -48,6 +48,7 @@ session_start();
         }
         else{
             ?>
+            <a href="/LoginFile/signuppage.php">Sign Up</a>
             <a href="/LoginFile/loginpage.php">Login</a>
         <?php
         }
