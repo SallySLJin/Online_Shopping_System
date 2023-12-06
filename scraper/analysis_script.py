@@ -63,16 +63,14 @@ try:
     conn.commit()
 
     # Define the SQL query to create the 'Order_Item' table
-    # without foreign keys
+    # without foreign keys and without 'id'
     create_order_item_query = """
     CREATE TABLE IF NOT EXISTS `Order_Item` (
-        `id` BIGINT NOT NULL AUTO_INCREMENT,
         `order_id` BIGINT NOT NULL,
         `product_id` CHAR(50) NOT NULL,
         `quantity` INT NOT NULL,
         `unit_price` INT NOT NULL,
-        `subtotal` INT NOT NULL,
-        PRIMARY KEY (`id`)
+        `subtotal` INT NOT NULL
     ) ENGINE = InnoDB;
     """
 
@@ -83,12 +81,11 @@ try:
     conn.commit()
 
     # Define the SQL query to create the 'Order' table
-    # without foreign keys
+    # without foreign keys and without 'item_id'
     create_order_query = """
     CREATE TABLE IF NOT EXISTS `Order` (
         `id` BIGINT NOT NULL AUTO_INCREMENT,
         `user_id` BIGINT NOT NULL,
-        `item_id` BIGINT NOT NULL,
         `date` TIMESTAMP NOT NULL,
         `total_amount` INT NOT NULL,
         `status` VARCHAR(50) NOT NULL,
@@ -156,9 +153,7 @@ try:
     alter_order_query = """
     ALTER TABLE `Order`
     ADD CONSTRAINT `fk_order_user` FOREIGN KEY (`user_id`)
-    REFERENCES `User`(`id`) ON DELETE CASCADE,
-    ADD CONSTRAINT `fk_order_orderitem` FOREIGN KEY (`item_id`)
-    REFERENCES `OrderItem`(`id`) ON DELETE CASCADE;
+    REFERENCES `User`(`id`) ON DELETE CASCADE;
     """
 
     cursor.execute(alter_order_query)
