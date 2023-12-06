@@ -59,13 +59,15 @@ session_start();
 <!-- Cart summary at the bottom of the screen -->
 <div id="cartSummary">
     <span id="totalQuantity">Total Quantity in Cart: 0</span>
-    <!-- Add a link around the "Go to Cart" button -->
-    <a href="
-    cart.php">
-        <button style="margin-left: auto;">Go to Cart</button>
-    </a>
+    <button onclick="redirectToCart()" style="margin-left: auto;">Go to Cart</button>
 </div>
 
+<script>
+    function redirectToCart() {
+        // Add logic to redirect to the cart page
+        window.location.href = 'cart.php';
+    }
+</script>
 
 <form action="" method="get">
     <style>
