@@ -42,7 +42,7 @@ session_start();
         <?php
         if(isset($_SESSION['id']) && isset($_SESSION['user_name'])) {
         ?>
-            <a href="/LoginFile/logout.php">Logout</a>
+            <a href="/LoginFile/logout.php">登出</a>
         <?php
         }
         else{
@@ -64,6 +64,39 @@ session_start();
 
 <form action="" method="get">
     <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .navigation {
+            margin-top: 10px;
+        }
+
+        .navigation a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        .content {
+            padding: 20px;
+        }
+
+        .product {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -279,14 +312,27 @@ session_start();
         // Ensure the quantity is non-negative
         quantity = Math.max(quantity, 0);
 
-        if (quantity > 0) {
-            // Display an alert (you can replace this with your actual cart logic)
-            alert("Added " + quantity + " " + productName + " to the cart. Total Price: $" + (quantity * productPrice));
+        // Check if the user is logged in
+        <?php
+        if (isset($_SESSION['id']) && isset($_SESSION['user_name'])) {
+        ?>
+            // User is logged in, proceed with adding to cart
+            if (quantity > 0) {
+                // Display an alert (you can replace this with your actual cart logic)
+                alert("Added " + quantity + " " + productName + " to the cart. ");
 
-            // Update the totalCartQuantity variable
-            totalCartQuantity += quantity;
-            updateCartSummary();
+                // Update the totalCartQuantity variable
+                totalCartQuantity += quantity;
+                updateCartSummary();
+            }
+        <?php
+        } else {
+        ?>
+            // User is not logged in, block cart functionality and alert
+            alert("Please log in to add items to your cart.");
+        <?php
         }
+        ?>
     }
 </script>
 
