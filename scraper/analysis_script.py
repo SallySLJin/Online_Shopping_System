@@ -68,9 +68,7 @@ try:
     CREATE TABLE IF NOT EXISTS `Order_Item` (
         `order_id` BIGINT NOT NULL,
         `product_id` CHAR(50) NOT NULL,
-        `quantity` INT NOT NULL,
-        `unit_price` INT NOT NULL,
-        `subtotal` INT NOT NULL
+        `quantity` INT NOT NULL
     ) ENGINE = InnoDB;
     """
 
