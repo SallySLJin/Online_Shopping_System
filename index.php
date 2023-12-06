@@ -59,8 +59,13 @@ session_start();
 <!-- Cart summary at the bottom of the screen -->
 <div id="cartSummary">
     <span id="totalQuantity">Total Quantity in Cart: 0</span>
-    <button onclick="goToCartPage()" style="margin-left: auto;">Go to Cart</button>
+    <!-- Add a link around the "Go to Cart" button -->
+    <a href="
+    cart.php">
+        <button style="margin-left: auto;">Go to Cart</button>
+    </a>
 </div>
+
 
 <form action="" method="get">
     <style>
