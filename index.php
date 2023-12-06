@@ -18,6 +18,19 @@ session_start();
     if(isset($_SESSION['id']) && isset($_SESSION['name'])) {
     ?>
         <p id = user_id_style>使用者:<?php echo $_SESSION['name']; ?></p>
+
+        <?php
+        include 'config.php';
+
+        $userId = $_SESSION['id']; // Corrected definition of $userId
+
+        // Display total quantity from the Order table
+        $orderSql = "SELECT * FROM `Order` WHERE user_id = $userId AND status = 'In Cart'";
+        $orderResult = $conn->query($orderSql);
+        $orderRow = $orderResult->fetch_assoc();
+
+        echo "<p>Total Quantity in Cart: " . $orderRow['total_quantity'] . "</p>";
+        ?>
     <?php
     }
     else{
