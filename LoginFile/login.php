@@ -42,7 +42,7 @@ if (mysqli_num_rows($result) === 1) {
 
         if (mysqli_num_rows($checkCartResult) === 0) {
             // If no tuple, insert into Order and Shopping_Cart
-            $insertOrderSql = "INSERT INTO `Order` (user_id, date, total_amount, status) VALUES ({$row['id']}, NOW(), 0, 'In Cart')";
+            $insertOrderSql = "INSERT INTO `Order` (user_id, date, total_quantity, total_amount, status) VALUES ({$row['id']}, NOW(), 0, 0, 'In Cart')";
             mysqli_query($conn, $insertOrderSql);
 
             // Get the order_id of the newly inserted order

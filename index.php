@@ -13,7 +13,7 @@ session_start();
 <body>
 
 <div class="header">
-    <h1>Simple E-commerce</h1>
+    <h1>!Carrefour</h1>
     <?php
     if(isset($_SESSION['id']) && isset($_SESSION['name'])) {
     ?>

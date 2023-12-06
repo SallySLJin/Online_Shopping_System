@@ -87,6 +87,7 @@ try:
         `id` BIGINT NOT NULL AUTO_INCREMENT,
         `user_id` BIGINT NOT NULL,
         `date` TIMESTAMP NOT NULL,
+        `total_quantity` INT NOT NULL,
         `total_amount` INT NOT NULL,
         `status` VARCHAR(50) NOT NULL,
         PRIMARY KEY (`id`)
