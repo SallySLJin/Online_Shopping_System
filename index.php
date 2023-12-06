@@ -13,11 +13,20 @@ session_start();
 <body>
 
 <div class="header">
-    <h1>!Carrefour</h1>
+    <h3>!Carrefour</h3>
     <?php
     if(isset($_SESSION['id']) && isset($_SESSION['name'])) {
-    ?>
-        <p id = user_id_style>使用者:<?php echo $_SESSION['name']; ?></p>
+        include 'config.php';
+
+        $userId = $_SESSION['id']; // Corrected definition of $userId
+
+        // Display total quantity from the Order table
+        $orderSql = "SELECT * FROM `Order` WHERE user_id = $userId AND status = 'In Cart'";
+        $orderResult = $conn->query($orderSql);
+        $orderRow = $orderResult->fetch_assoc();
+
+        echo "<p id = user_id_style>" .  $_SESSION['name'] . "'s Total Quantity in Cart: " . $orderRow['total_quantity'] . "</p>";
+        ?>
     <?php
     }
     else{
@@ -59,19 +68,6 @@ session_start();
 <!-- Cart summary at the bottom of the screen -->
 <div id="cartSummary">
     <span id="totalQuantity">Total Quantity in Cart: 0</span>
-
-    <?php
-    include 'config.php';
-
-    $userId = $_SESSION['id']; // Corrected definition of $userId
-
-    // Display total quantity from the Order table
-    $orderSql = "SELECT * FROM `Order` WHERE user_id = $userId AND status = 'In Cart'";
-    $orderResult = $conn->query($orderSql);
-    $orderRow = $orderResult->fetch_assoc();
-
-    echo "<p>Total Quantity in Cart: " . $orderRow['total_quantity'] . "</p>";
-    ?>
     <button onclick="redirectToCart()" style="margin-left: auto;">Go to Cart</button>
 </div>
 
@@ -91,6 +87,10 @@ session_start();
         }
 
         .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
             background-color: #333;
             color: white;
             padding: 10px;
@@ -98,6 +98,7 @@ session_start();
         }
 
         .navigation {
+            font-size: 18px;
             margin-top: 10px;
         }
 
