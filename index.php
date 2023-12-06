@@ -15,9 +15,9 @@ session_start();
 <div class="header">
     <h1>Simple E-commerce</h1>
     <?php
-    if(isset($_SESSION['id']) && isset($_SESSION['user_name'])) {
+    if(isset($_SESSION['id']) && isset($_SESSION['name'])) {
     ?>
-        <p id = user_id_style>使用者:<?php echo $_SESSION['user_name']; ?></p>
+        <p id = user_id_style>使用者:<?php echo $_SESSION['name']; ?></p>
     <?php
     }
     else{
@@ -40,15 +40,15 @@ session_start();
         <a href="?category=傢俱寢飾">傢俱寢飾</a>
         <a href="?category=服飾鞋包">服飾鞋包</a>
         <?php
-        if(isset($_SESSION['id']) && isset($_SESSION['user_name'])) {
+        if(isset($_SESSION['id']) && isset($_SESSION['name'])) {
         ?>
             <a href="/LoginFile/logout.php">登出</a>
         <?php
         }
         else{
             ?>
-            <a href="/LoginFile/signuppage.php">Sign Up</a>
-            <a href="/LoginFile/loginpage.php">Login</a>
+            <a href="/LoginFile/signuppage.php">註冊</a>
+            <a href="/LoginFile/loginpage.php">登入</a>
         <?php
         }
         ?>
@@ -247,7 +247,7 @@ session_start();
                 // Quantity controls and Add to Cart button
                 echo "<div>";
                 echo "<button onclick='updateQuantity(\"$row[ID]\", -1)'>-</button>";
-                echo "<span id='quantity_$row[ID]'>0</span>";
+                echo "<span id='quantity_$row[ID]'>" . getQuantityFromLocalStorage($row['ID']) . "</span>";
                 echo "<button onclick='updateQuantity(\"$row[ID]\", 1)'>+</button>";
                 echo "<button onclick='addToCart(\"$row[ID]\", \"$row[Name]\", $row[Price])'>Add to Cart</button>";
                 echo "</div>";
@@ -257,6 +257,11 @@ session_start();
         } else {
             echo "No products available.";
         }
+
+        function getQuantityFromLocalStorage($productId) {
+            // Return 0 for now, as local storage is managed on the client-side
+            return 0;
+        }
         
         $conn->close();
     ?>
@@ -264,7 +269,7 @@ session_start();
 
 <script>
     // Use a global variable to store the total quantity of products in the cart
-    var totalCartQuantity = 0;
+    var totalCartQuantity = parseInt(localStorage.getItem('totalCartQuantity')) || 0;
 
     function updateCartSummary() {
         // Update the cart summary at the bottom of the page
@@ -294,6 +299,9 @@ session_start();
         isGridView = !isGridView;
     }
 
+    // Use a global variable to store the total quantity of products in the cart
+    var totalCartQuantity = parseInt(localStorage.getItem('totalCartQuantity')) || 0;
+
     function updateQuantity(productId, change) {
         var quantityElement = document.getElementById('quantity_' + productId);
         var currentQuantity = parseInt(quantityElement.innerHTML);
@@ -301,6 +309,9 @@ session_start();
 
         // Ensure the quantity doesn't go below 0
         newQuantity = Math.max(newQuantity, 0);
+
+        // Update the quantity in local storage
+        localStorage.setItem('quantity_' + productId, newQuantity);
 
         quantityElement.innerHTML = newQuantity;
     }
@@ -312,28 +323,17 @@ session_start();
         // Ensure the quantity is non-negative
         quantity = Math.max(quantity, 0);
 
-        // Check if the user is logged in
-        <?php
-        if (isset($_SESSION['id']) && isset($_SESSION['user_name'])) {
-        ?>
-            // User is logged in, proceed with adding to cart
-            if (quantity > 0) {
-                // Display an alert (you can replace this with your actual cart logic)
-                alert("Added " + quantity + " " + productName + " to the cart. ");
+        // User is logged in, proceed with adding to cart
+        if (quantity > 0) {
+            // Display an alert (you can replace this with your actual cart logic)
+            alert("Added " + quantity + " " + productName + " to the cart. ");
 
-                // Update the totalCartQuantity variable
-                totalCartQuantity += quantity;
-                updateCartSummary();
-            }
-        <?php
-        } else {
-        ?>
-            // User is not logged in, block cart functionality and alert
-            alert("Please log in to add items to your cart.");
-        <?php
+            // Update the totalCartQuantity variable
+            totalCartQuantity += quantity;
+            updateCartSummary();
         }
-        ?>
     }
+
 </script>
 
 </body>
