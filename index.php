@@ -18,14 +18,24 @@ session_start();
     if(isset($_SESSION['id']) && isset($_SESSION['name'])) {
         include 'config.php';
 
-        $userId = $_SESSION['id']; // Corrected definition of $userId
+        $userId = $_SESSION['id'];
 
         // Display total quantity from the Order table
-        $orderSql = "SELECT * FROM `Order` WHERE user_id = $userId AND status = 'In Cart'";
-        $orderResult = $conn->query($orderSql);
-        $orderRow = $orderResult->fetch_assoc();
+        $orderSql = "SELECT * FROM `Order` WHERE user_id = ? AND status = 'In Cart'";
+        $stmt = $conn->prepare($orderSql);
 
-        echo "<p id = user_id_style>" .  $_SESSION['name'] . "'s Total Quantity in Cart: " . $orderRow['total_quantity'] . "</p>";
+        if ($stmt) {
+            $stmt->bind_param('i', $userId);
+            $stmt->execute();
+            $orderResult = $stmt->get_result();
+            $orderRow = $orderResult->fetch_assoc();
+
+            echo "<p id='user_id_style'>" .  $_SESSION['name'] . "'s Total Quantity in Cart: " . $orderRow['total_quantity'] . "</p>";
+
+            $stmt->close();
+        } else {
+            echo "Error preparing statement";
+        }
         ?>
 
         <!-- Cart summary at the bottom of the screen -->
@@ -34,10 +44,9 @@ session_start();
             <button onclick="redirectToCart()" style="margin-left: auto;">Go to Cart</button>
         </div>
     <?php
-    }
-    else{
+    } else {
         ?>
-        <p id = user_id_style>目前未登入</p>
+        <p id="user_id_style">目前未登入</p>
     <?php
     }
     ?>
@@ -45,44 +54,21 @@ session_start();
     <div class="navigation">
         <a href="?category=生鮮冷凍">生鮮冷凍</a>
         <a href="?category=飲料零食">飲料零食</a>
-        <a href="?category=米油沖泡">米油沖泡</a>
-        <a href="?category=生活家電">生活家電</a>
-        <a href="?category=熱門3C">熱門3C</a>
-        <a href="?category=美妝個清">美妝個清</a>
-        <a href="?category=嬰童保健">嬰童保健</a>
-        <a href="?category=休閒娛樂">休閒娛樂</a>
-        <a href="?category=日用生活">日用生活</a>
-        <a href="?category=傢俱寢飾">傢俱寢飾</a>
-        <a href="?category=服飾鞋包">服飾鞋包</a>
+        <!-- ... (other navigation links) ... -->
         <?php
         if(isset($_SESSION['id']) && isset($_SESSION['name'])) {
         ?>
             <a href="/LoginFile/logout.php">登出</a>
         <?php
-        }
-        else{
+        } else {
             ?>
             <a href="/LoginFile/signuppage.php">註冊</a>
             <a href="/LoginFile/loginpage.php">登入</a>
         <?php
         }
         ?>
-        
     </div>
 </div>
-
-<!-- Cart summary at the bottom of the screen 
-<div id="cartSummary">
-    <span id="totalQuantity">Total Quantity in Cart: 0</span>
-    <button onclick="redirectToCart()" style="margin-left: auto;">Go to Cart</button>
-</div>
--->
-<script>
-    function redirectToCart() {
-        // Add logic to redirect to the cart page
-        window.location.href = 'cart.php';
-    }
-</script>
 
 <form action="" method="get">
     <style>
@@ -207,17 +193,7 @@ session_start();
                 margin: 0 10px;
         }
 
-        /* Cart summary styles
-        #cartSummary {
-            position: fixed;
-            right: 0;
-            width: 100%;
-            background-color: #333;
-            color: #fff;
-            padding: 10px;
-            text-align: center;
-        }
-        */
+        /* Cart summary styles */
         #cartSummary button {
             position: fixed;
             left: 55%;
@@ -318,6 +294,10 @@ session_start();
 </ul>
 
 <script>
+    function redirectToCart() {
+        // Add logic to redirect to the cart page
+        window.location.href = 'cart.php';
+    }
     // Use a global variable to store the total quantity of products in the cart
     var totalCartQuantity = parseInt(localStorage.getItem('totalCartQuantity')) || 0;
 
@@ -376,13 +356,45 @@ session_start();
         // User is logged in, proceed with adding to cart
         if (quantity > 0) {
             // Display an alert (you can replace this with your actual cart logic)
-            alert("Added " + quantity + " " + productName + " to the cart. ");
+            alert("Added " + quantity + " " + productName + " to the cart.");
 
             // Update the totalCartQuantity variable
             totalCartQuantity += quantity;
             updateCartSummary();
+
+            // Log to console for debugging
+            console.log('Adding to cart:', {
+                productId: productId,
+                quantity: quantity,
+                productName: productName,
+                productPrice: productPrice,
+            });
+
+            // Now, you need to perform the backend logic to update the database
+            // You may use AJAX to send a request to the server to update the database
+
+            // Example using Fetch API (you may need to adjust based on your backend implementation)
+            fetch('add_to_cart.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    productId: productId,
+                    quantity: quantity,
+                }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Handle the response from the server
+                console.log('Server response:', data);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
         }
     }
+
 
 </script>
 

@@ -20,41 +20,47 @@ if (isset($_SESSION['id'])) {
 
         echo "<table border='1'>";
         echo "<tr><th>Product Name</th><th>Quantity</th><th>Price</th></tr>";
+                
+        // Get product details from the Order_Item table
+        $orderItemSql = "SELECT OI.*, P.Name, P.Price 
+        FROM Order_Item OI
+        INNER JOIN Product P ON OI.product_id = P.id
+        WHERE OI.order_id IN (SELECT id FROM `Order` WHERE user_id = $userId AND status = 'In Cart')";
 
-        // Iterate over cart items
-        while ($cartRow = $cartResult->fetch_assoc()) {
-            if (isset($cartRow['product_id'])) {
-                $productId = $cartRow['product_id'];
+        // Execute the query
+        $orderItemResult = $conn->query($orderItemSql);
 
-                // Get product details from the Order_Item table
-                $orderItemSql = "SELECT * FROM Order_Item WHERE order_id = (SELECT id FROM `Order` WHERE user_id = $userId AND status = 'in_cart') AND product_id = $productId";
-                echo "Debug SQL: $orderItemSql"; // Add this line to debug the SQL query
+        // Check for errors
+        if (!$orderItemResult) {
+         echo "Error: " . $conn->error;
+        }
 
-                $orderItemResult = $conn->query($orderItemSql);
-
-                if ($orderItemResult->num_rows > 0) {
-                    $orderItemRow = $orderItemResult->fetch_assoc();
-                    echo "<tr>";
-                    echo "<td>" . $orderItemRow['product_name'] . "</td>";
-                    echo "<td>" . $orderItemRow['quantity'] . "</td>";
-                    echo "<td>$" . $orderItemRow['product_price'] . "</td>";
-                    echo "</tr>";
-                }
+        // Display the results
+        if ($orderItemResult->num_rows > 0) {
+            while ($orderItemRow = $orderItemResult->fetch_assoc()) {
+                echo "<tr>";
+                echo "<td>" . $orderItemRow['Name'] . "</td>";
+                echo "<td>" . $orderItemRow['quantity'] . "</td>";
+                echo "<td>$" . $orderItemRow['Price'] . "</td>";
+                echo "</tr>";
             }
+        } else {
+            echo "<p>No items in the cart.</p>";
         }
 
         echo "</table>";
 
         // Display total quantity and total amount from the Order table
-        $orderSql = "SELECT * FROM `Order` WHERE user_id = $userId AND status = 'in_cart'";
+        $orderSql = "SELECT * FROM `Order` WHERE user_id = $userId AND status = 'In Cart'";
         $orderResult = $conn->query($orderSql);
         $orderRow = $orderResult->fetch_assoc();
 
         echo "<p>Total Quantity in Cart: " . $orderRow['total_quantity'] . "</p>";
         echo "<p>Total Amount: $" . $orderRow['total_amount'] . "</p>";
-    } else {
-        echo "<p>No items in the cart.</p>";
-    }
+        // Add the checkout button
+        echo "<button onclick='checkout()'>Checkout</button>";
+
+    } 
 
     // Close the database connection
     $conn->close();
@@ -62,3 +68,10 @@ if (isset($_SESSION['id'])) {
     echo "<p>User not logged in.</p>";
 }
 ?>
+
+<script>
+function checkout() {
+    // Redirect to the checkout page
+    window.location.href = "index.php";
+}
+</script>

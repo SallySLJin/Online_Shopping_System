@@ -129,6 +129,7 @@ try:
     # Commit the changes
     conn.commit()
 
+    '''
     # Enable foreign key checks
     cursor.execute("SET FOREIGN_KEY_CHECKS=0;")
 
@@ -192,6 +193,7 @@ try:
 
     # Enable foreign key checks
     cursor.execute("SET FOREIGN_KEY_CHECKS=1;")
+    '''
 
     # Load data from scraped_data.csv into table 'Product'
     csv_file_path = "C:/xampp/htdocs/scraper/scraped_data.csv"
