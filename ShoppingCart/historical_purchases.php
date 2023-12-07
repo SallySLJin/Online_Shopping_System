@@ -24,6 +24,9 @@ if ($stmt) {
     // Display historical orders
     if ($historicalOrdersResult->num_rows > 0) {
         echo "<h2>Historical Purchases</h2>";
+        ?>
+        <a href="../index.php">Continue Shopping</a>
+        <?php
         echo "<ul>";
         while ($historicalOrderRow = $historicalOrdersResult->fetch_assoc()) {
             echo "<li>";

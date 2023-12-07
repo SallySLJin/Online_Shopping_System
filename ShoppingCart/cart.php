@@ -60,6 +60,7 @@ if (isset($_SESSION['id'])) {
         // Add the checkout button
         echo "<button onclick='checkout()'>Checkout</button>";
         ?>
+        <a href="../index.php">Continue Shopping</a>
         <a href="historical_purchases.php">View historical purchases.</a>
         <?php
 
