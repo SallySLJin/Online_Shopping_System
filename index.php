@@ -30,7 +30,10 @@ session_start();
             $orderResult = $stmt->get_result();
             $orderRow = $orderResult->fetch_assoc();
 
-            echo "<p id='user_id_style'>" .  $_SESSION['name'] . "'s Total Quantity in Cart: " . $orderRow['total_quantity'] . "</p>";
+            // Wrap the element in a container with a unique ID
+            echo "<div id='totalQuantityContainer'>";
+            echo "<p id='user_id_style'>" .  $_SESSION['name'] . "'s Total Quantity in Cart: " . $orderRow['total_quantity'] . " ( Refresh page to update. )</p>";
+            echo "</div>";
 
             $stmt->close();
         } else {
@@ -52,9 +55,18 @@ session_start();
     ?>
     
     <div class="navigation">
+        <a href="index.php">所有商品</a>
         <a href="?category=生鮮冷凍">生鮮冷凍</a>
         <a href="?category=飲料零食">飲料零食</a>
-        <!-- ... (other navigation links) ... -->
+        <a href="?category=米油沖泡">米油沖泡</a>
+        <a href="?category=生活家電">生活家電</a>
+        <a href="?category=熱門3C">熱門3C</a>
+        <a href="?category=美妝個清">美妝個清</a>
+        <a href="?category=嬰童保健">嬰童保健</a>
+        <a href="?category=休閒娛樂">休閒娛樂</a>
+        <a href="?category=日用生活">日用生活</a>
+        <a href="?category=傢俱寢飾">傢俱寢飾</a>
+        <a href="?category=服飾鞋包">服飾鞋包</a>
         <?php
         if(isset($_SESSION['id']) && isset($_SESSION['name'])) {
         ?>
@@ -196,7 +208,7 @@ session_start();
         /* Cart summary styles */
         #cartSummary button {
             position: fixed;
-            left: 55%;
+            left: 75%;
             top:5%;
 
             padding: 5px;
@@ -275,7 +287,7 @@ session_start();
                 echo "<button onclick='updateQuantity(\"$row[ID]\", -1)'>-</button>";
                 echo "<span id='quantity_$row[ID]'>" . getQuantityFromLocalStorage($row['ID']) . "</span>";
                 echo "<button onclick='updateQuantity(\"$row[ID]\", 1)'>+</button>";
-                echo "<button onclick='addToCart(\"$row[ID]\", \"$row[Name]\", $row[Price])'>Add to Cart</button>";
+                echo "<button onclick='addToCart(\"$row[ID]\", \"$row[Name]\", $row[Price])' id='addToCartButton_$row[ID]'>Add to Cart</button>";
                 echo "</div>";
 
                 echo "</li>";
@@ -388,12 +400,20 @@ session_start();
             .then(data => {
                 // Handle the response from the server
                 console.log('Server response:', data);
+
+                // Update the displayed total quantity dynamically
+                var totalQuantityContainer = document.getElementById('totalQuantityContainer');
+                if (totalQuantityContainer) {
+                    totalQuantityContainer.innerHTML = "<p id='user_id_style'>" +  $_SESSION['name'] + "'s Total Quantity in Cart: " + data.totalQuantity + "</p>";
+                }
             })
             .catch((error) => {
                 console.error('Error:', error);
             });
         }
     }
+
+
 
 
 </script>

@@ -6,15 +6,21 @@ if (isset($_SESSION['id'])) {
     $userId = $_SESSION['id'];
 
     // Update 'status' in table 'Order' to "Processed"
-    $updateOrderSql = "UPDATE `Order` SET `status` = 'Processed' WHERE user_id = $userId AND `status` = 'In Cart'";
+    $updateOrderSql = "UPDATE `Order` SET `status` = 'Processed' WHERE user_id = $userId AND status = 'In Cart'";
     $conn->query($updateOrderSql);
 
     // Store 'user_id' and 'order_id' from 'Shopping_Cart' to 'Historical_Order'
-    $insertHistoricalOrderSql = "INSERT INTO Historical_Order (user_id, order_id) SELECT user_id, order_id FROM Shopping_Cart WHERE user_id = $userId";
+    $insertHistoricalOrderSql = "INSERT INTO Historical_Order (user_id, order_id) 
+                             SELECT user_id, order_id 
+                             FROM Shopping_Cart 
+                             WHERE user_id = $userId AND NOT EXISTS (
+                                SELECT 1 FROM Historical_Order 
+                                WHERE Historical_Order.order_id = Shopping_Cart.order_id
+                             )";
     $conn->query($insertHistoricalOrderSql);
 
     // Create a new tuple in table 'Order' with 'status' value 'In Cart'
-    $createNewOrderSql = "INSERT INTO `Order` (user_id, `status`) VALUES ($userId, 'In Cart')";
+    $createNewOrderSql = "INSERT INTO `Order` (user_id, status) VALUES ($userId, 'In Cart')";
     $conn->query($createNewOrderSql);
 
     // Get the ID of the new order created

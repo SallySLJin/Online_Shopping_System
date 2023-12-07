@@ -72,6 +72,6 @@ if (isset($_SESSION['id'])) {
 <script>
 function checkout() {
     // Redirect to the checkout page
-    window.location.href = "index.php";
+    window.location.href = "checkout.php";
 }
 </script>
