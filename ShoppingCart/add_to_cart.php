@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $quantity = $data['quantity'];
 
     // Example database connection
-    include 'config.php';
+    include '../config.php';
 
     // Assume you have a 'shopping_cart' table with columns 'user_id', 'order_id', 'product_id', and 'quantity'
     $userId = $_SESSION['id']; // Make sure to handle sessions properly
@@ -47,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 // Function to get the order ID from the 'shopping_cart' table
 function getOrderIDFromShoppingCart($userId) {
     // Modify this function based on your actual database schema
-    include 'config.php';
+    include '../config.php';
 
     // Assuming there's a 'status' column in the 'shopping_cart' table
     $orderSql = "SELECT order_id FROM shopping_cart WHERE user_id = ?";

@@ -250,6 +250,10 @@ session_start();
     <?php 
         // Create connection
         include 'config.php';
+        // Retrieve products from the database with pagination
+        $productsPerPage = 24;
+        $currentPage = isset($_GET['page']) ? intval($_GET['page']) : 1;
+        $offset = ($currentPage - 1) * $productsPerPage;
 
         // Retrieve products from the database
         $productsPerRow = isset($_GET['productsPerRow']) ? intval($_GET['productsPerRow']) : 4;
@@ -308,7 +312,7 @@ session_start();
 <script>
     function redirectToCart() {
         // Add logic to redirect to the cart page
-        window.location.href = 'cart.php';
+        window.location.href = '/ShoppingCart/cart.php';
     }
     // Use a global variable to store the total quantity of products in the cart
     var totalCartQuantity = parseInt(localStorage.getItem('totalCartQuantity')) || 0;
@@ -386,7 +390,7 @@ session_start();
             // You may use AJAX to send a request to the server to update the database
 
             // Example using Fetch API (you may need to adjust based on your backend implementation)
-            fetch('add_to_cart.php', {
+            fetch('/ShoppingCart/add_to_cart.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

@@ -1,6 +1,6 @@
 <?php
 session_start();
-include 'config.php';
+include '../config.php';
 
 if (isset($_SESSION['id'])) {
     $userId = $_SESSION['id'];
@@ -34,7 +34,7 @@ if (isset($_SESSION['id'])) {
     $conn->query($updateShoppingCartSql);
 
     // Redirect to a confirmation page
-    header("Location: index.php");
+    header("Location: confirm_purchase.php");
 } else {
     echo "<p>User not logged in.</p>";
 }

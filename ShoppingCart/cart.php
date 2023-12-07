@@ -1,6 +1,6 @@
 <?php
 session_start();
-include 'config.php';
+include '../config.php';
 
 if (isset($_SESSION['id'])) {
     // Retrieve user's cart data
@@ -59,6 +59,9 @@ if (isset($_SESSION['id'])) {
         echo "<p>Total Amount: $" . $orderRow['total_amount'] . "</p>";
         // Add the checkout button
         echo "<button onclick='checkout()'>Checkout</button>";
+        ?>
+        <a href="historical_purchases.php">View historical purchases.</a>
+        <?php
 
     } 
 
