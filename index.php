@@ -27,6 +27,12 @@ session_start();
 
         echo "<p id = user_id_style>" .  $_SESSION['name'] . "'s Total Quantity in Cart: " . $orderRow['total_quantity'] . "</p>";
         ?>
+
+        <!-- Cart summary at the bottom of the screen -->
+        <div id="cartSummary">
+            <!-- <span id="totalQuantity">Total Quantity in Cart: 0</span> -->
+            <button onclick="redirectToCart()" style="margin-left: auto;">Go to Cart</button>
+        </div>
     <?php
     }
     else{
@@ -65,12 +71,12 @@ session_start();
     </div>
 </div>
 
-<!-- Cart summary at the bottom of the screen -->
+<!-- Cart summary at the bottom of the screen 
 <div id="cartSummary">
     <span id="totalQuantity">Total Quantity in Cart: 0</span>
     <button onclick="redirectToCart()" style="margin-left: auto;">Go to Cart</button>
 </div>
-
+-->
 <script>
     function redirectToCart() {
         // Add logic to redirect to the cart page
@@ -137,6 +143,7 @@ session_start();
         }
 
         ul {
+            margin-top: 150px;
             list-style-type: none;
             padding: 0;
             display: flex;
@@ -200,19 +207,22 @@ session_start();
                 margin: 0 10px;
         }
 
-        /* Cart summary styles */
+        /* Cart summary styles
         #cartSummary {
             position: fixed;
-            bottom: 0;
-            left: 0;
+            right: 0;
             width: 100%;
             background-color: #333;
             color: #fff;
             padding: 10px;
             text-align: center;
         }
-
+        */
         #cartSummary button {
+            position: fixed;
+            left: 55%;
+            top:5%;
+
             padding: 5px;
             font-size: 14px;
             background-color: #fff;
