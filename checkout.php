@@ -28,7 +28,7 @@ if (isset($_SESSION['id'])) {
     $conn->query($updateShoppingCartSql);
 
     // Redirect to a confirmation page
-    header("Location: cart.php");
+    header("Location: index.php");
 } else {
     echo "<p>User not logged in.</p>";
 }
