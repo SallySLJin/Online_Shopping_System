@@ -46,7 +46,14 @@ include "config.php";
 </div>
 
 <div class="table_container">
-    <table>
+    <?php
+        $query = "SELECT * FROM `cart_item`";
+        $result = mysqli_query($conn, $query);
+        $total = 0;
+        if(mysqli_num_rows($result) > 0){
+    ?>
+        <table>
+        
         <tr>
             <th>名稱</th>
             <!-- <th>圖片</th> -->
@@ -55,11 +62,8 @@ include "config.php";
             <th>總價</th>
             <th>移除商品</th>
         </tr>
+        
         <?php
-        $query = "SELECT * FROM `cart_item`";
-        $result = mysqli_query($conn, $query);
-        $total = 0;
-        if(mysqli_num_rows($result) > 0){
             while($row = mysqli_fetch_array($result)){
                 ?>
                 <tr>
@@ -71,25 +75,33 @@ include "config.php";
                     <td><a href="cart.php?action=delete&name=<?php echo $row["Name"];?>"><span>移除</span></a></td>
                     <?php
                     $total += ($row["Quantity"] * $row["Price"]);
+                    ?>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>Total</td>
+                        <td><?php echo number_format($total, 2);?></td>
+                        <td><button>結帳</button></td>
+                    </tr>
+                    <?php
                 
             }
         }
+        else{
+            echo "<div style='text-align: center; font-size: 24px;'>";
+            echo "尚未添加任何商品至購物車！";
+            echo "</div>";
+        }
         ?>
-        </tr>
-        <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td></td>
-            <td></td>
-            <td>Total</td>
-            <td><?php echo number_format($total, 2);?></td>
-            <td><button>結帳</button></td>
-        </tr>
+        
     </table>
 
 <style>
