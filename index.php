@@ -225,18 +225,27 @@ session_start();
             background-color: #ddd;
         }
         
+        #sortOrderContainer {
+            position: fixed;
+            top: 20%;
+            left: 10px; /* Adjust the left position as needed */
+            z-index: 999; /* Set a high z-index to ensure it's above other content */
+        }
+        
     </style>
 
-    <label for="sortOrder">排序:</label>
-    <select name="sortOrder" id="sortOrder">
-        <option value="name">品名</option>
-        <option value="price">價格</option>
-    </select>
+    <div id="sortOrderContainer">
+        <label for="sortOrder">排序:</label>
+        <select name="sortOrder" id="sortOrder">
+            <option value="name">品名</option>
+            <option value="price">價格</option>
+        </select>
 
-    <input type="submit" value="Apply Changes">
+        <input type="submit" value="Apply Changes">
+        <!-- Add a button to switch between two display modes -->
+        <button type="button" id="switchViewButton" onclick="switchView()">Switch View</button>
+    </div>
 
-    <!-- Add a button to switch between two display modes -->
-    <button type="button" id="switchViewButton" onclick="switchView()">Switch View</button>
 </form>
 
 <ul>
