@@ -130,6 +130,12 @@ session_start();
             color: #333;
         }
 
+        h3 {
+            text-align: left;
+            color: #666;
+            line-height: 10%; /* Adjust the line height as needed */
+        }
+
         ul {
             list-style-type: none;
             padding: 0;
@@ -185,6 +191,10 @@ session_start();
         }
 
         #user_id_style{
+                position: fixed; /* or absolute, depending on your layout needs */
+                top: 5%;
+                left: 20%; /* optional, adjust as needed */
+                text-align: center;
                 color: white;
                 text-decoration: none;
                 margin: 0 10px;
