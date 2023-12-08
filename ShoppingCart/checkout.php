@@ -20,7 +20,7 @@ if (isset($_SESSION['id'])) {
     $conn->query($insertHistoricalOrderSql);
 
     // Create a new tuple in table 'Order' with 'status' value 'In Cart'
-    $createNewOrderSql = "INSERT INTO `Order` (user_id, status) VALUES ($userId, 'In Cart')";
+    $createNewOrderSql = "INSERT INTO `Order` (user_id, status, total_quantity, total_amount) VALUES ($userId, 'In Cart', 0, 0)";
     $conn->query($createNewOrderSql);
 
     // Get the ID of the new order created

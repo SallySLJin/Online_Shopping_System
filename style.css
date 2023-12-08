@@ -1,0 +1,146 @@
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    text-align: center;
+}
+
+.navigation {
+    font-size: 18px;
+    margin-top: 10px;
+}
+
+.navigation a {
+    color: white;
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+.content {
+    padding: 20px;
+}
+
+.product {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+h2 {
+    text-align: center;
+    color: #333;
+}
+
+h3 {
+    text-align: left;
+    color: #666;
+    line-height: 10%; /* Adjust the line height as needed */
+}
+
+ul {
+    margin-top: 150px;
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+li {
+    border: 1px solid #ccc;
+    padding: 15px;
+    margin: 15px;
+    box-sizing: border-box;
+    text-align: center;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+    width: calc(25% - 30px); /* Initially 4 products per row */
+}
+
+li:hover {
+    transform: scale(1.05);
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+p {
+    margin: 0;
+    color: #666;
+}
+
+select {
+    margin-bottom: 10px;
+    padding: 5px;
+    font-size: 16px;
+}
+
+input[type="submit"], button {
+    padding: 10px;
+    font-size: 16px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover, button:hover {
+    background-color: #555;
+}
+
+#user_id_style{
+        position: fixed; /* or absolute, depending on your layout needs */
+        top: 5%;
+        left: 20%; /* optional, adjust as needed */
+        text-align: center;
+        color: white;
+        text-decoration: none;
+        margin: 0 10px;
+}
+
+/* Cart summary styles */
+#cartSummary button {
+    position: fixed;
+    left: 75%;
+    top:5%;
+
+    padding: 5px;
+    font-size: 14px;
+    background-color: #fff;
+    color: #333;
+    border: none;
+    cursor: pointer;
+}
+
+#cartSummary button:hover {
+    background-color: #ddd;
+}
+
+#sortOrderContainer {
+    position: fixed;
+    top: 20%;
+    left: 10px; /* Adjust the left position as needed */
+    z-index: 999; /* Set a high z-index to ensure it's above other content */
+}

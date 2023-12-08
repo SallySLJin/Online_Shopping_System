@@ -6,8 +6,13 @@ session_start();
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+
+    <!-- Add a meta tag for better mobile responsiveness -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Simple E-commerce</title>
+
+    <!-- Include the external stylesheet -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -83,154 +88,6 @@ session_start();
 </div>
 
 <form action="" method="get">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-
-        .header {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
-            background-color: #333;
-            color: white;
-            padding: 10px;
-            text-align: center;
-        }
-
-        .navigation {
-            font-size: 18px;
-            margin-top: 10px;
-        }
-
-        .navigation a {
-            color: white;
-            text-decoration: none;
-            margin: 0 10px;
-        }
-
-        .content {
-            padding: 20px;
-        }
-
-        .product {
-            border: 1px solid #ccc;
-            padding: 10px;
-            margin-bottom: 10px;
-        }
-
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-        }
-
-        h2 {
-            text-align: center;
-            color: #333;
-        }
-
-        h3 {
-            text-align: left;
-            color: #666;
-            line-height: 10%; /* Adjust the line height as needed */
-        }
-
-        ul {
-            margin-top: 150px;
-            list-style-type: none;
-            padding: 0;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-around;
-        }
-
-        li {
-            border: 1px solid #ccc;
-            padding: 15px;
-            margin: 15px;
-            box-sizing: border-box;
-            text-align: center;
-            background-color: #fff;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s;
-            width: calc(25% - 30px); /* Initially 4 products per row */
-        }
-
-        li:hover {
-            transform: scale(1.05);
-        }
-
-        img {
-            max-width: 100%;
-            height: auto;
-            margin-bottom: 10px;
-        }
-
-        p {
-            margin: 0;
-            color: #666;
-        }
-
-        select {
-            margin-bottom: 10px;
-            padding: 5px;
-            font-size: 16px;
-        }
-
-        input[type="submit"], button {
-            padding: 10px;
-            font-size: 16px;
-            background-color: #333;
-            color: #fff;
-            border: none;
-            cursor: pointer;
-        }
-
-        input[type="submit"]:hover, button:hover {
-            background-color: #555;
-        }
-
-        #user_id_style{
-                position: fixed; /* or absolute, depending on your layout needs */
-                top: 5%;
-                left: 20%; /* optional, adjust as needed */
-                text-align: center;
-                color: white;
-                text-decoration: none;
-                margin: 0 10px;
-        }
-
-        /* Cart summary styles */
-        #cartSummary button {
-            position: fixed;
-            left: 75%;
-            top:5%;
-
-            padding: 5px;
-            font-size: 14px;
-            background-color: #fff;
-            color: #333;
-            border: none;
-            cursor: pointer;
-        }
-
-        #cartSummary button:hover {
-            background-color: #ddd;
-        }
-        
-        #sortOrderContainer {
-            position: fixed;
-            top: 20%;
-            left: 10px; /* Adjust the left position as needed */
-            z-index: 999; /* Set a high z-index to ensure it's above other content */
-        }
-        
-    </style>
 
     <div id="sortOrderContainer">
         <label for="sortOrder">排序:</label>
@@ -245,6 +102,125 @@ session_start();
     </div>
 
 </form>
+
+<script>
+    // Function to get the quantity of a product from local storage
+    function getQuantityFromLocalStorage(productId) {
+        // You can implement logic to retrieve the quantity from local storage
+        // For now, return 0 as a placeholder
+        return parseInt(localStorage.getItem('quantity_' + productId)) || 0;
+    }
+
+    // Store PHP session information in a JavaScript variable
+    var sessionInfo = {
+        id: <?php echo json_encode($_SESSION['id']); ?>,
+        name: <?php echo json_encode($_SESSION['name']); ?>
+    };
+
+    // Use a global variable to store the total quantity of products in the cart
+    var totalCartQuantity = parseInt(localStorage.getItem('totalCartQuantity')) || 0;
+
+    // Function to update the quantity of a product
+    function updateQuantity(productId, change) {
+        var quantityElement = document.getElementById('quantity_' + productId);
+        var currentQuantity = parseInt(quantityElement.innerHTML);
+        var newQuantity = currentQuantity + change;
+
+        // Ensure the quantity doesn't go below 0
+        newQuantity = Math.max(newQuantity, 0);
+
+        // Update the quantity in local storage
+        localStorage.setItem('quantity_' + productId, newQuantity);
+
+        quantityElement.innerHTML = newQuantity;
+    }
+
+    // Function to add a product to the cart
+    function addToCart(productId, productName, productPrice) {
+        var quantityElement = document.getElementById('quantity_' + productId);
+        var quantity = parseInt(quantityElement.innerHTML);
+
+        // Ensure the quantity is non-negative
+        quantity = Math.max(quantity, 0);
+
+        // User is logged in, proceed with adding to cart
+        if (quantity > 0) {
+            // Display an alert (you can replace this with your actual cart logic)
+            alert("Added " + quantity + " " + productName + " to the cart.");
+
+            // Update the totalCartQuantity variable
+            totalCartQuantity += quantity;
+            updateCartSummary();
+
+            // Log to console for debugging
+            console.log('Adding to cart:', {
+                productId: productId,
+                quantity: quantity,
+                productName: productName,
+                productPrice: productPrice,
+            });
+
+            // Now, you need to perform the backend logic to update the database
+            // You may use AJAX to send a request to the server to update the database
+
+            // Example using Fetch API (you may need to adjust based on your backend implementation)
+            fetch('/ShoppingCart/add_to_cart.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    productId: productId,
+                    quantity: quantity,
+                }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Handle the response from the server
+                console.log('Server response:', data);
+
+                // Update the displayed total quantity dynamically
+                var totalQuantityContainer = document.getElementById('totalQuantityContainer');
+                if (totalQuantityContainer) {
+                    totalQuantityContainer.innerHTML = "<p id='user_id_style'>" +  sessionInfo.name + "'s Total Quantity in Cart: " + data.totalQuantity + "</p>";
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        }
+    }
+
+    // Function to update the cart summary at the bottom of the page
+    function updateCartSummary() {
+        // Update the cart summary at the bottom of the page
+        var cartSummaryElement = document.getElementById('cartSummary');
+        var totalQuantityElement = document.getElementById('totalQuantity');
+
+        if (cartSummaryElement && totalQuantityElement) {
+            // Display the total quantity, and move the "Go to Cart" button to the right
+            totalQuantityElement.innerHTML = "Total Quantity in Cart: " + totalCartQuantity;
+            cartSummaryElement.innerHTML = totalCartQuantity > 0
+                ? "<span id='totalQuantity'>Total Quantity in Cart: " + totalCartQuantity + "</span><button onclick='goToCartPage()' style='margin-left: auto;'>Go to Cart</button>"
+                : "<span id='totalQuantity'>Total Quantity in Cart: " + totalCartQuantity + "</span><button onclick='goToCartPage()' style='margin-left: auto; visibility: hidden;'>Go to Cart</button>";
+        }
+    }
+
+    // Use a global variable to track the view mode
+    var isGridView = true;
+
+    // Function to switch between grid and list view
+    function switchView() {
+        var lis = document.querySelectorAll('li');
+        lis.forEach(function (li) {
+            // Toggle between view modes
+            li.style.width = isGridView ? 'calc(50% - 30px)' : 'calc(25% - 30px)';
+        });
+
+        // Toggle the global variable
+        isGridView = !isGridView;
+    }
+</script>
 
 <ul>
     <?php 
@@ -314,112 +290,6 @@ session_start();
         // Add logic to redirect to the cart page
         window.location.href = '/ShoppingCart/cart.php';
     }
-    // Use a global variable to store the total quantity of products in the cart
-    var totalCartQuantity = parseInt(localStorage.getItem('totalCartQuantity')) || 0;
-
-    function updateCartSummary() {
-        // Update the cart summary at the bottom of the page
-        var cartSummaryElement = document.getElementById('cartSummary');
-        var totalQuantityElement = document.getElementById('totalQuantity');
-
-        if (cartSummaryElement && totalQuantityElement) {
-            // Display the total quantity, and move the "Go to Cart" button to the right
-            totalQuantityElement.innerHTML = "Total Quantity in Cart: " + totalCartQuantity;
-            cartSummaryElement.innerHTML = totalCartQuantity > 0
-                ? "<span id='totalQuantity'>Total Quantity in Cart: " + totalCartQuantity + "</span><button onclick='goToCartPage()' style='margin-left: auto;'>Go to Cart</button>"
-                : "<span id='totalQuantity'>Total Quantity in Cart: " + totalCartQuantity + "</span><button onclick='goToCartPage()' style='margin-left: auto; visibility: hidden;'>Go to Cart</button>";
-        }
-    }
-
-    // Use a global variable to track the view mode
-    var isGridView = true;
-
-    function switchView() {
-        var lis = document.querySelectorAll('li');
-        lis.forEach(function (li) {
-            // Toggle between view modes
-            li.style.width = isGridView ? 'calc(50% - 30px)' : 'calc(25% - 30px)';
-        });
-
-        // Toggle the global variable
-        isGridView = !isGridView;
-    }
-
-    // Use a global variable to store the total quantity of products in the cart
-    var totalCartQuantity = parseInt(localStorage.getItem('totalCartQuantity')) || 0;
-
-    function updateQuantity(productId, change) {
-        var quantityElement = document.getElementById('quantity_' + productId);
-        var currentQuantity = parseInt(quantityElement.innerHTML);
-        var newQuantity = currentQuantity + change;
-
-        // Ensure the quantity doesn't go below 0
-        newQuantity = Math.max(newQuantity, 0);
-
-        // Update the quantity in local storage
-        localStorage.setItem('quantity_' + productId, newQuantity);
-
-        quantityElement.innerHTML = newQuantity;
-    }
-
-    function addToCart(productId, productName, productPrice) {
-        var quantityElement = document.getElementById('quantity_' + productId);
-        var quantity = parseInt(quantityElement.innerHTML);
-
-        // Ensure the quantity is non-negative
-        quantity = Math.max(quantity, 0);
-
-        // User is logged in, proceed with adding to cart
-        if (quantity > 0) {
-            // Display an alert (you can replace this with your actual cart logic)
-            alert("Added " + quantity + " " + productName + " to the cart.");
-
-            // Update the totalCartQuantity variable
-            totalCartQuantity += quantity;
-            updateCartSummary();
-
-            // Log to console for debugging
-            console.log('Adding to cart:', {
-                productId: productId,
-                quantity: quantity,
-                productName: productName,
-                productPrice: productPrice,
-            });
-
-            // Now, you need to perform the backend logic to update the database
-            // You may use AJAX to send a request to the server to update the database
-
-            // Example using Fetch API (you may need to adjust based on your backend implementation)
-            fetch('/ShoppingCart/add_to_cart.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    productId: productId,
-                    quantity: quantity,
-                }),
-            })
-            .then(response => response.json())
-            .then(data => {
-                // Handle the response from the server
-                console.log('Server response:', data);
-
-                // Update the displayed total quantity dynamically
-                var totalQuantityContainer = document.getElementById('totalQuantityContainer');
-                if (totalQuantityContainer) {
-                    totalQuantityContainer.innerHTML = "<p id='user_id_style'>" +  $_SESSION['name'] + "'s Total Quantity in Cart: " + data.totalQuantity + "</p>";
-                }
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-            });
-        }
-    }
-
-
-
-
 </script>
 
 </body>
