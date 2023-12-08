@@ -24,7 +24,7 @@ if (empty($uname)) {
     exit();
 }
 
-$sql = "SELECT * FROM user WHERE name='$uname' AND password='$pass'";
+$sql = "SELECT * FROM User WHERE name='$uname' AND password='$pass'";
 
 $result = mysqli_query($conn, $sql);
 

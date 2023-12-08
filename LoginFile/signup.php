@@ -35,7 +35,7 @@ if (empty($uname)) {
     if ($resultCheck) {
         $row = mysqli_fetch_assoc($resultCheck);
         if ($row['count'] == 0) {
-            $query = "insert into user (name, password, email) values('$uname', '$pass', '$mail')";
+            $query = "insert into User (name, password, email) values('$uname', '$pass', '$mail')";
             mysqli_query($conn, $query);
             header("Location: loginpage.php");
             die;

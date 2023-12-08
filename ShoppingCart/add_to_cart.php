@@ -50,7 +50,7 @@ function getOrderIDFromShoppingCart($userId) {
     include '../config.php';
 
     // Assuming there's a 'status' column in the 'shopping_cart' table
-    $orderSql = "SELECT order_id FROM shopping_cart WHERE user_id = ?";
+    $orderSql = "SELECT order_id FROM Shopping_Cart WHERE user_id = ?";
     $stmt = $conn->prepare($orderSql);
 
     if ($stmt) {
