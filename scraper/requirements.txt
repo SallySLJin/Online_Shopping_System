@@ -1,0 +1,10 @@
+# Requirements for Python
+
+# MySQL Connector (https://dev.mysql.com/downloads/connector/python/)
+mysql-connector-python==8.0.27
+
+# Requests library for HTTP requests
+requests==2.26.0
+
+# Lxml library for processing XML and HTML
+lxml==4.6.3
