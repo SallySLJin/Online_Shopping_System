@@ -11,14 +11,18 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Simple E-commerce</title>
-
+   
     <!-- Include the external stylesheet -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <div class="header">
-    <h3>!Carrefour</h3>
+    <h3>Carrefour</h3>
+    <form action="search.php" method="get" class="search-form">
+        <input type="text" name="query" placeholder="Search...">
+        <button type="submit">Search</button>
+    </form>
     <?php
     if(isset($_SESSION['id']) && isset($_SESSION['name'])) {
         include 'config.php';
@@ -37,7 +41,7 @@ session_start();
 
             // Wrap the element in a container with a unique ID
             echo "<div id='totalQuantityContainer'>";
-            echo "<p id='user_id_style'>" .  $_SESSION['name'] . "'s Total Quantity in Cart (refresh page to update.): " . $orderRow['total_quantity'] . " </p>";
+            echo "<p id='user_id_style'>" .  $_SESSION['name'] . "'s Total Quantity in Cart: " . $orderRow['total_quantity'] . " ( Refresh page to update. )</p>";
             echo "</div>";
 
             $stmt->close();
@@ -88,12 +92,12 @@ session_start();
 </div>
 
 <form action="" method="get">
-    <input type="hidden" name="category" value="<?php echo isset($_GET['category']) ? htmlspecialchars($_GET['category']) : ''; ?>">
+
     <div id="sortOrderContainer">
         <label for="sortOrder">排序:</label>
         <select name="sortOrder" id="sortOrder">
-            <option value="name" <?php echo isset($_GET['sortOrder']) && $_GET['sortOrder'] === 'name' ? 'selected' : ''; ?>>品名</option>
-            <option value="price" <?php echo isset($_GET['sortOrder']) && $_GET['sortOrder'] === 'price' ? 'selected' : ''; ?>>價格</option>
+            <option value="name">品名</option>
+            <option value="price">價格</option>
         </select>
 
         <input type="submit" value="Apply Changes">
