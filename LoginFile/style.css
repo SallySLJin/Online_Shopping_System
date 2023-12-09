@@ -1,150 +1,77 @@
 body {
-
-    background: #ffffff;
-
-    display: flex;
-
-    justify-content: center;
-
-    align-items: center;
-
-    height: 100vh;
-
-    flex-direction: column;
-
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
 }
 
-*{
-
-    font-family: cursive;
-
-    box-sizing: padding-box;
-
+.header {
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    text-align: center;
 }
+
+.navigation {
+    margin-top: 10px;
+}
+
+.navigation a {
+    color: white;
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+.content {
+    padding: 20px;
+}
+
+.product {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.error-message {
+    background-color: #ffdddd; 
+    color: #8b0000; 
+    padding: 10px; 
+    border: 1px solid #f44336; 
+    margin-bottom: 10px;
+    margin: 0 auto;
+    width: 250px;
+  }
 
 form {
-
-    width: 300px;
-
-    border: 3px solid rgb(0, 0, 0);
-
-    padding: 20px;
-
-    background: rgb(220,220,220);
-
-    border-radius: 20px;
-
+  text-align: center;
+  margin-top: 50px;
 }
 
-h2 {
-
-    text-align: center;
-
-    margin-bottom: 40px;
-
+form h1 {
+  color: #333;
 }
 
-input {
-
-    display: block;
-
-    border: 2px solid #ccc;
-
-    width: 95%;
-
-    padding: 10px;
-
-    margin: 10px auto;
-
-    border-radius: 5px;
-
+form label {
+  font-size: 20px;
+  display: block;
+  margin-top: 10px;
 }
 
-label {
-
-    color: #000000;
-
-    font-size: 18px;
-
-    padding: 10px;
-
+form input {
+    font-size: 20px;
+  width: 200px;
+  margin-bottom: 10px;
 }
 
-button {
-
-    float: right;
-
-    font-size: 15px;
-
-    background: rgb(35, 174, 202);
-
-    padding: 15px 30px;
-
-    color: #fff;
-
-    border-radius: 5px;
-
-    margin-right: 10px;
-
-    border: none;
-
+form button {
+  padding: 10px;
+  background-color: #333;
+  color: white;
+  border: none;
+  cursor: pointer;
 }
 
-button:hover{
-
-    opacity: .10;
-
-}
-
-.error {
-
-   background: #F2DEDE;
-
-   color: #0c0101;
-
-   padding: 10px;
-
-   width: 95%;
-
-   border-radius: 5px;
-
-   margin: 20px auto;
-
-}
-
-h1 {
-
-    text-align: center;
-
-    color: rgb(134, 3, 3);
-
-}
-
-a {
-    position: fixed;
-
-    bottom: 20px;
-
-    right: 20px;
-
-    background: rgb(4, 32, 214);
-
-    padding: 10px 15px;
-
-    color: #fff;
-
-    border-radius: 10px;
-
-    margin-right: 10px;
-
-    border: none;
-
-    text-decoration: none;
-
-}
-
-a:hover{
-
-    opacity: .7;
-
+form a {
+  display: block;
+  margin-top: 10px;
+  color: #007bff;
 }

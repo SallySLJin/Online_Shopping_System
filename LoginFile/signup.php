@@ -16,19 +16,23 @@ $uname = validate($_POST['uname']);
 $pass = validate($_POST['password']);
 $mail = validate($_POST['email']);
 
-if (empty($uname)) {
-    header("Location: signuppage.php?error=請輸入使用者名稱");
+if(empty($uname)){
+    header("Location: signuppage.php?error=" . urlencode("請輸入使用者名稱！"));
     exit();
-} else if (empty($pass)) {
-    header("Location: signuppage.php?error=請輸入密碼");
+}
+else if(empty($pass)){
+    header ("Location: signuppage.php?error=" . urlencode("請輸入密碼！"));
     exit();
-} else if (is_numeric($uname)) {
-    header("Location: signuppage.php?error=請輸入含有英文字母的名稱");
+}
+else if(is_numeric($uname)){
+    header ("Location: signuppage.php?error=" . urlencode("請輸入含有英文字母的名稱！"));
     exit();
-} else if (empty($mail)) {
-    header("Location: signuppage.php?error=請輸入電子信箱");
+}
+else if (empty($mail)) {
+    header("Location: signuppage.php?error=" . urlencode("請輸入電子信箱！"));
     exit();
-} else {
+}
+else{
     $queryCheck = "SELECT COUNT(*) as count FROM `User` WHERE `name` = '$uname'";
     $resultCheck = mysqli_query($conn, $queryCheck);
 
