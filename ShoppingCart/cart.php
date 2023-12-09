@@ -42,6 +42,7 @@ if (isset($_SESSION['id'])) {
                 echo "<td>" . $orderItemRow['Name'] . "</td>";
                 echo "<td>" . $orderItemRow['quantity'] . "</td>";
                 echo "<td>$" . $orderItemRow['Price'] . "</td>";
+                echo "<td><button onclick='deleteItem(\"{$orderItemRow['order_id']}\", \"{$orderItemRow['product_id']}\")'>Delete</button></td>";
                 echo "</tr>";
             }
         } else {
@@ -77,5 +78,33 @@ if (isset($_SESSION['id'])) {
 function checkout() {
     // Redirect to the checkout page
     window.location.href = "checkout.php";
+}
+
+function deleteItem(orderId, productId) {
+    // Implement logic to delete the item from the cart
+    // You may use AJAX to send a request to the server to delete the item
+
+    // Example using Fetch API (you may need to adjust based on your backend implementation)
+    fetch('delete_from_cart.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            orderId: orderId,
+            productId: productId,
+        }),
+    })
+    .then(response => response.json())
+    .then(data => {
+        // Handle the response from the server
+        console.log('Item deleted from cart:', data);
+
+        // Reload the page to reflect the changes
+        location.reload();
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
 }
 </script>
