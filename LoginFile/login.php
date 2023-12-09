@@ -17,10 +17,10 @@ $uname = validate($_POST['uname']);
 $pass = validate($_POST['password']);
 
 if (empty($uname)) {
-    header("Location: loginpage.php?error=User Name is required");
+    header ("Location: loginpage.php?error=" . urlencode("請輸入使用者名稱！"));
     exit();
 } else if (empty($pass)) {
-    header("Location: loginpage.php?error=Password is required");
+    header ("Location: loginpage.php?error=" . urlencode("請輸入密碼！"));
     exit();
 }
 
@@ -31,7 +31,7 @@ $result = mysqli_query($conn, $sql);
 if (mysqli_num_rows($result) === 1) {
     $row = mysqli_fetch_assoc($result);
     if ($row['name'] === $uname && $row['password'] === $pass) {
-        echo "Logged in!";
+        echo "登入成功！";
         $_SESSION['name'] = $row['name'];
         $_SESSION['name'] = $row['name'];
         $_SESSION['id'] = $row['id'];
@@ -55,7 +55,7 @@ if (mysqli_num_rows($result) === 1) {
         header("Location: ../index.php");
         exit();
     } else {
-        header("Location: loginpage.php?error=Incorrect User Name or Password");
+        header("Location: loginpage.php?error=" . urlencode("錯誤的使用者名稱或密碼！"));
         exit();
     }
 } else {
