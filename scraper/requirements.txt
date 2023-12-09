@@ -1,10 +1,10 @@
-# requirements for python
+# Requirements for Python
 
-# https://dev.mysql.com/downloads/connector/python/
-mysql-connector-python==8.2.0
+# MySQL Connector (https://dev.mysql.com/downloads/connector/python/)
+mysql-connector-python==8.0.27
 
-# sudo apt-get install python3-requests
-requests==2.30.0
+# Requests library for HTTP requests
+requests==2.26.0
 
-# sudo apt-get install python3-lxml
-lxml==4.9.3
+# Lxml library for processing XML and HTML
+lxml==4.6.3

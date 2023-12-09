@@ -13,21 +13,49 @@ session_start();
 <body>
 
 <div class="header">
-    <h1>Simple E-commerce</h1>
+    <h3>!Carrefour</h3>
     <?php
-    if(isset($_SESSION['id']) && isset($_SESSION['user_name'])) {
-    ?>
-        <p id = user_id_style>使用者:<?php echo $_SESSION['user_name']; ?></p>
-    <?php
-    }
-    else{
+    if(isset($_SESSION['id']) && isset($_SESSION['name'])) {
+        include 'config.php';
+
+        $userId = $_SESSION['id'];
+
+        // Display total quantity from the Order table
+        $orderSql = "SELECT * FROM `Order` WHERE user_id = ? AND status = 'In Cart'";
+        $stmt = $conn->prepare($orderSql);
+
+        if ($stmt) {
+            $stmt->bind_param('i', $userId);
+            $stmt->execute();
+            $orderResult = $stmt->get_result();
+            $orderRow = $orderResult->fetch_assoc();
+
+            // Wrap the element in a container with a unique ID
+            echo "<div id='totalQuantityContainer'>";
+            echo "<p id='user_id_style'>" .  $_SESSION['name'] . "'s Total Quantity in Cart: " . $orderRow['total_quantity'] . " ( Refresh page to update. )</p>";
+            echo "</div>";
+
+            $stmt->close();
+        } else {
+            echo "Error preparing statement";
+        }
         ?>
-        <p id = user_id_style>目前未登入</p>
+
+        <!-- Cart summary at the bottom of the screen -->
+        <div id="cartSummary">
+            <!-- <span id="totalQuantity">Total Quantity in Cart: 0</span> -->
+            <button onclick="redirectToCart()" style="margin-left: auto;">Go to Cart</button>
+        </div>
+    <?php
+    } else {
+        ?>
+        <p id="user_id_style">目前未登入</p>
     <?php
     }
     ?>
     
     <div class="navigation">
+        <a href="index.php">所有商品</a>
         <a href="?category=生鮮冷凍">生鮮冷凍</a>
         <a href="?category=飲料零食">飲料零食</a>
         <a href="?category=米油沖泡">米油沖泡</a>
@@ -40,30 +68,60 @@ session_start();
         <a href="?category=傢俱寢飾">傢俱寢飾</a>
         <a href="?category=服飾鞋包">服飾鞋包</a>
         <?php
-        if(isset($_SESSION['id']) && isset($_SESSION['user_name'])) {
+        if(isset($_SESSION['id']) && isset($_SESSION['name'])) {
         ?>
-            <a href="/LoginFile/logout.php">Logout</a>
+            <a href="/LoginFile/logout.php">登出</a>
         <?php
-        }
-        else{
+        } else {
             ?>
-            <a href="/LoginFile/signuppage.php">Sign Up</a>
-            <a href="/LoginFile/loginpage.php">Login</a>
+            <a href="/LoginFile/signuppage.php">註冊</a>
+            <a href="/LoginFile/loginpage.php">登入</a>
         <?php
         }
         ?>
-        
     </div>
-</div>
-
-<!-- Cart summary at the bottom of the screen -->
-<div id="cartSummary">
-    <span id="totalQuantity">Total Quantity in Cart: 0</span>
-    <button onclick="goToCartPage()" style="margin-left: auto;">Go to Cart</button>
 </div>
 
 <form action="" method="get">
     <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .navigation {
+            font-size: 18px;
+            margin-top: 10px;
+        }
+
+        .navigation a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        .content {
+            padding: 20px;
+        }
+
+        .product {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -76,7 +134,14 @@ session_start();
             color: #333;
         }
 
+        h3 {
+            text-align: left;
+            color: #666;
+            line-height: 10%; /* Adjust the line height as needed */
+        }
+
         ul {
+            margin-top: 150px;
             list-style-type: none;
             padding: 0;
             display: flex;
@@ -131,24 +196,21 @@ session_start();
         }
 
         #user_id_style{
+                position: fixed; /* or absolute, depending on your layout needs */
+                top: 5%;
+                left: 20%; /* optional, adjust as needed */
+                text-align: center;
                 color: white;
                 text-decoration: none;
                 margin: 0 10px;
         }
 
         /* Cart summary styles */
-        #cartSummary {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background-color: #333;
-            color: #fff;
-            padding: 10px;
-            text-align: center;
-        }
-
         #cartSummary button {
+            position: fixed;
+            left: 75%;
+            top:5%;
+
             padding: 5px;
             font-size: 14px;
             background-color: #fff;
@@ -161,24 +223,37 @@ session_start();
             background-color: #ddd;
         }
         
+        #sortOrderContainer {
+            position: fixed;
+            top: 20%;
+            left: 10px; /* Adjust the left position as needed */
+            z-index: 999; /* Set a high z-index to ensure it's above other content */
+        }
+        
     </style>
 
-    <label for="sortOrder">排序:</label>
-    <select name="sortOrder" id="sortOrder">
-        <option value="name">品名</option>
-        <option value="price">價格</option>
-    </select>
+    <div id="sortOrderContainer">
+        <label for="sortOrder">排序:</label>
+        <select name="sortOrder" id="sortOrder">
+            <option value="name">品名</option>
+            <option value="price">價格</option>
+        </select>
 
-    <input type="submit" value="Apply Changes">
+        <input type="submit" value="Apply Changes">
+        <!-- Add a button to switch between two display modes -->
+        <button type="button" id="switchViewButton" onclick="switchView()">Switch View</button>
+    </div>
 
-    <!-- Add a button to switch between two display modes -->
-    <button type="button" id="switchViewButton" onclick="switchView()">Switch View</button>
 </form>
 
 <ul>
     <?php 
         // Create connection
         include 'config.php';
+        // Retrieve products from the database with pagination
+        $productsPerPage = 24;
+        $currentPage = isset($_GET['page']) ? intval($_GET['page']) : 1;
+        $offset = ($currentPage - 1) * $productsPerPage;
 
         // Retrieve products from the database
         $productsPerRow = isset($_GET['productsPerRow']) ? intval($_GET['productsPerRow']) : 4;
@@ -214,9 +289,9 @@ session_start();
                 // Quantity controls and Add to Cart button
                 echo "<div>";
                 echo "<button onclick='updateQuantity(\"$row[ID]\", -1)'>-</button>";
-                echo "<span id='quantity_$row[ID]'>0</span>";
+                echo "<span id='quantity_$row[ID]'>" . getQuantityFromLocalStorage($row['ID']) . "</span>";
                 echo "<button onclick='updateQuantity(\"$row[ID]\", 1)'>+</button>";
-                echo "<button onclick='addToCart(\"$row[ID]\", \"$row[Name]\", $row[Price])'>Add to Cart</button>";
+                echo "<button onclick='addToCart(\"$row[ID]\", \"$row[Name]\", $row[Price])' id='addToCartButton_$row[ID]'>Add to Cart</button>";
                 echo "</div>";
 
                 echo "</li>";
@@ -224,14 +299,23 @@ session_start();
         } else {
             echo "No products available.";
         }
+
+        function getQuantityFromLocalStorage($productId) {
+            // Return 0 for now, as local storage is managed on the client-side
+            return 0;
+        }
         
         $conn->close();
     ?>
 </ul>
 
 <script>
+    function redirectToCart() {
+        // Add logic to redirect to the cart page
+        window.location.href = '/ShoppingCart/cart.php';
+    }
     // Use a global variable to store the total quantity of products in the cart
-    var totalCartQuantity = 0;
+    var totalCartQuantity = parseInt(localStorage.getItem('totalCartQuantity')) || 0;
 
     function updateCartSummary() {
         // Update the cart summary at the bottom of the page
@@ -261,6 +345,9 @@ session_start();
         isGridView = !isGridView;
     }
 
+    // Use a global variable to store the total quantity of products in the cart
+    var totalCartQuantity = parseInt(localStorage.getItem('totalCartQuantity')) || 0;
+
     function updateQuantity(productId, change) {
         var quantityElement = document.getElementById('quantity_' + productId);
         var currentQuantity = parseInt(quantityElement.innerHTML);
@@ -268,6 +355,9 @@ session_start();
 
         // Ensure the quantity doesn't go below 0
         newQuantity = Math.max(newQuantity, 0);
+
+        // Update the quantity in local storage
+        localStorage.setItem('quantity_' + productId, newQuantity);
 
         quantityElement.innerHTML = newQuantity;
     }
@@ -279,15 +369,57 @@ session_start();
         // Ensure the quantity is non-negative
         quantity = Math.max(quantity, 0);
 
+        // User is logged in, proceed with adding to cart
         if (quantity > 0) {
             // Display an alert (you can replace this with your actual cart logic)
-            alert("Added " + quantity + " " + productName + " to the cart. Total Price: $" + (quantity * productPrice));
+            alert("Added " + quantity + " " + productName + " to the cart.");
 
             // Update the totalCartQuantity variable
             totalCartQuantity += quantity;
             updateCartSummary();
+
+            // Log to console for debugging
+            console.log('Adding to cart:', {
+                productId: productId,
+                quantity: quantity,
+                productName: productName,
+                productPrice: productPrice,
+            });
+
+            // Now, you need to perform the backend logic to update the database
+            // You may use AJAX to send a request to the server to update the database
+
+            // Example using Fetch API (you may need to adjust based on your backend implementation)
+            fetch('/ShoppingCart/add_to_cart.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    productId: productId,
+                    quantity: quantity,
+                }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Handle the response from the server
+                console.log('Server response:', data);
+
+                // Update the displayed total quantity dynamically
+                var totalQuantityContainer = document.getElementById('totalQuantityContainer');
+                if (totalQuantityContainer) {
+                    totalQuantityContainer.innerHTML = "<p id='user_id_style'>" +  $_SESSION['name'] + "'s Total Quantity in Cart: " + data.totalQuantity + "</p>";
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
         }
     }
+
+
+
+
 </script>
 
 </body>

@@ -42,6 +42,8 @@ session_start();
         <input type="text" name="uname" placeholder="User Name"><br>
         <label>請設定密碼</label>
         <input type="password" name="password" placeholder="Password"><br>
+        <label>請設定電子信箱</label>
+        <input type="text" name="email" placeholder="Email"><br>
 
         <button type="submit">註冊</button>
 
