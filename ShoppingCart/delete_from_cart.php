@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Check if the item was successfully deleted
         if ($deleteItemResult) {
             // Update the total quantity and amount in the Order table
-            $updateOrderSql = "UPDATE `Order` SET total_quantity = (SELECT SUM(quantity) FROM Order_Item WHERE order_id = $orderId), total_amount = (SELECT SUM(quantity * price) FROM Order_Item JOIN Product ON Order_Item.product_id = Product.ID WHERE Order_Item.order_id = $orderId)";
+            $updateOrderSql = "UPDATE `Order` SET total_quantity = (SELECT SUM(quantity) FROM Order_Item WHERE order_id = $orderId), total_amount = (SELECT SUM(quantity * price) FROM Order_Item JOIN Product ON Order_Item.product_id = Product.ID WHERE order_id = $orderId) WHERE id = $orderId";
             $updateOrderResult = $conn->query($updateOrderSql);
 
             if ($updateOrderResult) {

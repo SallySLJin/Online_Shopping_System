@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->close();
 
     // Calculate total_quantity and total_amount
-    $updateOrderSql = "UPDATE `Order` SET total_quantity = (SELECT SUM(quantity) FROM Order_Item WHERE order_id = ?), total_amount = (SELECT SUM(quantity * price) FROM Order_Item JOIN Product ON Order_Item.product_id = Product.ID WHERE order_id = ?) WHERE ID = ?";
+    $updateOrderSql = "UPDATE `Order` SET total_quantity = (SELECT SUM(quantity) FROM Order_Item WHERE order_id = ?), total_amount = (SELECT SUM(quantity * price) FROM Order_Item JOIN Product ON Order_Item.product_id = Product.ID WHERE order_id = ?) WHERE id = ?";
     $stmt = $conn->prepare($updateOrderSql);
     $stmt->bind_param('iii', $orderId, $orderId, $orderId);
     $stmt->execute();
