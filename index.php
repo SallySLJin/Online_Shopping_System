@@ -10,7 +10,7 @@ session_start();
     <!-- Add a meta tag for better mobile responsiveness -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Simple E-commerce</title>
+    <title>資料庫專題 - 網購系統</title>
 
     <!-- Include the external stylesheet -->
     <link rel="stylesheet" href="style.css">
@@ -37,7 +37,7 @@ session_start();
 
             // Wrap the element in a container with a unique ID
             echo "<div id='totalQuantityContainer'>";
-            echo "<p id='user_id_style'>" .  $_SESSION['name'] . "'s Total Quantity in Cart (refresh page to update.): " . $orderRow['total_quantity'] . " </p>";
+            echo "<p id='user_id_style'>" .  $_SESSION['name'] . " ( " . $orderRow['total_quantity'] . " ) </p>";
             echo "</div>";
 
             $stmt->close();
@@ -49,7 +49,7 @@ session_start();
         <!-- Cart summary at the bottom of the screen -->
         <div id="cartSummary">
             <!-- <span id="totalQuantity">Total Quantity in Cart: 0</span> -->
-            <button onclick="redirectToCart()" style="margin-left: auto;">Go to Cart</button>
+            <button onclick="redirectToCart()" style="margin-left: auto;">前往購物車</button>
         </div>
     <?php
     } else {
@@ -90,15 +90,18 @@ session_start();
 <form action="" method="get">
     <input type="hidden" name="category" value="<?php echo isset($_GET['category']) ? htmlspecialchars($_GET['category']) : ''; ?>">
     <div id="sortOrderContainer">
-        <label for="sortOrder">排序:</label>
+        <?php if (isset($_GET['category'])): ?>
+        <label for="sortOrder">按照:</label>
         <select name="sortOrder" id="sortOrder">
             <option value="name" <?php echo isset($_GET['sortOrder']) && $_GET['sortOrder'] === 'name' ? 'selected' : ''; ?>>品名</option>
             <option value="price" <?php echo isset($_GET['sortOrder']) && $_GET['sortOrder'] === 'price' ? 'selected' : ''; ?>>價格</option>
         </select>
 
-        <input type="submit" value="Apply Changes">
+        <input type="submit" value="排序">
+        <?php endif; ?>
+
         <!-- Add a button to switch between two display modes -->
-        <button type="button" id="switchViewButton" onclick="switchView()">Switch View</button>
+        <button type="button" id="switchViewButton" onclick="switchView()">切換模式</button>
     </div>
 
 </form>
@@ -146,7 +149,7 @@ session_start();
         // User is logged in, proceed with adding to cart
         if (quantity > 0) {
             // Display an alert (you can replace this with your actual cart logic)
-            alert("Added " + quantity + " " + productName + " to the cart.");
+            alert("放入購物車 " + quantity + " 件 " + productName + " ");
 
             // Update the totalCartQuantity variable
             totalCartQuantity += quantity;
@@ -182,7 +185,8 @@ session_start();
                 // Update the displayed total quantity dynamically
                 var totalQuantityContainer = document.getElementById('totalQuantityContainer');
                 if (totalQuantityContainer) {
-                    totalQuantityContainer.innerHTML = "<p id='user_id_style'>" +  sessionInfo.name + "'s Total Quantity in Cart: " + data.totalQuantity + "</p>";
+                    totalQuantityContainer.innerHTML = "<p id='user_id_style'>" +  sessionInfo.name + " </p>";
+                // totalQuantityContainer.innerHTML = "<p id='user_id_style'>" +  sessionInfo.name + " ( " + data.totalQuantity + " ) </p>";
                 }
             })
             .catch((error) => {
@@ -246,6 +250,14 @@ session_start();
         $sql .= " ORDER BY $sortOrder";
         $result = $conn->query($sql);
 
+        // Calculate total number of pages
+        $totalProducts = $result->num_rows;
+        $totalPages = ceil($totalProducts / $productsPerPage);
+
+        // Adjust the SQL query to include pagination
+        $sql .= " LIMIT $productsPerPage OFFSET $offset";
+        $result = $conn->query($sql);
+
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
                 echo "<li style='width: calc(" . (100 / $productsPerRow) . "% - 30px);'>";
@@ -267,7 +279,7 @@ session_start();
                 echo "<button onclick='updateQuantity(\"$row[ID]\", -1)'>-</button>";
                 echo "<span id='quantity_$row[ID]'>" . getQuantityFromLocalStorage($row['ID']) . "</span>";
                 echo "<button onclick='updateQuantity(\"$row[ID]\", 1)'>+</button>";
-                echo "<button onclick='addToCart(\"$row[ID]\", \"$row[Name]\", $row[Price])' id='addToCartButton_$row[ID]'>Add to Cart</button>";
+                echo "<button onclick='addToCart(\"$row[ID]\", \"$row[Name]\", $row[Price])' id='addToCartButton_$row[ID]'>放入購物車</button>";
                 echo "</div>";
 
                 echo "</li>";
@@ -284,6 +296,16 @@ session_start();
         $conn->close();
     ?>
 </ul>
+
+<!-- Add pagination links -->
+<div id="paginationContainer">
+    <span>第 <?php echo $currentPage; ?> 頁／共 <?php echo $totalPages; ?> 頁數</span>
+    <?php if ($totalPages > 1): ?>
+        <?php for ($page = 1; $page <= $totalPages; $page++): ?>
+            <a href="?page=<?php echo $page; ?><?php echo isset($_GET['category']) ? '&category=' . $_GET['category'] : ''; ?>&sortOrder=<?php echo isset($_GET['sortOrder']) ? $_GET['sortOrder'] : ''; ?>&productsPerRow=<?php echo isset($_GET['productsPerRow']) ? $_GET['productsPerRow'] : 4; ?>"><?php echo $page; ?></a>
+        <?php endfor; ?>
+    <?php endif; ?>
+</div>
 
 <script>
     function redirectToCart() {

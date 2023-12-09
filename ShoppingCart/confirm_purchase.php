@@ -17,19 +17,19 @@ if (!isset($_SESSION['id']) || !isset($_SESSION['name'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Order Confirmation</title>
-    <link rel="stylesheet" href="../style.css">
+    <title>訂購確認</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <div class="header">
-    <h3>Order Confirmation</h3>
+    <h3>訂購確認</h3>
 </div>
 
 <div class="content">
-    <p>Hello, <?php echo $_SESSION['name']; ?>!</p>
+    <p>您好， <?php echo $_SESSION['name']; ?>!</p>
     
-    <p>Thank you for your order. Your order details are as follows:</p>
+    <p>感謝您訂購我們的產品。</p>
 
     <!-- Display order details 
     <ul>
@@ -38,13 +38,13 @@ if (!isset($_SESSION['id']) || !isset($_SESSION['name'])) {
     </ul>
     -->
 
-    <p>Your order will be processed and shipped soon. If you have any questions, please contact our support team.</p>
+    <p>我們將即刻開始處理您的訂單。如果您有任何需要，請和我們的團隊聯絡。</p>
 
-    <a href="historical_purchases.php">View historical purchases.</a>
+    <a href="historical_purchases.php">檢視歷史清單</a>
 
-    <p>Thank you for shopping with us!</p>
+    <p>再次感謝您的青睞！</p>
 
-    <a href="../index.php">Continue Shopping</a>
+    <a href="../index.php">回到首頁</a>
 </div>
 
 </body>

@@ -21,9 +21,9 @@ if (isset($_GET['order_id'])) {
 
         // Display order details
         if ($orderDetailsResult->num_rows > 0) {
-            echo "<h3>Order Details</h3>";
+            echo "<h3>訂單細項</h3>";
             echo "<table border='1'>";
-            echo "<tr><th>Name</th><th>Quantity</th><th>Price</th></tr>";
+            echo "<tr><th>產品</th><th>數量</th><th>價格</th></tr>";
             while ($orderDetailsRow = $orderDetailsResult->fetch_assoc()) {
                 echo "<tr>";
                 echo "<td>" . $orderDetailsRow['Name'] . "</td>";
@@ -39,8 +39,8 @@ if (isset($_GET['order_id'])) {
             $orderResult = $conn->query($orderSql);
             $orderRow = $orderResult->fetch_assoc();
     
-            echo "<p>Total Quantity: " . $orderRow['total_quantity'] . "</p>";
-            echo "<p>Total Amount: $" . $orderRow['total_amount'] . "</p>";
+            echo "<p>結帳產品: " . $orderRow['total_quantity'] . " 件</p>";
+            echo "<p>結帳總金額: $" . $orderRow['total_amount'] . "</p>";
         } else {
             echo "No details found for the selected order.";
         }

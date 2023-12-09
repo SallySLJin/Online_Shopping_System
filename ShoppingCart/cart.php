@@ -1,7 +1,14 @@
 <?php
 session_start();
 include '../config.php';
+?>
 
+<head>
+    <title>購物車 - 資料庫專題-網購系統</title>
+    <link rel="stylesheet" href="cart_style.css">
+</head>
+
+<?php
 if (isset($_SESSION['id'])) {
     // Retrieve user's cart data
     $userId = $_SESSION['id'];
@@ -16,10 +23,10 @@ if (isset($_SESSION['id'])) {
         $userResult = $conn->query($userSql);
         $userRow = $userResult->fetch_assoc();
 
-        echo "<h2>Cart for User: " . $userRow['name'] . "</h2>";
+        echo "<h2>" . $userRow['name'] . "的購物車</h2>";
 
         echo "<table border='1'>";
-        echo "<tr><th>Product Name</th><th>Quantity</th><th>Price</th></tr>";
+        echo "<tr><th>產品</th><th>數量</th><th>價格</th></tr>";
                 
         // Get product details from the Order_Item table
         $orderItemSql = "SELECT OI.*, P.Name, P.Price 
@@ -42,11 +49,11 @@ if (isset($_SESSION['id'])) {
                 echo "<td>" . $orderItemRow['Name'] . "</td>";
                 echo "<td>" . $orderItemRow['quantity'] . "</td>";
                 echo "<td>$" . $orderItemRow['Price'] . "</td>";
-                echo "<td><button onclick='deleteItem(\"{$orderItemRow['order_id']}\", \"{$orderItemRow['product_id']}\")'>Delete</button></td>";
+                echo "<td><button onclick='deleteItem(\"{$orderItemRow['order_id']}\", \"{$orderItemRow['product_id']}\")'>刪除</button></td>";
                 echo "</tr>";
             }
         } else {
-            echo "<p>No items in the cart.</p>";
+            echo "<p>購物車現在空無一物，快來繼續逛吧～</p>";
         }
 
         echo "</table>";
@@ -56,13 +63,13 @@ if (isset($_SESSION['id'])) {
         $orderResult = $conn->query($orderSql);
         $orderRow = $orderResult->fetch_assoc();
 
-        echo "<p>Total Quantity in Cart: " . $orderRow['total_quantity'] . "</p>";
-        echo "<p>Total Amount: $" . $orderRow['total_amount'] . "</p>";
+        echo "<p>結帳產品: " . $orderRow['total_quantity'] . " 件</p>";
+        echo "<p>結帳總金額: $" . $orderRow['total_amount'] . "</p>";
         // Add the checkout button
-        echo "<button onclick='checkout()'>Checkout</button>";
+        echo "<button onclick='checkout()'>結帳</button>";
         ?>
-        <a href="../index.php">Continue Shopping</a>
-        <a href="historical_purchases.php">View historical purchases.</a>
+        <a href="../index.php">回到首頁</a>
+        <a href="historical_purchases.php">歷史清單</a>
         <?php
 
     } 

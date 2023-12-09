@@ -1,6 +1,14 @@
 <?php
 session_start();
 
+?>
+
+<head>
+    <title>歷史清單 - 資料庫專題-網購系統</title>
+    <link rel="stylesheet" href="historical_purchase_style.css">
+</head>
+
+<?php
 // Check if the user is logged in
 if (!isset($_SESSION['id']) || !isset($_SESSION['name'])) {
     header('Location: /LoginFile/loginpage.php');
@@ -23,27 +31,27 @@ if ($stmt) {
 
     // Display historical orders
     if ($historicalOrdersResult->num_rows > 0) {
-        echo "<h2>Historical Purchases</h2>";
+        echo "<h2>歷史訂購清單</h2>";
         ?>
-        <a href="../index.php">Continue Shopping</a>
+        <a href="../index.php">回到首頁</a>
         <?php
         echo "<ul>";
         while ($historicalOrderRow = $historicalOrdersResult->fetch_assoc()) {
             echo "<li>";
-            echo "<strong>Order ID:</strong> " . $historicalOrderRow['order_id'] . "<br>";
-            echo "<strong>Date:</strong> " . $historicalOrderRow['date'] . "<br>";
+            echo "<strong>訂單 ID:</strong> " . $historicalOrderRow['order_id'] . "<br>";
+            echo "<strong>訂購日期:</strong> " . $historicalOrderRow['date'] . "<br>";
             
             // Add a span to display order details dynamically
             echo "<span id='orderDetails_" . $historicalOrderRow['order_id'] . "'></span>";
             
             // Add a button to trigger fetching and displaying order details
-            echo "<button onclick='showOrderDetails(" . $historicalOrderRow['order_id'] . ")'>View Details</button>";
+            echo "<button onclick='showOrderDetails(" . $historicalOrderRow['order_id'] . ")'>查看細項</button>";
             
             echo "</li>";
         }
         echo "</ul>";
     } else {
-        echo "No historical purchases found.";
+        echo "無歷史紀錄";
     }
 
     $conn->close();
