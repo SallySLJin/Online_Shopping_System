@@ -1,7 +1,5 @@
 import mysql.connector
-# import csv
 
-# Replace these with your actual database connection details
 host = "localhost"
 user = "phpmyadmin"
 password = "15"
