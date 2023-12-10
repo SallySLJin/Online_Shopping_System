@@ -17,13 +17,13 @@ if (!isset($_SESSION['id']) || !isset($_SESSION['name'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>訂購確認</title>
-    <link rel="stylesheet" href="style.css">
+    <title>訂購確認 - 資料庫專題-網購系統</title>
+    <link rel="stylesheet" type="text/css" href="cart_style.css">
 </head>
 <body>
 
 <div class="header">
-    <h3>訂購確認</h3>
+    <h1>已收到您的訂單！</h1>
 </div>
 
 <div class="content">
@@ -40,11 +40,13 @@ if (!isset($_SESSION['id']) || !isset($_SESSION['name'])) {
 
     <p>我們將即刻開始處理您的訂單。如果您有任何需要，請和我們的團隊聯絡。</p>
 
-    <a href="historical_purchases.php">檢視歷史清單</a>
+    <button class="others" onclick="window.location.href='historical_purchases.php'">檢視歷史清單</button>
 
-    <p>再次感謝您的青睞！</p>
 
-    <a href="../index.php">回到首頁</a>
+    <p>再次感謝您的青睞！期待您再度光臨！</p>
+
+    <button class="others" onclick="window.location.href='../index.php'">回到首頁</button>
+
 </div>
 
 </body>
