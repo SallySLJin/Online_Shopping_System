@@ -5,7 +5,7 @@ session_start();
 
 <head>
     <title>歷史清單 - 資料庫專題-網購系統</title>
-    <link rel="stylesheet" href="historical_purchase_style.css">
+    <link rel="stylesheet" type="text/css" href="cart_style.css">
 </head>
 
 <?php
@@ -31,21 +31,25 @@ if ($stmt) {
 
     // Display historical orders
     if ($historicalOrdersResult->num_rows > 0) {
-        echo "<h2>歷史訂購清單</h2>";
         ?>
-        <a href="../index.php">回到首頁</a>
+        <div class="header">
+            <h1><?php echo "歷史訂購清單"?></h1>
+        </div>
+        <?php
+        
+        ?>
+        <button class="others" onclick="window.location.href='../index.php'">回到首頁</button>
         <?php
         echo "<ul>";
         while ($historicalOrderRow = $historicalOrdersResult->fetch_assoc()) {
             echo "<li>";
-            echo "<strong>訂單 ID:</strong> " . $historicalOrderRow['order_id'] . "<br>";
-            echo "<strong>訂購日期:</strong> " . $historicalOrderRow['date'] . "<br>";
+            echo "<p style='text-align: center;'>訂單ID編號：" . $historicalOrderRow['order_id'] . "</p>";
+            echo "<p style='text-align: center;'>訂購日期：" . $historicalOrderRow['date'] . "</p>";
             
             // Add a span to display order details dynamically
             echo "<span id='orderDetails_" . $historicalOrderRow['order_id'] . "'></span>";
-            
             // Add a button to trigger fetching and displaying order details
-            echo "<button onclick='showOrderDetails(" . $historicalOrderRow['order_id'] . ")'>查看細項</button>";
+            echo '<button class="detail" onclick="showOrderDetails(' . $historicalOrderRow['order_id'] . ')">查看細項</button>';
             
             echo "</li>";
         }
@@ -56,7 +60,7 @@ if ($stmt) {
 
     $conn->close();
 } else {
-    echo "Error preparing historical orders statement";
+    echo "發生錯誤！";
 }
 ?>
 

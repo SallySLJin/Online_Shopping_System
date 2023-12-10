@@ -58,6 +58,14 @@ button {
     margin: 0 auto;
 }
 
+.detail {
+    background-color: #45a049;
+    padding: 8px 16px;
+    font-size: 20px;
+    display: block;
+    margin: 0 auto;
+}
+
 .button-container {
     text-align: center; /* 讓內容置中 */
 }
@@ -110,4 +118,20 @@ p {
         padding: 8px;
         font-size: 20px;
     }
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    border: 1px solid #ddd;
+    margin: 10px 0;
+    padding: 10px;
+    background-color: #fff;
+}
+
+strong {
+    color: #333;
 }
