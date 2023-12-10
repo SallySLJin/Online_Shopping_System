@@ -74,6 +74,7 @@ if (isset($_SESSION['id'])) {
         echo "<p style='text-align: center;'>結帳總金額：$" . $orderRow['total_amount'] . "</p>";
 
         echo "<p style='text-align: center;'>配送地址：" . $userRow['address'] . "</p>";
+        echo "<p style='text-align: center;'>（本店一律採用貨到付款）</p>";
 
         // Add the checkout button
         if ($orderItemResult->num_rows > 0){
