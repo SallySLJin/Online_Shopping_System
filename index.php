@@ -37,7 +37,7 @@ session_start();
 
             // Wrap the element in a container with a unique ID
             echo "<div id='totalQuantityContainer'>";
-            echo "<p id='user_id_style'>" .  $_SESSION['name'] . " ( " . $orderRow['total_quantity'] . " ) </p>";
+            echo "<p id='user_id_style' style='top:4%;'>" .  $_SESSION['name'] . " ( " . $orderRow['total_quantity'] . " ) </p>";
             echo "</div>";
 
             $stmt->close();
@@ -49,7 +49,7 @@ session_start();
         <!-- Cart summary at the bottom of the screen -->
         <div id="cartSummary">
             <!-- <span id="totalQuantity">Total Quantity in Cart: 0</span> -->
-            <button onclick="redirectToCart()" style="margin-left: auto;">前往購物車</button>
+            <button onclick="redirectToCart()" style="margin-left: auto;top:3%;">前往購物車</button>
         </div>
     <?php
     } else {
@@ -185,7 +185,7 @@ session_start();
                 // Update the displayed total quantity dynamically
                 var totalQuantityContainer = document.getElementById('totalQuantityContainer');
                 if (totalQuantityContainer) {
-                    totalQuantityContainer.innerHTML = "<p id='user_id_style'>" +  sessionInfo.name + " </p>";
+                    totalQuantityContainer.innerHTML = "<p id='user_id_style' style='top:4%;'>" +  sessionInfo.name + " </p>";
                 // totalQuantityContainer.innerHTML = "<p id='user_id_style'>" +  sessionInfo.name + " ( " + data.totalQuantity + " ) </p>";
                 }
             })
