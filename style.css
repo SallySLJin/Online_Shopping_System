@@ -116,7 +116,7 @@ button:hover {
 #user_id_style {
     position: fixed;
     /* or absolute, depending on your layout needs */
-    top: 5%;
+    top: 3%;
     left: 20%;
     /* optional, adjust as needed */
     text-align: center;
