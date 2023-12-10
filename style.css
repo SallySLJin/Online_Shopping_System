@@ -145,7 +145,7 @@ button:hover {
 
 #sortOrderContainer {
     position: fixed;
-    top: 20%;
+    top: 100px;
     left: 10px;
     /* Adjust the left position as needed */
     z-index: 999;
