@@ -6,7 +6,7 @@
 <html>
 <head>
     <title>註冊 - 資料庫專題-網購系統</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style3.css">
 </head>
 <body>
 <div class="header">
@@ -28,6 +28,8 @@
         <input type="password" name="password" placeholder="Password"><br>
         <label>請設定電子信箱</label>
         <input type="text" name="email" placeholder="Email"><br>
+        <label>請輸入宅配地址</label>
+        <input type="text" name="address" placeholder="Address"><br>
         <p></p>
         <button type="submit">註冊</button>
 

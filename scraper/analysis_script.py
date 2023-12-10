@@ -26,6 +26,7 @@ try:
         `name` VARCHAR(20) NOT NULL,
         `password` VARCHAR(20) NOT NULL,
         `email` VARCHAR(320) NOT NULL,
+        `address` VARCHAR(320) NOT NULL,
         `date` TIMESTAMP NOT NULL,
         PRIMARY KEY (`ID`)
     ) ENGINE = InnoDB;

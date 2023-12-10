@@ -70,13 +70,20 @@ if (isset($_SESSION['id'])) {
         $orderResult = $conn->query($orderSql);
         $orderRow = $orderResult->fetch_assoc();
         echo "<p style='text-align: center;'></p>";
-        echo "<p style='text-align: center;'>結帳產品: " . $orderRow['total_quantity'] . " 件</p>";
-        echo "<p style='text-align: center;'>結帳總金額: $" . $orderRow['total_amount'] . "</p>";
+        echo "<p style='text-align: center;'>結帳產品：" . $orderRow['total_quantity'] . " 件</p>";
+        echo "<p style='text-align: center;'>結帳總金額：$" . $orderRow['total_amount'] . "</p>";
+
+        echo "<p style='text-align: center;'>配送地址：" . $userRow['address'] . "</p>";
+
         // Add the checkout button
-        echo '<button class="checkout" onclick=\'checkout()\'>結帳</button>';
+        if ($orderItemResult->num_rows > 0){
+            echo '<button class="checkout" onclick=\'checkout()\'>結帳</button>';
+        }
+        
         echo "<p style='text-align: center;'></p>";
         echo "<p style='text-align: center;'>繼續逛逛?</p>";
         ?>
+   
         
         <button class="others" onclick="window.location.href='../index.php'">回到首頁</button>
         <button class="others" onclick="window.location.href='historical_purchases.php'">歷史清單</button>
@@ -87,7 +94,7 @@ if (isset($_SESSION['id'])) {
     // Close the database connection
     $conn->close();
 } else {
-    echo "<p>User not logged in.</p>";
+    echo "<p>使用者尚未登入！</p>";
 }
 ?>
 
