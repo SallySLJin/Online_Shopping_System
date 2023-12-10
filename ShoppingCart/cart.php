@@ -5,8 +5,10 @@ include '../config.php';
 
 <head>
     <title>購物車 - 資料庫專題-網購系統</title>
-    <link rel="stylesheet" href="cart_style.css">
+    <link rel="stylesheet" type="text/css" href="cart_style.css">
 </head>
+
+
 
 <?php
 if (isset($_SESSION['id'])) {
@@ -22,11 +24,15 @@ if (isset($_SESSION['id'])) {
         $userSql = "SELECT * FROM User WHERE id = $userId";
         $userResult = $conn->query($userSql);
         $userRow = $userResult->fetch_assoc();
-
-        echo "<h2>" . $userRow['name'] . "的購物車</h2>";
+        ?>
+        <div class="header">
+            <h1><?php echo $userRow['name']; ?> 的購物車</h1>
+        </div>
+        <?php
+        //echo "<h2>" . $userRow['name'] . "的購物車</h2>";
 
         echo "<table border='1'>";
-        echo "<tr><th>產品</th><th>數量</th><th>價格</th></tr>";
+        echo "<tr><th>產品</th><th>數量</th><th>價格</th><th>刪除商品</th></tr>";
                 
         // Get product details from the Order_Item table
         $orderItemSql = "SELECT OI.*, P.Name, P.Price 
@@ -49,7 +55,8 @@ if (isset($_SESSION['id'])) {
                 echo "<td>" . $orderItemRow['Name'] . "</td>";
                 echo "<td>" . $orderItemRow['quantity'] . "</td>";
                 echo "<td>$" . $orderItemRow['Price'] . "</td>";
-                echo "<td><button onclick='deleteItem(\"{$orderItemRow['order_id']}\", \"{$orderItemRow['product_id']}\")'>刪除</button></td>";
+
+                echo '<td><button class="delete" onclick=\'deleteItem("' . $orderItemRow['order_id'] . '", "' . $orderItemRow['product_id'] . '")\'>刪除</button></td>';
                 echo "</tr>";
             }
         } else {
@@ -62,14 +69,17 @@ if (isset($_SESSION['id'])) {
         $orderSql = "SELECT * FROM `Order` WHERE user_id = $userId AND status = 'In Cart'";
         $orderResult = $conn->query($orderSql);
         $orderRow = $orderResult->fetch_assoc();
-
-        echo "<p>結帳產品: " . $orderRow['total_quantity'] . " 件</p>";
-        echo "<p>結帳總金額: $" . $orderRow['total_amount'] . "</p>";
+        echo "<p style='text-align: center;'></p>";
+        echo "<p style='text-align: center;'>結帳產品: " . $orderRow['total_quantity'] . " 件</p>";
+        echo "<p style='text-align: center;'>結帳總金額: $" . $orderRow['total_amount'] . "</p>";
         // Add the checkout button
-        echo "<button onclick='checkout()'>結帳</button>";
+        echo '<button class="checkout" onclick=\'checkout()\'>結帳</button>';
+        echo "<p style='text-align: center;'></p>";
+        echo "<p style='text-align: center;'>繼續逛逛?</p>";
         ?>
-        <a href="../index.php">回到首頁</a>
-        <a href="historical_purchases.php">歷史清單</a>
+        
+        <button class="others" onclick="window.location.href='../index.php'">回到首頁</button>
+        <button class="others" onclick="window.location.href='historical_purchases.php'">歷史清單</button>
         <?php
 
     } 
