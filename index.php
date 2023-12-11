@@ -11,14 +11,40 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>資料庫專題 - 網購系統</title>
+    <style>
+    #switchButton {
+      position: absolute;
+      top: 25px; /* 距離頂部的距離，可以根據需要調整 */
+      left: 25px; /* 距離右側的距離，可以根據需要調整 */
+      padding: 10px;
+      font-size: 16px;
+      background-color: #333;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    #cartButton {
+      position: absolute;
+      top: 25px; /* 距離頂部的距離，可以根據需要調整 */
+      right: 50px; /* 距離右側的距離，可以根據需要調整 */
+      padding: 10px;
+      font-size: 16px;
+      background-color: #333;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    </style>
 
     <!-- Include the external stylesheet -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
 
 <div class="header">
-    <h3>!Carrefour</h3>
+    <h1 style='text-align: center;'>資料庫專題 - 網購系統</h1>
     <?php
     if(isset($_SESSION['id']) && isset($_SESSION['name'])) {
         include 'config.php';
@@ -37,7 +63,8 @@ session_start();
 
             // Wrap the element in a container with a unique ID
             echo "<div id='totalQuantityContainer'>";
-            echo "<p id='user_id_style' style='top:4%;'>" .  $_SESSION['name'] . " ( " . $orderRow['total_quantity'] . " ) </p>";
+            echo "<p style='text-align: center; color: #FFFFFF; font-size: 20px;'>使用者：" .  $_SESSION['name'] . "　當前購物車商品數量：" . $orderRow['total_quantity'] . "</p>";
+            
             echo "</div>";
 
             $stmt->close();
@@ -47,17 +74,40 @@ session_start();
         ?>
 
         <!-- Cart summary at the bottom of the screen -->
-        <div id="cartSummary">
+        <div>
             <!-- <span id="totalQuantity">Total Quantity in Cart: 0</span> -->
-            <button onclick="redirectToCart()" style="margin-left: auto;top:3%;">前往購物車</button>
+            <button id="cartButton"
+                style='display: block;
+                margin: 10px auto;
+                text-align: center;
+                padding: 8px 16px;
+                font-size: 16px;
+                text-decoration: none;
+                background-color: #ffffff;
+                color: #333;
+                border: none;
+                cursor: pointer;
+                width: auto;'
+                onclick="redirectToCart()">前往購物車</button>
         </div>
     <?php
     } else {
         ?>
-        <p id="user_id_style">目前未登入</p>
+        <p style="color: #FFFFFF; font-size: 20px;">目前未登入</p>
     <?php
     }
     ?>
+    <button id="switchButton" style='display: block;
+                margin: 10px auto;
+                text-align: center;
+                padding: 8px 16px;
+                font-size: 16px;
+                text-decoration: none;
+                background-color: #ffffff;
+                color: #333;
+                border: none;
+                cursor: pointer;
+                width: auto;' onclick="switchView()">切換介面顯示模式</button>
     
     <div class="navigation">
         <a href="index.php">所有商品</a>
@@ -101,7 +151,7 @@ session_start();
         <?php endif; ?>
 
         <!-- Add a button to switch between two display modes -->
-        <button type="button" id="switchViewButton" onclick="switchView()">切換模式</button>
+        
     </div>
 
 </form>
@@ -185,7 +235,7 @@ session_start();
                 // Update the displayed total quantity dynamically
                 var totalQuantityContainer = document.getElementById('totalQuantityContainer');
                 if (totalQuantityContainer) {
-                    totalQuantityContainer.innerHTML = "<p id='user_id_style' style='top:4%;'>" +  sessionInfo.name + " </p>";
+                    totalQuantityContainer.innerHTML = "<p id='user_id_style' style='text-align: center;'>" +  sessionInfo.name + " </p>";
                 // totalQuantityContainer.innerHTML = "<p id='user_id_style'>" +  sessionInfo.name + " ( " + data.totalQuantity + " ) </p>";
                 }
             })
@@ -261,18 +311,18 @@ session_start();
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
                 echo "<li style='width: calc(" . (100 / $productsPerRow) . "% - 30px);'>";
-                echo "<h1 style='font-size: 18px;'>" . $row["Name"] . "</h1>";                        
+                echo "<h1 style='font-size: 18px; color: #000000;'>" . $row["Name"] . "</h1>";                        
                 echo '<img src="' . $row["Image"] . '" alt="' . $row["Name"] . '">';
-                echo "<p style='font-size: 16px;'>價格: $" . $row["Price"] . "</p>";
-                echo "<p style='font-size: 14px;'>" . $row["Category1"] . "/" . $row["Category2"];
+                echo "<p style='font-size: 16px; color: #000000;'>價格: $" . $row["Price"] . "</p>";
+                echo "<p style='font-size: 14px; color: #000000;'>" . $row["Category1"] . "/" . $row["Category2"];
                 if ($row["Category3"] != null) {
-                    echo "/" . $row["Category3"];
+                    echo "<p style='font-size: 14px; color: #000000;'>/" . $row["Category3"] . "</p>";
                 }
                 if ($row["Category4"] != null) {
-                    echo "/" . $row["Category4"];
+                    echo "<p style='font-size: 14px; color: #000000;'>/" . $row["Category4"] . "</p>";
                 }
                 echo "</p>";
-                echo "<p style='font-size: 14px;'>" . $row["Description"] . "</p>";
+                echo "<p style='font-size: 14px;color: #000000;'>" . $row["Description"] . "</p>";
 
                 // Quantity controls and Add to Cart button
                 echo "<div>";

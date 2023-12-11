@@ -1,3 +1,4 @@
+
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -43,18 +44,6 @@ body {
     background-color: #f4f4f4;
 }
 
-h2 {
-    text-align: center;
-    color: #333;
-}
-
-h3 {
-    text-align: left;
-    color: #666;
-    line-height: 10%;
-    /* Adjust the line height as needed */
-}
-
 ul {
     margin-top: 150px;
     list-style-type: none;
@@ -73,8 +62,7 @@ li {
     background-color: #fff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s;
-    width: calc(25% - 30px);
-    /* Initially 4 products per row */
+    width: calc(25% - 30px); /* Initially 4 products per row */
 }
 
 li:hover {
@@ -88,8 +76,9 @@ img {
 }
 
 p {
-    margin: 0;
-    color: #666;
+    
+    text-align: center;
+    color: #ffffff;
 }
 
 select {
@@ -98,8 +87,7 @@ select {
     font-size: 16px;
 }
 
-input[type="submit"],
-button {
+input[type="submit"], button {
     padding: 10px;
     font-size: 16px;
     background-color: #333;
@@ -108,29 +96,33 @@ button {
     cursor: pointer;
 }
 
-input[type="submit"]:hover,
-button:hover {
+input[type="submit"]:hover, button:hover {
     background-color: #555;
 }
 
-#user_id_style {
-    position: fixed;
-    /* or absolute, depending on your layout needs */
-    top: 3%;
-    left: 20%;
-    /* optional, adjust as needed */
-    text-align: center;
+#user_id_style{
+        
+        color: white;
+        text-decoration: none;
+        
+}
+
+button {
     color: white;
-    text-decoration: none;
-    margin: 0 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.button-container {
+    text-align: center; /* 讓內容置中 */
 }
 
 /* Cart summary styles */
-#cartSummary button {
-    position: fixed;
-    left: 75%;
-    top: 5%;
+#cartSummary {
+    text-align: center; /* 將內容置中 */
+}
 
+#cartSummary button {
     padding: 5px;
     font-size: 14px;
     background-color: #fff;
@@ -145,14 +137,11 @@ button:hover {
 
 #sortOrderContainer {
     position: fixed;
-    top: 100px;
-    left: 10px;
-    /* Adjust the left position as needed */
-    z-index: 999;
-    /* Set a high z-index to ensure it's above other content */
+    top: 20%;
+    left: 10px; /* Adjust the left position as needed */
+    z-index: 999; /* Set a high z-index to ensure it's above other content */
 }
 
-/* Add styles for the pagination container */
 #paginationContainer {
     text-align: center;
     margin-top: 20px;
