@@ -10,7 +10,7 @@ This repository contains a dataset project focused on an online shopping system.
 - [Setup](#setup)
 - [Data Scraping](#data-scraping)
 - [Dataset Structure](#dataset-structure)
-- [Usage](#usage)
+- [Database Setup](#database-setup)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -24,7 +24,7 @@ To set up the project locally, ensure you have the following components installe
 
 - Linux operating system
 - Apache web server
-- MySQL database
+- MariaDB
 - PHP
 - Python
 - Google Cloud Platform account for hosting (optional)
@@ -38,11 +38,7 @@ cd online-shopping-data
 
 ## Data Scraping
 
-The data was scraped from the [Carrefour Online Shopping](https://online.carrefour.com.tw/zh/homepage/) website using Python. The scraping script is available in the `scraper` directory. To run the scraper, install the required dependencies:
-
-```bash
-pip install -r scraper/requirements.txt
-```
+The data was scraped from the [Carrefour Online Shopping](https://online.carrefour.com.tw/zh/homepage/) website using Python. The scraping script is available in the `scraper` directory. To run the scraper, install the required dependencies listed in `scraper/requirements.txt`
 
 Execute the scraper script:
 
@@ -56,28 +52,17 @@ The scraped data will be saved to the `scraper` directory.
 
 The dataset is organized into the following directories:
 
-- `scraper`: Contains the scraped data in CSV format, and includes any additional scripts for data processing or analysis.
-
-## Usage
-
-The dataset can be used for various purposes, such as:
-
-- E-commerce market analysis
-- Pricing strategies
-- Product recommendation systems
-- Machine learning models for predicting trends
-
-Feel free to explore and analyze the data according to your research interests.
+- `scraper`: Contains the scraped data in CSV format, and includes any additional scripts for data processing.
 
 ## Database Setup
 
-To set up the database and tables, run the `analysis_script.py`:
+To set up the database and tables, install the required dependencies listed in `scraper/requirements.txt`, then run the `scraper/analysis_script.py`:
 
 ```bash
-python analysis_script.py
+python scraper/analysis_script.py
 ```
 
-If the loading process fails, you can manually import the data using either the `scraped_data.csv` or `scraped_data_backup.sql` file.
+If the loading process fails, you can manually import the data using either the `scraper/scraped_data.csv` or `scraper/scraped_data.sql` file.
 
 ## Contributing
 
@@ -91,6 +76,6 @@ If you would like to contribute to the project, please follow these steps:
 
 ## License
 
-This project is licensed under the [MIT License](LICENSE). Feel free to use, modify, and distribute the code and dataset for your own projects.
+This project is not licensed under the [MIT License](LICENSE). Feel free to use, modify, and distribute the code and dataset for your own projects.
 
 Happy coding!

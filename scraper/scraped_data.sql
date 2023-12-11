@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 4.9.5deb2
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Dec 04, 2023 at 05:53 PM
--- Server version: 10.4.28-MariaDB
--- PHP Version: 8.2.4
+-- 主機： localhost:3306
+-- 產生時間： 2023 年 12 月 11 日 10:43
+-- 伺服器版本： 10.3.38-MariaDB-0ubuntu0.20.04.1
+-- PHP 版本： 7.4.3-4ubuntu2.19
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -18,16 +19,16 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `online_shopping_system`
+-- 資料庫： `Online_Shopping_System`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `product`
+-- 資料表結構 `Product`
 --
 
-CREATE TABLE `product` (
+CREATE TABLE `Product` (
   `ID` char(50) NOT NULL,
   `Name` text NOT NULL,
   `Price` int(11) NOT NULL,
@@ -40,10 +41,10 @@ CREATE TABLE `product` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `product`
+-- 傾印資料表的資料 `Product`
 --
 
-INSERT INTO `product` (`ID`, `Name`, `Price`, `Category1`, `Category2`, `Category3`, `Category4`, `Image`, `Description`) VALUES
+INSERT INTO `Product` (`ID`, `Name`, `Price`, `Category1`, `Category2`, `Category3`, `Category4`, `Image`, `Description`) VALUES
 ('1000000500106', '可口可樂330ml', 79, '飲料零食', '水．汽水', '汽水', '可樂', 'https://online.carrefour.com.tw/dw/image/v2/BFHC_PRD/on/demandware.static/-/Sites-carrefour-tw-m-inner/default/dw467e5a38/images/large/1000000500106_NR_00.jpg?sw=300&bgcolor=FFFFFF', '330ml毫升 x 1 x 6Bottle瓶\r'),
 ('1000000500124', '可口可樂330ml', 316, '飲料零食', '水．汽水', '汽水', '可樂', 'https://online.carrefour.com.tw/dw/image/v2/BFHC_PRD/on/demandware.static/-/Sites-carrefour-tw-m-inner/default/dwb7fb5529/images/large/1000000500124_NR_00.jpg?sw=300&bgcolor=FFFFFF', '330ml毫升 x 1 x 24Bottle瓶\r'),
 ('1000001100124', '可口可樂 Can 250 ml', 269, '飲料零食', '水．汽水', '汽水', '可樂', 'https://online.carrefour.com.tw/dw/image/v2/BFHC_PRD/on/demandware.static/-/Sites-carrefour-tw-m-inner/default/dw5b9cd014/images/large/1000001100124_NR_00.jpg?sw=300&bgcolor=FFFFFF', '250ml毫升 x 1 x 24Bottle瓶\r'),
@@ -220,7 +221,7 @@ INSERT INTO `product` (`ID`, `Name`, `Price`, `Category1`, `Category2`, `Categor
 ('1003305700104', '每朝健康雙纖綠茶650ml', 105, '飲料零食', '茶飲．咖啡', '綠茶．烏龍茶．其他茶飲', '綠茶', 'https://online.carrefour.com.tw/dw/image/v2/BFHC_PRD/on/demandware.static/-/Sites-carrefour-tw-m-inner/default/dwb7a0c346/images/large/1003305700104-20230216.jpg?sw=300&bgcolor=FFFFFF', '650ml毫升 x 1 x 4Bottle瓶\r'),
 ('1003305700124', '每朝健康雙纖綠茶650ml', 630, '飲料零食', '茶飲．咖啡', '綠茶．烏龍茶．其他茶飲', '綠茶', 'https://online.carrefour.com.tw/dw/image/v2/BFHC_PRD/on/demandware.static/-/Sites-carrefour-tw-m-inner/default/dwb7a0c346/images/large/1003305700104-20230216.jpg?sw=300&bgcolor=FFFFFF', '650ml毫升 x 1 x 24Bottle瓶\r'),
 ('1003306400106', '統一麥香綠茶TP375ml', 79, '飲料零食', '茶飲．咖啡', '綠茶．烏龍茶．其他茶飲', '綠茶', 'https://online.carrefour.com.tw/dw/image/v2/BFHC_PRD/on/demandware.static/-/Sites-carrefour-tw-m-inner/default/dw29b57d83/images/large/1003306400106_NR_00.png?sw=300&bgcolor=FFFFFF', '375ml毫升 x 1 x 6Bottle瓶\r');
-INSERT INTO `product` (`ID`, `Name`, `Price`, `Category1`, `Category2`, `Category3`, `Category4`, `Image`, `Description`) VALUES
+INSERT INTO `Product` (`ID`, `Name`, `Price`, `Category1`, `Category2`, `Category3`, `Category4`, `Image`, `Description`) VALUES
 ('1003306400124', '統一麥香綠茶TP375ml', 316, '飲料零食', '茶飲．咖啡', '綠茶．烏龍茶．其他茶飲', '綠茶', 'https://online.carrefour.com.tw/dw/image/v2/BFHC_PRD/on/demandware.static/-/Sites-carrefour-tw-m-inner/default/dw870a9836/images/large/1003306400124_NR_00.png?sw=300&bgcolor=FFFFFF', '375ml毫升 x 1 x 24Bottle瓶\r'),
 ('1003307000104', '黑松茶花綠茶-無糖Pet-580ml', 75, '飲料零食', '茶飲．咖啡', '綠茶．烏龍茶．其他茶飲', '綠茶', 'https://online.carrefour.com.tw/dw/image/v2/BFHC_PRD/on/demandware.static/-/Sites-carrefour-tw-m-inner/default/dw103e05e4/images/large/0242879_-et580ml.jpeg?sw=300&bgcolor=FFFFFF', '580ml毫升 x 1 x 4Bottle瓶\r'),
 ('1003307500101', '悅氏茶花綠茶無糖-2000ml', 35, '飲料零食', '茶飲．咖啡', '綠茶．烏龍茶．其他茶飲', '綠茶', 'https://online.carrefour.com.tw/dw/image/v2/BFHC_PRD/on/demandware.static/-/Sites-carrefour-tw-m-inner/default/dwca6dcd0b/images/large/0030702_-2000ml.jpeg?sw=300&bgcolor=FFFFFF', '2000ml毫升 x 1 x 1Bottle瓶\r'),
@@ -399,7 +400,7 @@ INSERT INTO `product` (`ID`, `Name`, `Price`, `Category1`, `Category2`, `Categor
 ('1110322000101', '一匙靈 ATTACK 抗菌EX防螨成分PLUS洗衣精2.4kg', 139, '日用生活', '家庭清潔．殺蟲', '洗衣精 洗衣球', '', 'https://online.carrefour.com.tw/dw/image/v2/BFHC_PRD/on/demandware.static/-/Sites-carrefour-tw-m-inner/default/dwde666227/images/large/1110322000101_NR_00.jpg?sw=300&bgcolor=FFFFFF', '2.4Kg公斤 x 1 x 1PC瓶\r'),
 ('1110323000101', '白帥帥茶樹抗病毒抗菌洗衣精3150g', 109, '日用生活', '家庭清潔．殺蟲', '洗衣精 洗衣球', '', 'https://online.carrefour.com.tw/dw/image/v2/BFHC_PRD/on/demandware.static/-/Sites-carrefour-tw-m-inner/default/dw82ed8cf6/images/large/0281354.jpeg?sw=300&bgcolor=FFFFFF', '3150g克 x 1 x 1BOTTLE瓶\r'),
 ('1110325100101', '白蘭香氛洗衣球-質感小蒼蘭10gx23', 149, '日用生活', '家庭清潔．殺蟲', '洗衣精 洗衣球', '', 'https://online.carrefour.com.tw/dw/image/v2/BFHC_PRD/on/demandware.static/-/Sites-carrefour-tw-m-inner/default/dw80f360e9/images/large/1110325100101_NR_00.jpg?sw=300&bgcolor=FFFFFF', '10g克 x 23 x 1Bag包\r');
-INSERT INTO `product` (`ID`, `Name`, `Price`, `Category1`, `Category2`, `Category3`, `Category4`, `Image`, `Description`) VALUES
+INSERT INTO `Product` (`ID`, `Name`, `Price`, `Category1`, `Category2`, `Category3`, `Category4`, `Image`, `Description`) VALUES
 ('1110330600106', '[箱購]妙管家瞬淨洗衣精補充包--除臭抗菌1300g克 x 6Bag包', 552, '日用生活', '家庭清潔．殺蟲', '洗衣精 洗衣球', '', 'https://online.carrefour.com.tw/dw/image/v2/BFHC_PRD/on/demandware.static/-/Sites-carrefour-tw-m-inner/default/dwabf3d0a0/images/large/1110330600101_NR_00.jpg?sw=300&bgcolor=FFFFFF', '1300g克 x 1 x 6Bag包\r'),
 ('1110330700106', '[箱購]妙管家瞬淨洗衣精補充包--防霉抗菌1300g克  x 6Bag包', 552, '日用生活', '家庭清潔．殺蟲', '洗衣精 洗衣球', '', 'https://online.carrefour.com.tw/dw/image/v2/BFHC_PRD/on/demandware.static/-/Sites-carrefour-tw-m-inner/default/dw4f227f9d/images/large/1110330700101_NR_00.jpg?sw=300&bgcolor=FFFFFF', '1300g克 x 1 x 6Bag包\r'),
 ('1110331900101', '白蘭香氛洗衣球-清新白茶10gx23顆', 149, '日用生活', '家庭清潔．殺蟲', '洗衣精 洗衣球', '', 'https://online.carrefour.com.tw/dw/image/v2/BFHC_PRD/on/demandware.static/-/Sites-carrefour-tw-m-inner/default/dw757db945/images/large/1110331900101_NR_00.jpg?sw=300&bgcolor=FFFFFF', '10g克 x 23 x 1Bag包\r'),
@@ -577,7 +578,7 @@ INSERT INTO `product` (`ID`, `Name`, `Price`, `Category1`, `Category2`, `Categor
 ('1202026600101', '曼秀雷敦保濕活力洗面乳100g', 112, '美妝個清', '個人清潔', '卸妝洗顏', '洗面乳．卸妝乳', 'https://online.carrefour.com.tw/dw/image/v2/BFHC_PRD/on/demandware.static/-/Sites-carrefour-tw-m-inner/default/dw9e508ab6/images/large/0222862.jpeg?sw=300&bgcolor=FFFFFF', '100g克 x 1 x 1Bottle瓶\r'),
 ('1202027600101', '妮維雅男士全效控油潔面泥', 134, '美妝個清', '個人清潔', '卸妝洗顏', '洗面乳．卸妝乳', 'https://online.carrefour.com.tw/dw/image/v2/BFHC_PRD/on/demandware.static/-/Sites-carrefour-tw-m-inner/default/dwc5a4f43d/images/large/1202027600101_NR_00.jpg?sw=300&bgcolor=FFFFFF', '150ml毫升 x 1 x 1Bottle瓶\r'),
 ('1202030100101', '澎澎MAN咖啡因洗面乳100g', 85, '美妝個清', '個人清潔', '卸妝洗顏', '洗面乳．卸妝乳', 'https://online.carrefour.com.tw/dw/image/v2/BFHC_PRD/on/demandware.static/-/Sites-carrefour-tw-m-inner/default/dwd124cf93/images/large/0273157_ma.jpeg?sw=300&bgcolor=FFFFFF', '100g克 x 1 x 1BOTTLE瓶\r');
-INSERT INTO `product` (`ID`, `Name`, `Price`, `Category1`, `Category2`, `Category3`, `Category4`, `Image`, `Description`) VALUES
+INSERT INTO `Product` (`ID`, `Name`, `Price`, `Category1`, `Category2`, `Category3`, `Category4`, `Image`, `Description`) VALUES
 ('1202032700101', '曼秀雷敦Acnes抗痘柔珠洗面乳100g', 98, '美妝個清', '個人清潔', '卸妝洗顏', '洗面乳．卸妝乳', 'https://online.carrefour.com.tw/dw/image/v2/BFHC_PRD/on/demandware.static/-/Sites-carrefour-tw-m-inner/default/dw73d00565/images/large/0220980_aces.jpeg?sw=300&bgcolor=FFFFFF', '100g克 x 1 x 1PC支\r'),
 ('1202033000101', '曼秀雷敦Acnes抗痘潔面慕斯', 183, '美妝個清', '個人清潔', '卸妝洗顏', '洗面乳．卸妝乳', 'https://online.carrefour.com.tw/dw/image/v2/BFHC_PRD/on/demandware.static/-/Sites-carrefour-tw-m-inner/default/dw36ac4947/images/large/1202033000101.jpg?sw=300&bgcolor=FFFFFF', '150ml毫升 x 1 x 1BOTTLE瓶\r'),
 ('1202034400101', 'MENS Biore黑白柔珠洗面乳', 75, '美妝個清', '個人清潔', '卸妝洗顏', '洗面乳．卸妝乳', 'https://online.carrefour.com.tw/dw/image/v2/BFHC_PRD/on/demandware.static/-/Sites-carrefour-tw-m-inner/default/dwbd7ee84e/images/large/1202034400101_NR_00.jpg?sw=300&bgcolor=FFFFFF', '100g克 x 1 x 1PC支\r'),
@@ -755,7 +756,7 @@ INSERT INTO `product` (`ID`, `Name`, `Price`, `Category1`, `Category2`, `Categor
 ('1213101400101', '安爽特級乾爽成人紙尿褲L-XL24', 359, '嬰童保健', '居家護理', '成人紙尿褲．尿墊', '', 'https://online.carrefour.com.tw/dw/image/v2/BFHC_PRD/on/demandware.static/-/Sites-carrefour-tw-m-inner/default/dw9129e8c9/images/large/1213101400101_NR_00.jpg?sw=300&bgcolor=FFFFFF', '24PC片 x 1 x 1PacK包\r'),
 ('1213101900101', '來復易呵護透氣黏貼紙尿褲 M', 219, '嬰童保健', '居家護理', '成人紙尿褲．尿墊', '', 'https://online.carrefour.com.tw/dw/image/v2/BFHC_PRD/on/demandware.static/-/Sites-carrefour-tw-m-inner/default/dw81ddd163/images/large/1213101900101_NR_00.jpg?sw=300&bgcolor=FFFFFF', '10PC片 x 1 x 1PacK包\r'),
 ('1213102300101', '康乃馨成人紙尿褲M號16片(一般型)', 197, '嬰童保健', '居家護理', '成人紙尿褲．尿墊', '', 'https://online.carrefour.com.tw/dw/image/v2/BFHC_PRD/on/demandware.static/-/Sites-carrefour-tw-m-inner/default/dw61c33668/images/large/1213102300101.jpg?sw=300&bgcolor=FFFFFF', '16PC片 x 1 x 1PacK包\r');
-INSERT INTO `product` (`ID`, `Name`, `Price`, `Category1`, `Category2`, `Category3`, `Category4`, `Image`, `Description`) VALUES
+INSERT INTO `Product` (`ID`, `Name`, `Price`, `Category1`, `Category2`, `Category3`, `Category4`, `Image`, `Description`) VALUES
 ('1213102400101', '康乃馨成人紙尿褲L號13片(一般型)', 198, '嬰童保健', '居家護理', '成人紙尿褲．尿墊', '', 'https://online.carrefour.com.tw/dw/image/v2/BFHC_PRD/on/demandware.static/-/Sites-carrefour-tw-m-inner/default/dw811719ac/images/large/1213102400101.jpg?sw=300&bgcolor=FFFFFF', '13PC片 x 1 x 1PacK包\r'),
 ('1213200300101', '康乃馨替換式紙尿片32片', 102, '嬰童保健', '居家護理', '成人紙尿褲．尿墊', '', 'https://online.carrefour.com.tw/dw/image/v2/BFHC_PRD/on/demandware.static/-/Sites-carrefour-tw-m-inner/default/dw9a756003/images/large/1213200300101.jpg?sw=300&bgcolor=FFFFFF', '32PC片 x 1 x 1PacK包\r'),
 ('1213289100101', '來復易整夜一片安心成人紙尿片', 209, '嬰童保健', '居家護理', '成人紙尿褲．尿墊', '', 'https://online.carrefour.com.tw/dw/image/v2/BFHC_PRD/on/demandware.static/-/Sites-carrefour-tw-m-inner/default/dw6b48c671/images/large/1213289100101_NR_00.jpg?sw=300&bgcolor=FFFFFF', '33PC片 x 1 x 1PacK包\r'),
@@ -934,7 +935,7 @@ INSERT INTO `product` (`ID`, `Name`, `Price`, `Category1`, `Category2`, `Categor
 ('1232706100101', '桂格完膳營養素- 原味無糖', 505, '嬰童保健', '營養保健食品', '成人營養補充品', '', 'https://online.carrefour.com.tw/dw/image/v2/BFHC_PRD/on/demandware.static/-/Sites-carrefour-tw-m-inner/default/dw3d7b0649/images/large/0124779_-.jpeg?sw=300&bgcolor=FFFFFF', '250ml毫升 x 8 x 1BoX盒\r'),
 ('1232706200101', '亞培安素優能基香草2入促銷組', 1700, '嬰童保健', '營養保健食品', '成人營養補充品', '', 'https://online.carrefour.com.tw/dw/image/v2/BFHC_PRD/on/demandware.static/-/Sites-carrefour-tw-m-inner/default/dwca306952/images/large/1232706200101.jpg?sw=300&bgcolor=FFFFFF', '850g克 x 2 x 1SET組\r'),
 ('1232706300101', '桂格完膳營養素原味無糖24入', 1448, '嬰童保健', '營養保健食品', '成人營養補充品', '', 'https://online.carrefour.com.tw/dw/image/v2/BFHC_PRD/on/demandware.static/-/Sites-carrefour-tw-m-inner/default/dw9666efd5/images/large/0214958_24.jpeg?sw=300&bgcolor=FFFFFF', '250ml毫升 x 24 x 1BOX箱\r');
-INSERT INTO `product` (`ID`, `Name`, `Price`, `Category1`, `Category2`, `Category3`, `Category4`, `Image`, `Description`) VALUES
+INSERT INTO `Product` (`ID`, `Name`, `Price`, `Category1`, `Category2`, `Category3`, `Category4`, `Image`, `Description`) VALUES
 ('1232707300101', '益富益力壯900g', 735, '嬰童保健', '營養保健食品', '成人營養補充品', '', 'https://online.carrefour.com.tw/dw/image/v2/BFHC_PRD/on/demandware.static/-/Sites-carrefour-tw-m-inner/default/dw29bc879f/images/large/1232707300101_NR_00.jpg?sw=300&bgcolor=FFFFFF', '900g克 x 1 x 1CAN罐\r'),
 ('1232707800101', '亞培葡勝納SR原味200mlx30', 2705, '嬰童保健', '營養保健食品', '成人營養補充品', '', 'https://online.carrefour.com.tw/dw/image/v2/BFHC_PRD/on/demandware.static/-/Sites-carrefour-tw-m-inner/default/dw3f8349ab/images/large/1232707800101-D03.jpg?sw=300&bgcolor=FFFFFF', '200ml毫升 x 30 x 1BOX箱\r'),
 ('1232708400101', '亞培安素香草減甜-237mlx24', 1605, '嬰童保健', '營養保健食品', '成人營養補充品', '', 'https://online.carrefour.com.tw/dw/image/v2/BFHC_PRD/on/demandware.static/-/Sites-carrefour-tw-m-inner/default/dwce556b55/images/large/1232708400101.jpg?sw=300&bgcolor=FFFFFF', '237ml毫升 x 24 x 1Ctn箱\r'),
@@ -1116,7 +1117,7 @@ INSERT INTO `product` (`ID`, `Name`, `Price`, `Category1`, `Category2`, `Categor
 ('1450200700112', '味王香菇肉羹湯碗麵88g', 230, '米油沖泡', '泡麵．麵條', '速食麵', '豬肉口味', 'https://online.carrefour.com.tw/dw/image/v2/BFHC_PRD/on/demandware.static/-/Sites-carrefour-tw-m-inner/default/dwac6ca6f0/images/large/0058573_-88g.jpeg?sw=300&bgcolor=FFFFFF', '88g克 x 1 x 12Bowl碗\r'),
 ('1450200900105', '統一肉燥(包) 85g', 78, '米油沖泡', '泡麵．麵條', '速食麵', '豬肉口味', 'https://online.carrefour.com.tw/dw/image/v2/BFHC_PRD/on/demandware.static/-/Sites-carrefour-tw-m-inner/default/dwdaa27112/images/large/1450200900105_NR_00.jpg?sw=300&bgcolor=FFFFFF', '85g克 x 1 x 5Pack包\r'),
 ('1450201100103', '來一客-京燉肉骨-71g', 65, '米油沖泡', '泡麵．麵條', '速食麵', '豬肉口味', 'https://online.carrefour.com.tw/dw/image/v2/BFHC_PRD/on/demandware.static/-/Sites-carrefour-tw-m-inner/default/dwe1291c55/images/large/1450201100103_NR_00.jpg?sw=300&bgcolor=FFFFFF', '71g克 x 1 x 3Bowl碗\r');
-INSERT INTO `product` (`ID`, `Name`, `Price`, `Category1`, `Category2`, `Category3`, `Category4`, `Image`, `Description`) VALUES
+INSERT INTO `Product` (`ID`, `Name`, `Price`, `Category1`, `Category2`, `Category3`, `Category4`, `Image`, `Description`) VALUES
 ('1450201200105', '統一肉骨茶(包) 93g', 78, '米油沖泡', '泡麵．麵條', '速食麵', '豬肉口味', 'https://online.carrefour.com.tw/dw/image/v2/BFHC_PRD/on/demandware.static/-/Sites-carrefour-tw-m-inner/default/dw078c4704/images/large/1450201200105_NR_00.jpg?sw=300&bgcolor=FFFFFF', '93g克 x 1 x 5Pack包\r'),
 ('1450201200130', '統一肉骨茶(包) 93g', 468, '米油沖泡', '泡麵．麵條', '速食麵', '豬肉口味', 'https://online.carrefour.com.tw/dw/image/v2/BFHC_PRD/on/demandware.static/-/Sites-carrefour-tw-m-inner/default/dwd666a971/images/large/1450201200130_NR_00.jpg?sw=300&bgcolor=FFFFFF', '93g克 x 1 x 30Pack包\r'),
 ('1450201400103', '來一客-肉燥菠菜-67g', 65, '米油沖泡', '泡麵．麵條', '速食麵', '豬肉口味', 'https://online.carrefour.com.tw/dw/image/v2/BFHC_PRD/on/demandware.static/-/Sites-carrefour-tw-m-inner/default/dw83fa1bb1/images/large/1450201400103_NR_00.jpg?sw=300&bgcolor=FFFFFF', '67g克 x 1 x 3Bowl碗\r'),
@@ -1296,7 +1297,7 @@ INSERT INTO `product` (`ID`, `Name`, `Price`, `Category1`, `Category2`, `Categor
 ('1483294900101', '台糖蕃茄汁鯖魚(黃罐)220gx3', 105, '米油沖泡', '調味品．罐頭．湯品', '海產罐頭', '其它魚類', 'https://online.carrefour.com.tw/dw/image/v2/BFHC_PRD/on/demandware.static/-/Sites-carrefour-tw-m-inner/default/dwd0a19ea4/images/large/0273881_-220gx3.jpeg?sw=300&bgcolor=FFFFFF', '220g克 x 3 x 1Set組\r'),
 ('1483305600103', '台糖安心豚豬肉醬(香辣)160g', 108, '米油沖泡', '調味品．罐頭．湯品', '肉類罐頭', '肉類罐頭', 'https://online.carrefour.com.tw/dw/image/v2/BFHC_PRD/on/demandware.static/-/Sites-carrefour-tw-m-inner/default/dw4c07691a/images/large/0083723_160g.jpeg?sw=300&bgcolor=FFFFFF', '160g克 x 1 x 3Can罐\r'),
 ('1484000300103', '大茂大土豆麵筋170g', 84, '米油沖泡', '調味品．罐頭．湯品', '麵筋罐頭', '花生麵筋', 'https://online.carrefour.com.tw/dw/image/v2/BFHC_PRD/on/demandware.static/-/Sites-carrefour-tw-m-inner/default/dwaf568a02/images/large/0005389_170g.jpeg?sw=300&bgcolor=FFFFFF', '170g克 x 1 x 3Can罐\r');
-INSERT INTO `product` (`ID`, `Name`, `Price`, `Category1`, `Category2`, `Category3`, `Category4`, `Image`, `Description`) VALUES
+INSERT INTO `Product` (`ID`, `Name`, `Price`, `Category1`, `Category2`, `Category3`, `Category4`, `Image`, `Description`) VALUES
 ('1484001700103', '【全素】青葉Q彈麵筋170G', 93, '米油沖泡', '調味品．罐頭．湯品', '麵筋罐頭', '花生麵筋', 'https://online.carrefour.com.tw/dw/image/v2/BFHC_PRD/on/demandware.static/-/Sites-carrefour-tw-m-inner/default/dwd909a414/images/large/0115254_q170g.jpeg?sw=300&bgcolor=FFFFFF', '170g克 x 1 x 3Can罐\r'),
 ('1484002200103', '味全花生麵筋170g', 75, '米油沖泡', '調味品．罐頭．湯品', '麵筋罐頭', '花生麵筋', 'https://online.carrefour.com.tw/dw/image/v2/BFHC_PRD/on/demandware.static/-/Sites-carrefour-tw-m-inner/default/dwca4c5cfc/images/large/1484002200103.jpg?sw=300&bgcolor=FFFFFF', '170g克 x 1 x 3Can桶\r'),
 ('1484100200103', '【全素】大茂3Q麵筋 170g', 105, '米油沖泡', '調味品．罐頭．湯品', '麵筋罐頭', '其它口味麵筋', 'https://online.carrefour.com.tw/dw/image/v2/BFHC_PRD/on/demandware.static/-/Sites-carrefour-tw-m-inner/default/dwc92f8f71/images/large/0168112_3q-170g.jpeg?sw=300&bgcolor=FFFFFF', '170g克 x 1 x 3Can罐\r'),
@@ -1476,7 +1477,7 @@ INSERT INTO `product` (`ID`, `Name`, `Price`, `Category1`, `Category2`, `Categor
 ('1502302000124', '義美低糖豆奶-250ml', 248, '生鮮冷凍', '奶蛋點心．人氣食品', '保久乳', '', 'https://online.carrefour.com.tw/dw/image/v2/BFHC_PRD/on/demandware.static/-/Sites-carrefour-tw-m-inner/default/dw9424a835/images/large/0241449_250ml.jpeg?sw=300&bgcolor=FFFFFF', '250ml毫升 x 1 x 24BOTTLE瓶\r'),
 ('1502303600124', '員山農會養生黑芝麻豆奶250ml', 550, '生鮮冷凍', '奶蛋點心．人氣食品', '保久乳', '', 'https://online.carrefour.com.tw/dw/image/v2/BFHC_PRD/on/demandware.static/-/Sites-carrefour-tw-m-inner/default/dw929cf4af/images/large/0086816.jpeg?sw=300&bgcolor=FFFFFF', '250ml毫升 x 1 x 24Bottle瓶\r'),
 ('1502303800124', '員山農會濃嘜甜高濃度養生豆奶250ml', 550, '生鮮冷凍', '奶蛋點心．人氣食品', '保久乳', '', 'https://online.carrefour.com.tw/dw/image/v2/BFHC_PRD/on/demandware.static/-/Sites-carrefour-tw-m-inner/default/dw29d7e1f1/images/large/0086814.jpeg?sw=300&bgcolor=FFFFFF', '250ml毫升 x 1 x 24Bottle瓶\r');
-INSERT INTO `product` (`ID`, `Name`, `Price`, `Category1`, `Category2`, `Category3`, `Category4`, `Image`, `Description`) VALUES
+INSERT INTO `Product` (`ID`, `Name`, `Price`, `Category1`, `Category2`, `Category3`, `Category4`, `Image`, `Description`) VALUES
 ('1502307200106', '光泉鮮豆漿200ml', 64, '生鮮冷凍', '奶蛋點心．人氣食品', '保久乳', '', 'https://online.carrefour.com.tw/dw/image/v2/BFHC_PRD/on/demandware.static/-/Sites-carrefour-tw-m-inner/default/dw7cab86c0/images/large/1502307200106.jpg?sw=300&bgcolor=FFFFFF', '200ml毫升 x 1 x 6BOTTLE瓶\r'),
 ('1502400400106', '義美糙米奶', 71, '生鮮冷凍', '奶蛋點心．人氣食品', '保久乳', '', 'https://online.carrefour.com.tw/dw/image/v2/BFHC_PRD/on/demandware.static/-/Sites-carrefour-tw-m-inner/default/dwa912c28d/images/large/0192942.jpeg?sw=300&bgcolor=FFFFFF', '250ml毫升 x 1 x 6Bottle瓶\r'),
 ('1502400400124', '義美糙米奶', 248, '生鮮冷凍', '奶蛋點心．人氣食品', '保久乳', '', 'https://online.carrefour.com.tw/dw/image/v2/BFHC_PRD/on/demandware.static/-/Sites-carrefour-tw-m-inner/default/dwf5901a09/images/large/0192945.jpeg?sw=300&bgcolor=FFFFFF', '250ml毫升 x 1 x 24Bottle瓶\r'),
@@ -1657,7 +1658,7 @@ INSERT INTO `product` (`ID`, `Name`, `Price`, `Category1`, `Category2`, `Categor
 ('2410205100101', '家樂福嚴選冷藏台灣豬肉絲(約300克)-貼體包裝※本商品保存期限為10天，因配送關係到府後使用期限4天', 115, '生鮮冷凍', '肉品', '豬', 'CQL豬肉', 'https://online.carrefour.com.tw/dw/image/v2/BFHC_PRD/on/demandware.static/-/Sites-carrefour-tw-m-inner/default/dw5f43fdaa/images/large/0272888_300g-.jpeg?sw=300&bgcolor=FFFFFF', '1Box盒 x 1 x 1BOX盒\r'),
 ('2410205600101', '家福嚴選冷藏台灣豬後腿絞肉300g※本商品保存期限為10天，因配送關係到府後使用期限4天', 95, '生鮮冷凍', '肉品', '豬', 'CQL豬肉', 'https://online.carrefour.com.tw/dw/image/v2/BFHC_PRD/on/demandware.static/-/Sites-carrefour-tw-m-inner/default/dw3835873d/images/large/2410205600101.jpg?sw=300&bgcolor=FFFFFF', '1Box盒 x 1 x 1BOX盒\r'),
 ('2410208700101', '家福嚴選冷藏台灣豬里肌火鍋肉片330g(*貼體※本商品保存期限為10天，因配送關係到府後使用期限3-5天', 145, '生鮮冷凍', '肉品', '豬', 'CQL豬肉', 'https://online.carrefour.com.tw/dw/image/v2/BFHC_PRD/on/demandware.static/-/Sites-carrefour-tw-m-inner/default/dw442216b1/images/large/2410208700101.jpg?sw=300&bgcolor=FFFFFF', '1Box盒 x 1 x 1Box盒\r');
-INSERT INTO `product` (`ID`, `Name`, `Price`, `Category1`, `Category2`, `Category3`, `Category4`, `Image`, `Description`) VALUES
+INSERT INTO `Product` (`ID`, `Name`, `Price`, `Category1`, `Category2`, `Category3`, `Category4`, `Image`, `Description`) VALUES
 ('2430090400101', '冷藏鹿野皇金雞半雞切盤(每盒約600克)※本商品保存期限為7天，因配送關係到府後使用期限3天', 195, '生鮮冷凍', '肉品', '雞．鴨', '雞肉', 'https://online.carrefour.com.tw/dw/image/v2/BFHC_PRD/on/demandware.static/-/Sites-carrefour-tw-m-inner/default/dwf413edb1/images/large/0197350_600g.jpeg?sw=300&bgcolor=FFFFFF', '1Box盒 x 1 x 1BOX盒\r'),
 ('2432005500101', '安心雞清胸肉300g(貼體)※本商品保存期限為7天，因配送關係到府後使用期限3天', 90, '生鮮冷凍', '肉品', '雞．鴨', '雞分切品', 'https://online.carrefour.com.tw/dw/image/v2/BFHC_PRD/on/demandware.static/-/Sites-carrefour-tw-m-inner/default/dw86a19239/images/large/2432005500101-2023.JPG?sw=300&bgcolor=FFFFFF', '1Box盒 x 1 x 1Box盒\r'),
 ('2432005600101', '安心雞里肌肉300g(貼體)※本商品保存期限為7天，因配送關係到府後使用期限3天', 95, '生鮮冷凍', '肉品', '雞．鴨', '雞分切品', 'https://online.carrefour.com.tw/dw/image/v2/BFHC_PRD/on/demandware.static/-/Sites-carrefour-tw-m-inner/default/dwa5776d2b/images/large/2432005600101-2023.jpg?sw=300&bgcolor=FFFFFF', '1Box盒 x 1 x 1Box盒\r'),
@@ -1839,7 +1840,7 @@ INSERT INTO `product` (`ID`, `Name`, `Price`, `Category1`, `Category2`, `Categor
 ('3167500300101', 'LF-520 直取式收納箱', 299, '傢俱寢飾', '收納整理', '其他整理盒．收納籃', '', 'https://online.carrefour.com.tw/dw/image/v2/BFHC_PRD/on/demandware.static/-/Sites-carrefour-tw-m-inner/default/dw1de9fe91/images/large/0237132_lf-520-.jpeg?sw=300&bgcolor=FFFFFF', '1PC個 x 1 x 1PC個\r'),
 ('3167500900101', 'LF-609 (特大)直取式收納箱', 599, '傢俱寢飾', '收納整理', '大型整理箱', '', 'https://online.carrefour.com.tw/dw/image/v2/BFHC_PRD/on/demandware.static/-/Sites-carrefour-tw-m-inner/default/dwdbd8998b/images/large/0237130_lf-609-.jpeg?sw=300&bgcolor=FFFFFF', '1PC個 x 1 x 1PC個\r'),
 ('3167501100101', '好室喵大塊頭折疊箱45L~顏色隨機出貨', 499, '傢俱寢飾', '收納整理', '其他整理盒．收納籃', '', 'https://online.carrefour.com.tw/dw/image/v2/BFHC_PRD/on/demandware.static/-/Sites-carrefour-tw-m-inner/default/dwd0945c4d/images/large/3167501100101-1.jpg?sw=300&bgcolor=FFFFFF', '1PC個 x 1 x 1PC個\r');
-INSERT INTO `product` (`ID`, `Name`, `Price`, `Category1`, `Category2`, `Category3`, `Category4`, `Image`, `Description`) VALUES
+INSERT INTO `Product` (`ID`, `Name`, `Price`, `Category1`, `Category2`, `Category3`, `Category4`, `Image`, `Description`) VALUES
 ('3167501300101', 'LF-608 直取式收納箱50L', 549, '傢俱寢飾', '收納整理', '其他整理盒．收納籃', '', 'https://online.carrefour.com.tw/dw/image/v2/BFHC_PRD/on/demandware.static/-/Sites-carrefour-tw-m-inner/default/dw0a6557c3/images/large/0194769_lf-608-50l.jpeg?sw=300&bgcolor=FFFFFF', '1PC個 x 1 x 1PC個\r'),
 ('3167502000101', '全開磁吸式整理箱-35L', 429, '傢俱寢飾', '收納整理', '其他整理盒．收納籃', '', 'https://online.carrefour.com.tw/dw/image/v2/BFHC_PRD/on/demandware.static/-/Sites-carrefour-tw-m-inner/default/dwe064c083/images/large/0264213_35l.jpeg?sw=300&bgcolor=FFFFFF', '1PC個 x 1 x 1PC個\r'),
 ('3167503200101', '童話下掀式整理箱 39L-白色', 499, '休閒娛樂', '銅板商品 �', '', '', 'https://online.carrefour.com.tw/dw/image/v2/BFHC_PRD/on/demandware.static/-/Sites-carrefour-tw-m-inner/default/dwfeaa7568/images/large/0216097_-39l.jpeg?sw=300&bgcolor=FFFFFF', '1PC個 x 1 x 1PC個\r'),
@@ -2021,7 +2022,7 @@ INSERT INTO `product` (`ID`, `Name`, `Price`, `Category1`, `Category2`, `Categor
 ('3243007200101', '3M一般用途瞬間膠-液狀 4004L', 39, '休閒娛樂', '辦公用品．文具', '膠帶．膠台．膠水', '口紅膠.膠水', 'https://online.carrefour.com.tw/dw/image/v2/BFHC_PRD/on/demandware.static/-/Sites-carrefour-tw-m-inner/default/dw4742f566/images/large/0064849_3m-4004l.jpeg?sw=300&bgcolor=FFFFFF', '1PC個 x 1 x 1PC個\r'),
 ('3243009600101', '全勝50cc膠水(2入)', 19, '休閒娛樂', '辦公用品．文具', '膠帶．膠台．膠水', '口紅膠.膠水', 'https://online.carrefour.com.tw/dw/image/v2/BFHC_PRD/on/demandware.static/-/Sites-carrefour-tw-m-inner/default/dw3dc2dbfa/images/large/0265841_50cc2.jpeg?sw=300&bgcolor=FFFFFF', '1PC包 x 1 x 1PC包\r'),
 ('3243010500101', '成功加倍超黏瞬間膠(膏狀)(3ml)', 35, '休閒娛樂', '辦公用品．文具', '膠帶．膠台．膠水', '口紅膠.膠水', 'https://online.carrefour.com.tw/dw/image/v2/BFHC_PRD/on/demandware.static/-/Sites-carrefour-tw-m-inner/default/dwd25cac08/images/large/0197864_3ml.jpeg?sw=300&bgcolor=FFFFFF', '1PC個 x 1 x 1PC個\r');
-INSERT INTO `product` (`ID`, `Name`, `Price`, `Category1`, `Category2`, `Category3`, `Category4`, `Image`, `Description`) VALUES
+INSERT INTO `Product` (`ID`, `Name`, `Price`, `Category1`, `Category2`, `Category3`, `Category4`, `Image`, `Description`) VALUES
 ('3243106700101', '經英超透明膠帶18mmX40M 8入', 99, '休閒娛樂', '辦公用品．文具', '膠帶．膠台．膠水', '', 'https://online.carrefour.com.tw/dw/image/v2/BFHC_PRD/on/demandware.static/-/Sites-carrefour-tw-m-inner/default/dw2eb153b5/images/large/0273137_18mmx40m-8.jpeg?sw=300&bgcolor=FFFFFF', '1Set組 x 1 x 1Set組\r'),
 ('3243112200101', '3M Scotch 雙面布膠帶 24mm*6yds', 90, '休閒娛樂', '辦公用品．文具', '膠帶．膠台．膠水', '', 'https://online.carrefour.com.tw/dw/image/v2/BFHC_PRD/on/demandware.static/-/Sites-carrefour-tw-m-inner/default/dw8ca2a39b/images/large/0264913_3m-scotch-24mm6yds.jpeg?sw=300&bgcolor=FFFFFF', '1Roll捲 x 1 x 1ROLL捲\r'),
 ('3243114500101', '經英CS9038高級膠帶台-顏色隨機出貨', 125, '休閒娛樂', '辦公用品．文具', '膠帶．膠台．膠水', '', 'https://online.carrefour.com.tw/dw/image/v2/BFHC_PRD/on/demandware.static/-/Sites-carrefour-tw-m-inner/default/dwa376afab/images/large/0169414_cs9038.jpeg?sw=300&bgcolor=FFFFFF', '1PC台 x 1 x 1PC台\r'),
@@ -2196,7 +2197,7 @@ INSERT INTO `product` (`ID`, `Name`, `Price`, `Category1`, `Category2`, `Categor
 ('4124400100101', '伊萊克斯ECG3003S磨豆機', 1188, '生活家電', '廚房家電', '泡茶組及咖啡機', '咖啡研磨機', 'https://online.carrefour.com.tw/dw/image/v2/BFHC_PRD/on/demandware.static/-/Sites-carrefour-tw-m-inner/default/dwd2256b2f/images/large/0023635_ecg3003s.jpeg?sw=300&bgcolor=FFFFFF', '1Set台 x 1 x 1Set台\r'),
 ('4124400500101', 'Oster研磨大師電動磨豆機(BVSTCG77)', 1280, '生活家電', '廚房家電', '泡茶組及咖啡機', '咖啡研磨機', 'https://online.carrefour.com.tw/dw/image/v2/BFHC_PRD/on/demandware.static/-/Sites-carrefour-tw-m-inner/default/dw0787d9d5/images/large/0077468_oster.jpeg?sw=300&bgcolor=FFFFFF', '1Set台 x 1 x 1Set台\r'),
 ('4130001900101', '大同電鍋TAC-06L-DRU 6人份 (紅色)', 2411, '生活家電', '廚房家電', '煮飯鍋', '傳統電鍋<=6人份', 'https://online.carrefour.com.tw/dw/image/v2/BFHC_PRD/on/demandware.static/-/Sites-carrefour-tw-m-inner/default/dwce348b5a/images/large/41300019001-01.jpg?sw=300&bgcolor=FFFFFF', '1Set台 x 1 x 1Set台\r');
-INSERT INTO `product` (`ID`, `Name`, `Price`, `Category1`, `Category2`, `Category3`, `Category4`, `Image`, `Description`) VALUES
+INSERT INTO `Product` (`ID`, `Name`, `Price`, `Category1`, `Category2`, `Category3`, `Category4`, `Image`, `Description`) VALUES
 ('4130100200101', '尚朋堂SSC-11LS不鋼電鍋', 2250, '生活家電', '廚房家電', '煮飯鍋', '傳統電鍋:6人份以上', 'https://online.carrefour.com.tw/dw/image/v2/BFHC_PRD/on/demandware.static/-/Sites-carrefour-tw-m-inner/default/dwedd250a4/images/large/0015844_ssc-11ls.jpeg?sw=300&bgcolor=FFFFFF', '1Set台 x 1 x 1Set台\r'),
 ('4130100300101', '大同電鍋TAC-10L-NCWCF(10人) 白色', 4690, '生活家電', '廚房家電', '煮飯鍋', '傳統電鍋:6人份以上', 'https://online.carrefour.com.tw/dw/image/v2/BFHC_PRD/on/demandware.static/-/Sites-carrefour-tw-m-inner/default/dwd469986f/images/large/0243664_tac-10l-cwcf10.jpeg?sw=300&bgcolor=FFFFFF', '1Set台 x 1 x 1Set台\r'),
 ('4130100700101', '大同電鍋TAC-10L-DCU10人份(簡配) (紫色)', 2480, '生活家電', '廚房家電', '煮飯鍋', '傳統電鍋:6人份以上', 'https://online.carrefour.com.tw/dw/image/v2/BFHC_PRD/on/demandware.static/-/Sites-carrefour-tw-m-inner/default/dw6c512963/images/large/41301007001_P1_new.jpg?sw=300&bgcolor=FFFFFF', '1Set台 x 1 x 1Set台\r'),
@@ -2366,7 +2367,7 @@ INSERT INTO `product` (`ID`, `Name`, `Price`, `Category1`, `Category2`, `Categor
 ('4260189600501', 'iPhone 15 PLUS 128G-綠色', 32900, '熱門3C', '手機．通訊．週邊', '手機', '行動電話單機', 'https://online.carrefour.com.tw/dw/image/v2/BFHC_PRD/on/demandware.static/-/Sites-carrefour-tw-m-inner/default/dw42b99288/images/large/42601894-895-896-005-iPhone15-Plus-Green.jpg?sw=300&bgcolor=FFFFFF', '1Set台 x 1 x 1Set台\r'),
 ('4260189700101', 'iPhone 15 512G-黑色', 40400, '熱門3C', '手機．通訊．週邊', '手機', '行動電話單機', 'https://online.carrefour.com.tw/dw/image/v2/BFHC_PRD/on/demandware.static/-/Sites-carrefour-tw-m-inner/default/dw084d35b1/images/large/42601897-898-899-001-iPhone15-Black.jpg?sw=300&bgcolor=FFFFFF', '1Set台 x 1 x 1Set台\r'),
 ('4260200200101', '人因 MWB239心率智慧監測運動手錶(紳士金)', 668, '熱門3C', '手機．通訊．週邊', '智慧型手錶', '運動手環．手錶．VR裝置', 'https://online.carrefour.com.tw/dw/image/v2/BFHC_PRD/on/demandware.static/-/Sites-carrefour-tw-m-inner/default/dw63bbb7c5/images/large/4260200200101_NR_00.jpg?sw=300&bgcolor=FFFFFF', '1Set台 x 1 x 1Set台\r');
-INSERT INTO `product` (`ID`, `Name`, `Price`, `Category1`, `Category2`, `Category3`, `Category4`, `Image`, `Description`) VALUES
+INSERT INTO `Product` (`ID`, `Name`, `Price`, `Category1`, `Category2`, `Category3`, `Category4`, `Image`, `Description`) VALUES
 ('4260200200201', '人因 MWB239心率智慧監測運動手錶(淑女金)', 668, '熱門3C', '手機．通訊．週邊', '智慧型手錶', '運動手環．手錶．VR裝置', 'https://online.carrefour.com.tw/dw/image/v2/BFHC_PRD/on/demandware.static/-/Sites-carrefour-tw-m-inner/default/dw065db886/images/large/4260200200201_NR_00.jpg?sw=300&bgcolor=FFFFFF', '1Set台 x 1 x 1Set台\r'),
 ('4260200400201', '人因MWB234心率血氧監測運動手錶(風韻紫)', 529, '熱門3C', '手機．通訊．週邊', '智慧型手錶', '運動手環．手錶．VR裝置', 'https://online.carrefour.com.tw/dw/image/v2/BFHC_PRD/on/demandware.static/-/Sites-carrefour-tw-m-inner/default/dw2fb15205/images/large/4260200400201_NR_00.jpg?sw=300&bgcolor=FFFFFF', '1Set台 x 1 x 1Set台\r'),
 ('4260201300201', 'Apple Watch S9 GPS 41mm Starlight(鋁星光 M/L)', 13500, '熱門3C', '手機．通訊．週邊', '智慧型手錶', '運動手環．手錶．VR裝置', 'https://online.carrefour.com.tw/dw/image/v2/BFHC_PRD/on/demandware.static/-/Sites-carrefour-tw-m-inner/default/dw945db4c1/images/large/42602013001-002-P1.jpg?sw=300&bgcolor=FFFFFF', '1Set台 x 1 x 1Set台\r'),
@@ -2536,7 +2537,7 @@ INSERT INTO `product` (`ID`, `Name`, `Price`, `Category1`, `Category2`, `Categor
 ('4501410400101', 'SANYO防潑水巧克力鍵盤', 349, '熱門3C', '週邊．耗材', '滑鼠．鍵盤．手寫板', '鍵盤', 'https://online.carrefour.com.tw/dw/image/v2/BFHC_PRD/on/demandware.static/-/Sites-carrefour-tw-m-inner/default/dw8ced8025/images/large/0055512_sayo.jpeg?sw=300&bgcolor=FFFFFF', '1PC個 x 1 x 1PC個\r'),
 ('4501411500101', '羅技K780跨平台藍牙鍵盤(中文鍵盤)', 2490, '熱門3C', '週邊．耗材', '滑鼠．鍵盤．手寫板', '鍵盤', 'https://online.carrefour.com.tw/dw/image/v2/BFHC_PRD/on/demandware.static/-/Sites-carrefour-tw-m-inner/default/dwf5d591b6/images/large/4501411500101_NR_00.jpg?sw=300&bgcolor=FFFFFF', '1PC個 x 1 x 1PC個\r'),
 ('4501412800101', 'INTOPIC炫彩復古圓鍵帽鍵盤(奶茶色)', 599, '熱門3C', '週邊．耗材', '滑鼠．鍵盤．手寫板', '鍵盤', 'https://online.carrefour.com.tw/dw/image/v2/BFHC_PRD/on/demandware.static/-/Sites-carrefour-tw-m-inner/default/dw7c1e6936/images/large/4501412800101_NR_00.JPG?sw=300&bgcolor=FFFFFF', '1PC個 x 1 x 1PC個\r');
-INSERT INTO `product` (`ID`, `Name`, `Price`, `Category1`, `Category2`, `Category3`, `Category4`, `Image`, `Description`) VALUES
+INSERT INTO `Product` (`ID`, `Name`, `Price`, `Category1`, `Category2`, `Category3`, `Category4`, `Image`, `Description`) VALUES
 ('4501412900101', 'FOXXRAY 灰燼狂狐電競三合一組合包', 990, '熱門3C', '週邊．耗材', '滑鼠．鍵盤．手寫板', '鍵盤', 'https://online.carrefour.com.tw/dw/image/v2/BFHC_PRD/on/demandware.static/-/Sites-carrefour-tw-m-inner/default/dw12abeab0/images/large/4501412900101_NR_00.JPG?sw=300&bgcolor=FFFFFF', '1Set組 x 1 x 1SET組\r'),
 ('4501501100101', 'E-books M32 光學有線滑鼠1600 CPI', 199, '熱門3C', '週邊．耗材', '滑鼠．鍵盤．手寫板', '滑鼠', 'https://online.carrefour.com.tw/dw/image/v2/BFHC_PRD/on/demandware.static/-/Sites-carrefour-tw-m-inner/default/dwde0571b5/images/large/4501501100101_NR_00.jpg?sw=300&bgcolor=FFFFFF', '1PC個 x 1 x 1PC個\r'),
 ('4501503100101', '羅技M331無線靜音滑鼠(黑色)', 699, '熱門3C', '週邊．耗材', '滑鼠．鍵盤．手寫板', '滑鼠', 'https://online.carrefour.com.tw/dw/image/v2/BFHC_PRD/on/demandware.static/-/Sites-carrefour-tw-m-inner/default/dw12ae9ca7/images/large/4501503100101_NR_00.jpg?sw=300&bgcolor=FFFFFF', '1PC個 x 1 x 1PC個\r'),
@@ -2715,7 +2716,7 @@ INSERT INTO `product` (`ID`, `Name`, `Price`, `Category1`, `Category2`, `Categor
 ('6106401200201', 'Hangten 舒適涼感透氣平口褲-顏色隨機出貨<L>', 99, '大家都買這些', '折價券適用名單', '', '', 'https://online.carrefour.com.tw/dw/image/v2/BFHC_PRD/on/demandware.static/-/Sites-carrefour-tw-m-inner/default/dw355b3640/images/large/0219631_hagte-.jpeg?sw=300&bgcolor=FFFFFF', '1PC件 x 1 x 1PC件\r'),
 ('6106401200301', 'Hangten 舒適涼感透氣平口褲-顏色隨機出貨<XL>', 99, '大家都買這些', '折價券適用名單', '', '', 'https://online.carrefour.com.tw/dw/image/v2/BFHC_PRD/on/demandware.static/-/Sites-carrefour-tw-m-inner/default/dwe14cf809/images/large/0219639_hagte-.jpeg?sw=300&bgcolor=FFFFFF', '1PC件 x 1 x 1PC件\r'),
 ('6106402300201', 'Hangten流線純棉平口褲<L>', 99, '大家都買這些', '折價券適用名單', '', '', 'https://online.carrefour.com.tw/dw/image/v2/BFHC_PRD/on/demandware.static/-/Sites-carrefour-tw-m-inner/default/dwaec8d2d3/images/large/0219647_hagte.jpeg?sw=300&bgcolor=FFFFFF', '1PC件 x 1 x 1PC件\r');
-INSERT INTO `product` (`ID`, `Name`, `Price`, `Category1`, `Category2`, `Category3`, `Category4`, `Image`, `Description`) VALUES
+INSERT INTO `Product` (`ID`, `Name`, `Price`, `Category1`, `Category2`, `Category3`, `Category4`, `Image`, `Description`) VALUES
 ('6106403100401', 'FILA男寬鬆親膚透氣平口褲(2L)-顏色隨機出貨', 179, '服飾鞋包', '男女內著', '男內衣．褲', '', 'https://online.carrefour.com.tw/dw/image/v2/BFHC_PRD/on/demandware.static/-/Sites-carrefour-tw-m-inner/default/dw097c7ffb/images/large/6106403100101-1.jpg?sw=300&bgcolor=FFFFFF', '1PC件 x 1 x 1PC件\r'),
 ('6106403700101', '鱷魚錦綸涼感平口褲-顏色隨機出貨<M>', 169, '服飾鞋包', '男女內著', '男內衣．褲', '', 'https://online.carrefour.com.tw/dw/image/v2/BFHC_PRD/on/demandware.static/-/Sites-carrefour-tw-m-inner/default/dw675bb45f/images/large/61064037001A.png?sw=300&bgcolor=FFFFFF', '1PC件 x 1 x 1PC件\r'),
 ('6106403700201', '鱷魚錦綸涼感平口褲-顏色隨機出貨<L>', 169, '服飾鞋包', '男女內著', '男內衣．褲', '', 'https://online.carrefour.com.tw/dw/image/v2/BFHC_PRD/on/demandware.static/-/Sites-carrefour-tw-m-inner/default/dw4667d707/images/large/61064037002A.png?sw=300&bgcolor=FFFFFF', '1PC件 x 1 x 1PC件\r'),
@@ -2901,7 +2902,7 @@ INSERT INTO `product` (`ID`, `Name`, `Price`, `Category1`, `Category2`, `Categor
 ('6503308600101', '3M防蹣記憶枕舒柔型L', 1290, '傢俱寢飾', '寢具', '枕頭．枕套．枕巾', '', 'https://online.carrefour.com.tw/dw/image/v2/BFHC_PRD/on/demandware.static/-/Sites-carrefour-tw-m-inner/default/dw0286fabc/images/large/0269908_3ml.jpeg?sw=300&bgcolor=FFFFFF', '1PC個 x 1 x 1PC個\r'),
 ('6503311100101', '亞迪思防蹣抗菌四孔枕', 399, '傢俱寢飾', '寢具', '枕頭．枕套．枕巾', '', 'https://online.carrefour.com.tw/dw/image/v2/BFHC_PRD/on/demandware.static/-/Sites-carrefour-tw-m-inner/default/dw86fd7807/images/large/0021914.jpeg?sw=300&bgcolor=FFFFFF', '1PC個 x 1 x 1PC個\r'),
 ('6503312200101', '日本UNITIKA超細纖維枕', 299, '傢俱寢飾', '寢具', '枕頭．枕套．枕巾', '', 'https://online.carrefour.com.tw/dw/image/v2/BFHC_PRD/on/demandware.static/-/Sites-carrefour-tw-m-inner/default/dw21705487/images/large/65033122001.png?sw=300&bgcolor=FFFFFF', '1PC個 x 1 x 1PC個\r');
-INSERT INTO `product` (`ID`, `Name`, `Price`, `Category1`, `Category2`, `Category3`, `Category4`, `Image`, `Description`) VALUES
+INSERT INTO `Product` (`ID`, `Name`, `Price`, `Category1`, `Category2`, `Category3`, `Category4`, `Image`, `Description`) VALUES
 ('6503313500101', '3M長效抗菌防蹣水洗枕-加高型', 1299, '傢俱寢飾', '寢具', '枕頭．枕套．枕巾', '', 'https://online.carrefour.com.tw/dw/image/v2/BFHC_PRD/on/demandware.static/-/Sites-carrefour-tw-m-inner/default/dw3b2b0af5/images/large/6503313500101_NR_00.jpg?sw=300&bgcolor=FFFFFF', '1PC個 x 1 x 1PC個\r'),
 ('6503399000101', '蹣不住水洗枕', 299, '傢俱寢飾', '寢具', '枕頭．枕套．枕巾', '', 'https://online.carrefour.com.tw/dw/image/v2/BFHC_PRD/on/demandware.static/-/Sites-carrefour-tw-m-inner/default/dwc3027d22/images/large/0228591.jpeg?sw=300&bgcolor=FFFFFF', '1PC個 x 1 x 1PC個\r'),
 ('6503399100101', '標準型防護抗敏枕', 399, '傢俱寢飾', '寢具', '枕頭．枕套．枕巾', '', 'https://online.carrefour.com.tw/dw/image/v2/BFHC_PRD/on/demandware.static/-/Sites-carrefour-tw-m-inner/default/dwf33d8925/images/large/0235330.jpeg?sw=300&bgcolor=FFFFFF', '1PC個 x 1 x 1PC個\r'),
@@ -2940,13 +2941,13 @@ INSERT INTO `product` (`ID`, `Name`, `Price`, `Category1`, `Category2`, `Categor
 ('6651200500201', '男全長塑膠雨鞋', 495, '服飾鞋包', '雨衣雨具', '', '', 'https://online.carrefour.com.tw/dw/image/v2/BFHC_PRD/on/demandware.static/-/Sites-carrefour-tw-m-inner/default/dw13c85e10/images/large/0185251.jpeg?sw=300&bgcolor=FFFFFF', '1Pair雙 x 1 x 1Pair雙\r');
 
 --
--- Indexes for dumped tables
+-- 已傾印資料表的索引
 --
 
 --
--- Indexes for table `product`
+-- 資料表索引 `Product`
 --
-ALTER TABLE `product`
+ALTER TABLE `Product`
   ADD PRIMARY KEY (`ID`);
 COMMIT;
 
