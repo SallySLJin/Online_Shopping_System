@@ -45,7 +45,7 @@ body {
 }
 
 ul {
-    margin-top: 150px;
+    margin-top: 230px;
     list-style-type: none;
     padding: 0;
     display: flex;
@@ -135,10 +135,10 @@ button {
     background-color: #ddd;
 }
 
-#sortOrderContainer {
+#sortOrderContainer { 
     position: fixed;
-    top: 20%;
-    left: 10px; /* Adjust the left position as needed */
+    top: 80px;
+    left: 30px; /* Adjust the left position as needed */
     z-index: 999; /* Set a high z-index to ensure it's above other content */
 }
 

@@ -135,13 +135,12 @@ session_start();
         }
         ?>
     </div>
-</div>
 
 <form action="" method="get">
     <input type="hidden" name="category" value="<?php echo isset($_GET['category']) ? htmlspecialchars($_GET['category']) : ''; ?>">
     <div id="sortOrderContainer">
         <?php if (isset($_GET['category'])): ?>
-        <label for="sortOrder">按照:</label>
+        <!-- <label for="sortOrder">按照:</label> -->
         <select name="sortOrder" id="sortOrder">
             <option value="name" <?php echo isset($_GET['sortOrder']) && $_GET['sortOrder'] === 'name' ? 'selected' : ''; ?>>品名</option>
             <option value="price" <?php echo isset($_GET['sortOrder']) && $_GET['sortOrder'] === 'price' ? 'selected' : ''; ?>>價格</option>
@@ -155,6 +154,7 @@ session_start();
     </div>
 
 </form>
+</div>
 
 <script>
     // Function to get the quantity of a product from local storage
