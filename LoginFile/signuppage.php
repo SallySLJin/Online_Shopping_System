@@ -6,7 +6,7 @@
 <html>
 <head>
     <title>註冊 - 資料庫專題-網購系統</title>
-    <link rel="stylesheet" href="style3.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <div class="header">
