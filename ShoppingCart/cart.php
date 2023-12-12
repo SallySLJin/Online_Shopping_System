@@ -56,7 +56,7 @@ if (isset($_SESSION['id'])) {
                 echo "<td>" . $orderItemRow['quantity'] . "</td>";
                 echo "<td>$" . $orderItemRow['Price'] . "</td>";
 
-                echo '<td><button class="delete" onclick=\'deleteItem("' . $orderItemRow['order_id'] . '", "' . $orderItemRow['product_id'] . '")\'>刪除</button></td>';
+                echo '<td><button class="delete" onclick=\'deleteItem("' . $orderItemRow['order_id'] . '", "' . $orderItemRow['product_id'] . '", "' . $orderItemRow['quantity'] . '")\'>刪除</button></td>';
                 echo "</tr>";
             }
         } else {
@@ -105,7 +105,7 @@ function checkout() {
     window.location.href = "checkout.php";
 }
 
-function deleteItem(orderId, productId) {
+function deleteItem(orderId, productId, quantity) {
     // Implement logic to delete the item from the cart
     // You may use AJAX to send a request to the server to delete the item
 
@@ -118,6 +118,7 @@ function deleteItem(orderId, productId) {
         body: JSON.stringify({
             orderId: orderId,
             productId: productId,
+            quantity: quantity,
         }),
     })
     .then(response => response.json())

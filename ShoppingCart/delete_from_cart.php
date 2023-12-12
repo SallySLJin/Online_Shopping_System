@@ -9,13 +9,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $orderId = $data['orderId'];
     $productId = $data['productId'];
+    $quantity = $data['quantity'];
 
     // Check if the user is logged in
     if (isset($_SESSION['id'])) {
         $userId = $_SESSION['id'];
 
         // Delete the item from the Order_Item table
-        $deleteItemSql = "DELETE FROM Order_Item WHERE order_id = $orderId AND product_id = $productId";
+        $deleteItemSql = "DELETE FROM Order_Item WHERE order_id = $orderId AND product_id = $productId AND quantity = $quantity";
         $deleteItemResult = $conn->query($deleteItemSql);
 
         // Check if the item was successfully deleted
