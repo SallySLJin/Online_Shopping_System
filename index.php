@@ -242,7 +242,7 @@ session_start();
             .catch((error) => {
                 console.error('Error:', error);
             });
-            location.reload(true);
+            location.reload();
         }
     }
 
