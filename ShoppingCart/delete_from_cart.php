@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $userId = $_SESSION['id'];
 
         // Delete the item from the Order_Item table
-        $deleteItemSql = "DELETE FROM Order_Item WHERE order_id = $orderId AND product_id = $productId AND quantity = $quantity";
+        $deleteItemSql = "DELETE FROM Order_Item WHERE order_id = $orderId AND product_id = $productId AND quantity = $quantity LIMIT 1";
         $deleteItemResult = $conn->query($deleteItemSql);
 
         // Check if the item was successfully deleted
